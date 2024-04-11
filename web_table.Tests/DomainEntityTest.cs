@@ -2,7 +2,7 @@ using web_tabel.Domain;
 
 namespace web_table.Tests;
 
-public class UnitTest1
+public class DomainEntityTest
 {
     Organization TestOrganization = new("Test");
 
