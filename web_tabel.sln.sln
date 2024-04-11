@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_tabel.Domain", "web_tabel.Domain\web_tabel.Domain.csproj", "{361DE646-0EED-4233-8645-9A8E7BA8EBF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_table.Tests", "web_table.Tests\web_table.Tests.csproj", "{BB897273-D14D-4320-923A-70028B691C1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +14,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{361DE646-0EED-4233-8645-9A8E7BA8EBF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361DE646-0EED-4233-8645-9A8E7BA8EBF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361DE646-0EED-4233-8645-9A8E7BA8EBF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361DE646-0EED-4233-8645-9A8E7BA8EBF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB897273-D14D-4320-923A-70028B691C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB897273-D14D-4320-923A-70028B691C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB897273-D14D-4320-923A-70028B691C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB897273-D14D-4320-923A-70028B691C1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
