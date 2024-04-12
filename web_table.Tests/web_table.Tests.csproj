@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\web_tabel.Domain\web_tabel.Domain.csproj" />
+      <ProjectReference Include="..\web_tabel.Services\web_tabel.Services.csproj" />
     </ItemGroup>
 
 </Project>

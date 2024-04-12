@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("web_table.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c086ff497fbf7b507293525b6b1dd24811644ec7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dcf2f79b8777dcb54a1e52161cb33ce889291ed4")]
 [assembly: System.Reflection.AssemblyProductAttribute("web_table.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("web_table.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,30 +1,14 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=12af3e68_002D56bb_002D4560_002D916f_002D9d48f0ac4eb2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Should_Create_StaffSchedule #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3e8e3d11_002Dfd2f_002D4ed7_002D9e24_002D225071b3367c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Create_Organization" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_Organization&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_Department&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_Position&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_WorkSchedule&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_TypeEmployment&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Exeption_When_Name_Is_Null&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Exeption_When_Name_More_Than_Max_Length&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_StaffSchedule&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aaf3f024_002D8060_002D4fa2_002D9453_002Dd7eb9816d970/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" Name="Staff_Should_Have_WorkSchedule" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Staff_Should_Have_WorkSchedule&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b23b946c_002Dbe70_002D4102_002Da7fe_002Def7671a07d7b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Create_StaffSchedule" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::BB897273-D14D-4320-923A-70028B691C1E::net8.0::web_table.Tests.UnitTest1.Should_Create_StaffSchedule&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bad1ce74_002D55b3_002D4cc1_002Db839_002D8d503934cebe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c2fcaf7a_002Def0d_002D48d1_002D973a_002D77ef45584d13/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Create_StaffSchedule #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
