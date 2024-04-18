@@ -1,0 +1,41 @@
+﻿@model web_tabel.Domain.Employee
+@{
+    Layout = null;
+}
+
+<h3>Данные сотрудника</h3>
+
+<h5 style="font-style:italic">@Model.Name.FullName</h5>
+
+<table style="margin-top: 15px">
+    <tr>
+        <td width="200px"><b>Организация</b></td>
+        <td>@Model.Organization.Name</td>
+    </tr>
+    <tr>
+        <td width="200px"><b>Подразделение</b></td>
+        <td>@Model.Department.Name</td>
+    </tr>
+</table>
+
+<h3>Позиция штатного расписания</h3>
+
+@{
+    var pos = Model.StaffSchedule;
+}
+
+<table style="margin-top: 15px">
+    <tr>
+        <td width="200px"><b>Организация</b></td>
+        <td>@pos.Organization.Name</td>
+    </tr>
+    <tr>
+        <td width="200px"><b>Подразделение</b></td>
+        <td>@pos.Department.Name</td>
+    </tr>
+    <tr>
+        <td width="200px"><b>Должность</b></td>
+        <td>@pos.Position.Name</td>
+    </tr>
+</table>
+

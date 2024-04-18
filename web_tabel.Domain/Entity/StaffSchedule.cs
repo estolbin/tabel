@@ -6,69 +6,33 @@ namespace web_tabel.Domain;
 public class StaffSchedule : Entity
 {
     // aggregate root
-    private Organization _organization;
+    public Organization Organization {  get; set; }
 
-    public Organization Organization
-    {
-        get => _organization;
-        protected set => _organization = value;
-    }
+    public Department Department {  get; set; }
 
-    private Department _department;
+    public Position Position {  get; set; }
 
-    public Department Department
-    {
-        get => _department;
-        protected set => _department = value;
-    }
-
-    private Position _position;
-
-    public Position Position
-    {
-        get => _position;
-        protected set => _position = value;
-    }
-
-    private Guid? _parentId;
-    public Guid? ParentId { get => _parentId; set => _parentId = value;}
+    public Guid? ParentId { get; set; }
     
-    private string _name;
     /// <summary>
     /// Наименование
     /// </summary>
-    public string Name { get => _name; set => _name = value;}
+    public string Name { get; set; }
 
-    private float _numberOfPositions;
     /// <summary>
     /// Количество единиц
     /// </summary>
-    public float NumberOfPositions
-    {
-        get => _numberOfPositions; 
-    }
+    public float NumberOfPositions {  get; set; }
 
-    public void SetNumberOfPositions(float number)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegative(number);
-        _numberOfPositions = number;
-    }
-    
-     private WorkSchedule _workSchedule;
-
-     public WorkSchedule WorkSchedule
-     {
-         get => _workSchedule; 
-         protected set => _workSchedule = value; 
-     }
+     public WorkSchedule WorkSchedule { get; set; }
 
     public StaffSchedule(Organization organization, Department department, Position position, WorkSchedule workSchedule, string name)
     {
-        _organization = organization ?? throw new ArgumentNullException(nameof(organization));
-        _department = department ?? throw new ArgumentNullException(nameof(department));
-        _position = position ?? throw new ArgumentNullException(nameof(position));
-        _workSchedule = workSchedule?? throw new ArgumentNullException(nameof(workSchedule));
-        _name = name ?? throw new ArgumentNullException(nameof(name));
+        Organization = organization ?? throw new ArgumentNullException(nameof(organization));
+        Department = department ?? throw new ArgumentNullException(nameof(department));
+        Position = position ?? throw new ArgumentNullException(nameof(position));
+        WorkSchedule = workSchedule?? throw new ArgumentNullException(nameof(workSchedule));
+        Name = name ?? throw new ArgumentNullException(nameof(name));
     }
     
     public StaffSchedule() {}

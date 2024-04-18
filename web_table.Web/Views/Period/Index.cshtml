@@ -1,0 +1,35 @@
+﻿@model IEnumerable<web_tabel.Domain.TimeShiftPeriod>
+
+@{
+    Layout = "_Layout";
+}
+
+<h3>Список периодов</h3>
+
+<a asp-action="Create" class="btn btn-outline-primary">Добавить</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Наименование</td>
+            <td>Дата начала</td>
+            <td>Дата окончания</td>
+            <td>Период закрыт</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @item.Name</td>
+                <td>@item.Start.ToString("dd.MM.yyyy")</td>
+                <td>@item.End.ToString("dd.MM.yyyy")</td>
+                <td>@(item.Closed ? "Закрыт" : "Открыт")</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table></table>

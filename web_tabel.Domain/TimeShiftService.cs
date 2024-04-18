@@ -19,8 +19,13 @@ public class TimeShiftService : ITimeShiftService
     public async Task<TimeShiftPeriod> GetLastUnclosedPeriod(CancellationToken token = default)
     {
         var period = await _repository.GetAllPeriods();
-        var result = period.LastOrDefault(x => x.IsClosed() == false);
+        var result = period.LastOrDefault(x => x.Closed == false);
         return result;
+    }
+
+    public async Task<IEnumerable<TimeShiftPeriod>> GetAllPeriods()
+    {
+        return await _repository.GetAllPeriods();
     }
 
     public async Task<TimeShiftPeriod> GetPeriodByDate(DateTime date, CancellationToken token = default)
@@ -32,6 +37,56 @@ public class TimeShiftService : ITimeShiftService
     public async Task<TimeShiftPeriod> GetLastPeriod(CancellationToken token = default)
     {
         var period = await _repository.GetLastPeriod();
+        if (period.Name.ToString() == "")
+        {
+            _repository.RemoveTimeShiftPeriodByID(period.Id);
+            period = new TimeShiftPeriod(name: "Default", start: DateTime.Parse("01.04.2024"), end: DateTime.Parse("14.04.2024"), closed: false);
+            _repository.AddPeriod(period);
+        }
         return period;
     }
+
+    public bool RemovePeriodById(Guid Id)
+    {
+        _repository.RemoveTimeShiftPeriodByID(Id);
+        return true;
+    }
+
+    public void AddPeriod(TimeShiftPeriod period)
+    {
+        _repository.AddPeriod(period);
+
+    }
+
+    public Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default)
+    {
+        var period = _repository.GetLastPeriod().Result;
+        var list = _repository.GetTimeShiftsByPeriod(period);
+        return list;
+    }
+
+    public Task<Employee> GetEmployeeById(Guid id)
+    {
+        var res = _repository.GetEmployeeById(id);
+        return res;
+    }
+
+    public Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, CancellationToken token = default)
+    {
+        var res = _repository.GetTimeShiftByEmpDate(id, date);
+        return res;
+    }
+
+    public void UpdateTimeShift(TimeShift timeShift)
+    {
+        _repository.UpdateTimeShift(timeShift);
+
+    }
+
+
+    public Task<TimeShift> GetTimeShiftByID(Guid id) 
+    {
+        return _repository.GetTimeShiftById(id);
+    }
 }
+

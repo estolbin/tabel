@@ -5,48 +5,18 @@ namespace web_tabel.Domain;
 /// </summary>
 public class TimeShift : Entity
 {
-    private TimeShiftPeriod _timeShiftPeriod;
-    private Employee _employee;
-    private WorkSchedule _workSchedule;
-    private DateTime _workDate;
-    private TypeEmployment _typeEmployment;
-    private float _hoursPlanned;
-    private float _hoursWorked;
+    public float HoursPlanned { get; set; }
+    public float HoursWorked { get; set; }
 
-    public float HoursPlanned
-    {
-        get => _hoursPlanned;
-    }
+    public TimeShiftPeriod TimeShiftPeriod { get; set; }
 
-    public TimeShiftPeriod TimeShiftPeriod
-    {
-        get => _timeShiftPeriod;
-        set => _timeShiftPeriod = value;
-    }
+    public Employee Employee { get; set; }
 
-    public Employee Employee
-    {
-        get => _employee;
-        set => _employee = value;
-    }
+    public WorkSchedule WorkSchedule { get; set; }
 
-    public WorkSchedule WorkSchedule
-    {
-        get => _workSchedule;
-        set => _workSchedule = value;
-    }
+    public DateTime WorkDate { get; set; }
 
-    public DateTime WorkDate
-    {
-        get => _workDate;
-        set => _workDate = value;
-    }
-
-    public TypeEmployment TypeEmployment
-    {
-        get => _typeEmployment;
-        set => _typeEmployment = value;
-    }
+    public TypeEmployment TypeEmployment { get; set; }
 
     /// <summary>
     /// Конструктор записи табеля по сотруднику
@@ -64,22 +34,22 @@ public class TimeShift : Entity
         DateTime workDate, 
         TypeEmployment typeEmployment)
     {
-        if (timeShiftPeriod.IsClosed()) throw new Exception("Закрытый период");
+        if (timeShiftPeriod.Closed) throw new Exception("Закрытый период");
         
-        _timeShiftPeriod = timeShiftPeriod ?? throw new ArgumentNullException(nameof(timeShiftPeriod));
-        _employee = employee?? throw new ArgumentNullException(nameof(employee));
-        _workSchedule = workSchedule?? throw new ArgumentNullException(nameof(workSchedule));
-        _workDate = workDate;
-        _typeEmployment = typeEmployment?? throw new ArgumentNullException(nameof(typeEmployment));
+        TimeShiftPeriod = timeShiftPeriod ?? throw new ArgumentNullException(nameof(timeShiftPeriod));
+        Employee = employee?? throw new ArgumentNullException(nameof(employee));
+        WorkSchedule = workSchedule?? throw new ArgumentNullException(nameof(workSchedule));
+        WorkDate = workDate;
+        TypeEmployment = typeEmployment?? throw new ArgumentNullException(nameof(typeEmployment));
         CalculatePlannedHours();
     }
 
     public TimeShift() {}
     public void CalculatePlannedHours()
     {
-        _hoursPlanned = _workSchedule.GetHoursByDate(_workDate, _typeEmployment);
+        HoursPlanned = WorkSchedule.GetHoursByDate(WorkDate, TypeEmployment);
     }
     
     public TimeShift(TimeShiftPeriod period, Employee employee, DateTime workDate) : 
-        this(period, employee, employee.WorkSchedule, workDate, employee.TypeEmloyment) {}
+        this(period, employee, employee.WorkSchedule, workDate, employee.TypeEmployment) {}
 }

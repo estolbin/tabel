@@ -5,32 +5,17 @@ namespace web_tabel.Domain;
 /// </summary>
 public class Position : Entity
 {
-    private string _name;
-    public string Name
-    {
-        get => _name;
-        protected set => _name = value;
-    }
+    public string Name {  get; set; }
     
-    private Organization _organization;
-    public Organization Organization
-    {
-        get => _organization;
-        protected set => _organization = value;
-    }
+    public Organization Organization {  get; set; }
     
-    private Department _department;
-    public Department Department
-    {
-        get => _department;
-        protected set => _department = value;
-    }
+    public Department Department { get; set; }
 
     public Position(string name, Organization organization, Department department)
     {
-        _name = name ?? throw new ArgumentNullException(nameof(name));
-        _organization = organization?? throw new ArgumentNullException(nameof(organization));
-        _department = department?? throw new ArgumentNullException(nameof(department));
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Organization = organization?? throw new ArgumentNullException(nameof(organization));
+        Department = department?? throw new ArgumentNullException(nameof(department));
     }
     
     public Position() {}

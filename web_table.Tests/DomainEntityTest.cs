@@ -122,7 +122,7 @@ public class DomainEntityTest
     public void Staff_Should_Have_Position()
     {
         var testStaff = TestStaff();
-        testStaff.SetNumberOfPositions(10.0f);
+        testStaff.NumberOfPositions = 10.0f;
 
         Assert.Equal(10.0f, testStaff.NumberOfPositions);
     }
@@ -131,7 +131,7 @@ public class DomainEntityTest
     public void Staff_Should_Exception_When_NumberOfPositions_Less_Than_Zero()
     {
         var testStaff = TestStaff();
-        Assert.Throws<ArgumentOutOfRangeException>(() => testStaff.SetNumberOfPositions(-1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => testStaff.NumberOfPositions = -1);
     }
 
     [Fact]
@@ -197,8 +197,8 @@ public class DomainEntityTest
     {
         var name = new EmployeeName("Иванов Иван Иванович");
         var emp = new Employee(name, TestOrganization, TestDep(), TestStaff());
-        emp.SetWorkSchedule(TestStaff().WorkSchedule);
-        emp.SetTypeEmployment(new TypeEmployment("РВ"));
+        emp.WorkSchedule = TestStaff().WorkSchedule;
+        emp.TypeEmployment = new TypeEmployment("РВ");
         
         var period = new TimeShiftPeriod("Test", DateTime.Parse("01.04.2024"), DateTime.Parse("14.04.2024"), false);
 

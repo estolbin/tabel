@@ -2,34 +2,24 @@ namespace web_tabel.Domain;
 
 public class TimeShiftPeriod : Entity
 {
-    private DateTime _start;
-    private DateTime _end;
-    private bool _closed;
-    private string _name;
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public bool Closed { get; set; }
     
-    public DateTime Start => _start;
-    public DateTime End => _end;
-    public bool Closed => _closed;
-    
-    public string Name => _name;
+    public string Name { get; set; }
 
     public TimeShiftPeriod(string name, DateTime start, DateTime end, bool closed = false)
     {
         if (start > end) throw new ArgumentException("Start must be before end");
         if (start == end) throw new ArgumentException("Start and End cannot be the same");
         
-        _name = name;
-        _start = start;
-        _end = end;
-        _closed = closed;
+        Name = name;
+        Start = start;
+        End = end;
+        Closed = closed;
     }
     
     public TimeShiftPeriod() {}
-
-    public bool IsClosed()
-    {
-        return _closed;
-    }
 
     /// <summary>
     /// Возвращает коллекцию дней в периоде
@@ -40,7 +30,7 @@ public class TimeShiftPeriod : Entity
     {
         List<DateTime> result = new ();
         
-        for (DateTime date = _start; date <= _end; date = date.AddDays(1))
+        for (DateTime date = Start; date <= End; date = date.AddDays(1))
         {
             if (!withWeekend && (date.DayOfWeek.Equals(DayOfWeek.Saturday) || date.DayOfWeek.Equals(DayOfWeek.Sunday)))
                 continue;

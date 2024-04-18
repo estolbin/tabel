@@ -17,10 +17,6 @@ public class DBContextTests : IDisposable
             .Options;
         _context = new TimeShiftDBContext(options);
         _context.Database.EnsureCreated();
-        if (_context.Database.IsRelational())
-        {
-            _context.Database.Migrate();
-        }
         
         _repo = new TimeShiftRepository(_context);
     }
@@ -50,8 +46,8 @@ public class DBContextTests : IDisposable
 
         var name = new EmployeeName("Иванов Иван Иванович");
         var emp = new Employee(name, org, dep, staff);
-        emp.SetTypeEmployment(new TypeEmployment("РВ", "Рабочее время"));
-        emp.SetWorkSchedule(workSchedule);
+        emp.TypeEmployment = new TypeEmployment("РВ", "Рабочее время");
+        emp.WorkSchedule = workSchedule;
         
         _context.Organizations.Add(org);
         _context.Departments.Add(dep);

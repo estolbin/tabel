@@ -6,4 +6,17 @@ public interface ITimeShiftService
     public Task<TimeShiftPeriod> GetLastUnclosedPeriod(CancellationToken token = default);
     public Task<TimeShiftPeriod> GetPeriodByDate(DateTime date, CancellationToken token = default);
     public Task<TimeShiftPeriod> GetLastPeriod(CancellationToken token = default);
+    public Task<IEnumerable<TimeShiftPeriod>> GetAllPeriods();
+    bool RemovePeriodById(Guid id);
+
+    void AddPeriod(TimeShiftPeriod period);
+
+    public Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default);
+    public Task<Employee> GetEmployeeById(Guid id);
+
+    public Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, CancellationToken token = default);
+
+    public void UpdateTimeShift(TimeShift timeShift);
+
+    public Task<TimeShift> GetTimeShiftByID(Guid id);
 }
