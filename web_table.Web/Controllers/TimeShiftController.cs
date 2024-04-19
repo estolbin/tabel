@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using web_tabel.Domain;
+using web_table.Web.ViewModel;
 
 namespace web_table.Web.Controllers
 {
@@ -14,8 +15,9 @@ namespace web_table.Web.Controllers
 
         public IActionResult Index()
         {
-            var result = _service.GetCurrentTimeShift();
-            return View(result.Result);
+            var result = _service.GetCurrentTimeShift().Result;
+            var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
+            return View(r);
         }
 
         public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate)
