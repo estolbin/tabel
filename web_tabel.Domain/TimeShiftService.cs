@@ -98,5 +98,15 @@ public class TimeShiftService : ITimeShiftService
     {
         return _repository.GetTimeShiftByDepartment(departmentId); 
     }
+
+    public Task<IEnumerable<Organization>> GetAllOrganization()
+    {
+        return _repository.GetAllOrganizations();
+    }
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId)
+    {
+        return _repository.GetTimeShiftByOrganization(organizationId);
+    }
 }
 

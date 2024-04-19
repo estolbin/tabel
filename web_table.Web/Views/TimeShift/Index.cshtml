@@ -1,4 +1,5 @@
-﻿@model IEnumerable<web_table.Web.ViewModel.EmployeeTimeShiftDTO>
+﻿@using System.Globalization
+@model IEnumerable<web_table.Web.ViewModel.EmployeeTimeShiftDTO>
 @{
     Layout = "_Layout";
 }
@@ -6,31 +7,38 @@
 <h1>Текущий табель</h1>
 
 @{
-    var dts = Model.ElementAt(0).Dates; 
+    var dts = Model.ElementAt(0).Dates;
+    CultureInfo russian = new CultureInfo("ru-RU");
 }
 
 <div class="row mb-3">
     <div class="col-md-6 inline">
         <div id="FormDiv">
-
-        @using (Html.BeginForm("Index","TimeShift"))
+        @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}))
         {
-            @Html.DropDownList("departmentId", new SelectList(ViewBag.Departments, "Id", "Name"),"-- Подразделение",new { id="depList", @class="form-control dropdown"})
+            @Html.DropDownList("depId", new SelectList(ViewBag.Departments, "Id", "Name"),"-- Подразделение",new { id="depList", @class="form-control dropdown"})
         }
         </div>
     </div>
     <div class="col-md-6">
-
+        @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}))
+        {
+            @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Id", "Name"), "-- Организация", new { id = "orgList", @class = "form-control dropdown" })
+        }
     </div>
 </div>
 
 <table class="table">
     <thead>
         <tr>
-            <td>Сотрудник</td>
+            <td class="text-sm-center">Сотрудник<br/><br/></td>
+            <td class="text-center"><small>Должность<div class="border-top my-1"></div>График</small></td>
             @foreach (var item in dts)
             {
-                <td style="width:10px">@item.ToString("M")</td>
+                <td style="width:10px" class="text-center">
+                    @item.ToString("dd.MMM")<br />
+                    @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek) 
+                </td>
             }
             <td></td>
         </tr>
@@ -38,10 +46,14 @@
     <tbody>
 
         @{
-            @*var employees = Model.Select(i => i.EmployeeName).Distinct().ToList();*@
-            foreach (var emp in Model)
+            foreach(var org in ViewBag.Organizations)
             {
-                @await Html.PartialAsync("_EmployeeTimeShift", emp);
+                <tr><td colspan="17"><span class="h3 text-center">@org.Name</span></td></tr>
+
+                foreach (var emp in Model.Where(x => x.OrganizationId == org.Id.ToString()))
+                {
+                    @Html.Partial("_EmployeeTimeShift", emp);
+                }
             }
         }
 

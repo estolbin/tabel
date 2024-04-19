@@ -132,6 +132,7 @@ namespace web_tabel.Services.Migrations
                     PositionId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    NumberOfPositions = table.Column<float>(type: "REAL", nullable: false),
                     WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -227,7 +228,7 @@ namespace web_tabel.Services.Migrations
                     EmployeeId = table.Column<Guid>(type: "TEXT", nullable: false),
                     WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
                     WorkDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TypeEmploymentName = table.Column<string>(type: "TEXT", nullable: false)
+                    TypeEmploymentName = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -248,8 +249,7 @@ namespace web_tabel.Services.Migrations
                         name: "FK_TimeShifts_TypeEmployments_TypeEmploymentName",
                         column: x => x.TypeEmploymentName,
                         principalTable: "TypeEmployments",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Name");
                     table.ForeignKey(
                         name: "FK_TimeShifts_WorkSchedules_WorkScheduleId",
                         column: x => x.WorkScheduleId,

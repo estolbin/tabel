@@ -23,4 +23,8 @@ public interface ITimeShiftService
     public Task<IEnumerable<Department>> GetAllDepartments();
 
     public Task<IEnumerable<TimeShift>> GetTimeShiftsByDepartment(Guid departmentId);
+
+    public Task<IEnumerable<Organization>> GetAllOrganization();
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId);
 }

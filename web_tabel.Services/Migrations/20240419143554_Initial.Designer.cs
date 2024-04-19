@@ -11,7 +11,7 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    [Migration("20240415140913_Initial")]
+    [Migration("20240419143554_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -158,6 +158,9 @@ namespace web_tabel.Services.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<float>("NumberOfPositions")
+                        .HasColumnType("REAL");
+
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("TEXT");
 
@@ -202,7 +205,6 @@ namespace web_tabel.Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TypeEmploymentName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("WorkDate")
@@ -412,9 +414,7 @@ namespace web_tabel.Services.Migrations
 
                     b.HasOne("web_tabel.Domain.TypeEmployment", "TypeEmployment")
                         .WithMany()
-                        .HasForeignKey("TypeEmploymentName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeEmploymentName");
 
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()

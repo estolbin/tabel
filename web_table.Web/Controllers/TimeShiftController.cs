@@ -16,8 +16,8 @@ namespace web_table.Web.Controllers
         public IActionResult Index()
         {
 
-            var departments = _service.GetAllDepartments().Result;
-            ViewBag.Departments = departments;
+            ViewBag.Departments = _service.GetAllDepartments().Result; 
+            ViewBag.Organizations = _service.GetAllOrganization().Result;
 
             var result = _service.GetCurrentTimeShift().Result;
             var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
@@ -25,12 +25,22 @@ namespace web_table.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string? departmentId)
+        public IActionResult Index(string? depId, string? orgId, bool isDepartment = false, bool isOrganization = false) 
         {
-            if (departmentId == null) { return RedirectToAction("Index"); }
             ViewBag.Departments = _service.GetAllDepartments().Result;
-            
-            var result = _service.GetTimeShiftsByDepartment(new Guid(departmentId)).Result;
+            ViewBag.Organizations = _service.GetAllOrganization().Result;
+
+            IEnumerable<TimeShift> result = new List<TimeShift>();
+            if (isDepartment)
+            {
+                if (depId == null) { return RedirectToAction("Index"); }
+                result = _service.GetTimeShiftsByDepartment(new Guid(depId)).Result;
+            } else if (isOrganization )
+            {
+                if(orgId == null) { return RedirectToAction("Index"); }
+                result = _service.GetTimeShiftByOrganization(new Guid(orgId)).Result;
+                
+            }
 
             var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
             return View("Index", r);

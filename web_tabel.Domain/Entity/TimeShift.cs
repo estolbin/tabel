@@ -16,7 +16,7 @@ public class TimeShift : Entity
 
     public DateTime WorkDate { get; set; }
 
-    public TypeEmployment TypeEmployment { get; set; }
+    public TypeEmployment? TypeEmployment { get; set; }
 
     /// <summary>
     /// Конструктор записи табеля по сотруднику
@@ -42,6 +42,18 @@ public class TimeShift : Entity
         WorkDate = workDate;
         TypeEmployment = typeEmployment?? throw new ArgumentNullException(nameof(typeEmployment));
         CalculatePlannedHours();
+        //CheckTypeEmloyment();
+    }
+
+    private void CheckTypeEmloyment()
+    {
+        if (HoursPlanned > 0)
+        {
+            if (TypeEmployment == null) TypeEmployment = TypeEmployment.GetWorkType();
+        } else
+        {
+            if (TypeEmployment != TypeEmployment.GetWeekend()) TypeEmployment = TypeEmployment.GetWeekend();
+        }
     }
 
     public TimeShift() {}

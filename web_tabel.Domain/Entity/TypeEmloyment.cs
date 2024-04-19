@@ -5,18 +5,7 @@ namespace web_tabel.Domain;
 /// </summary>
 public class TypeEmployment
 {
-    private string _name;
-    public string Name
-    {
-        get => _name;
-        set
-        {
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("Name can't be empty");
-            if (value.Length > 3) throw new ArgumentOutOfRangeException("Name can't be more than 3 characters");
-            _name = value;
-        } 
-        
-    }
+    public string Name { get; set; }
 
     public TypeEmployment(string name)
     {
@@ -41,5 +30,20 @@ public class TypeEmployment
             return this.Name == other.Name;
         }
         return false;
+    }
+
+    public override string ToString()
+    {
+        return Name;
+    }
+
+    public static TypeEmployment GetWorkType()
+    {
+        return new TypeEmployment() { Name = "РВ", Description = "Рабочее время" };
+    }
+
+    public static TypeEmployment GetWeekend()
+    {
+        return new TypeEmployment() { Name = "ВХ", Description = "Выходной" };
     }
 }

@@ -11,7 +11,7 @@ namespace web_table.Web
         {
             ArgumentNullException.ThrowIfNull(dbContext, nameof(dbContext));
             dbContext.Database.EnsureCreated();
-            if (dbContext.Employees.Any()) return;
+            //if (dbContext.Employees.Any()) return;
 
             Guid orgGuid = new Guid("C5DCDC10-1AD6-4F76-AC8A-BE6E4F169AAA");
             Guid depGuid = new Guid("5AFEFC11-D0D6-4D1A-AEAB-7607CD8E2C04");
@@ -35,6 +35,9 @@ namespace web_table.Web
             var staff = new StaffSchedule(org, dep, pos, workSchedule, "Штатное расписание");
 
             var te = new TypeEmployment("РВ", "Рабочее время");
+            var te1 = new TypeEmployment("ВХ", "Выходной");
+            dbContext.TypeEmployments.Add(te);
+            dbContext.TypeEmployments.Add(te1);
 
             var name = new EmployeeName("Иванов Иван Иванович");
             var emp = new Employee(name, org, dep, staff);

@@ -10,6 +10,15 @@ namespace web_table.Web.ViewModel
         public List<float> HoursWorked { get; set; } = new List<float>();
         public List<DateTime> Dates { get; set; } = new List<DateTime>();
 
+        public string OrganizationId { get; set; }
+        public string DepartmentId { get; set; }
+
+        public List<TypeEmployment> Types { get; set; } = new List<TypeEmployment>();
+
+        public string PositionName {  get; set; }
+
+        public string WorkScheduleName { get; set; }
+
         public EmployeeTimeShiftDTO() { }
 
         public static IEnumerable<EmployeeTimeShiftDTO> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts) 
@@ -22,6 +31,9 @@ namespace web_table.Web.ViewModel
                 var empTS = new EmployeeTimeShiftDTO();
                 empTS.EmployeeName = employee.Name.FullName;
                 empTS.EmployeeId = employee.Id;
+                empTS.PositionName = employee.StaffSchedule.Position.Name;
+                empTS.WorkScheduleName = employee.WorkSchedule.Name;
+                empTS.OrganizationId = employee.Organization.Id.ToString();
 
                 var res = timeShifts.OrderBy(x=>x.WorkDate).Where(e => e.Employee == employee).ToList();
                 foreach (var item in res)
@@ -29,6 +41,7 @@ namespace web_table.Web.ViewModel
                     empTS.HoursWorked.Add(item.HoursWorked);
                     empTS.HoursPlanned.Add(item.HoursPlanned);
                     empTS.Dates.Add(item.WorkDate);
+                    empTS.Types.Add(item.TypeEmployment);
                 }
                 temp.Add(empTS);
             }
