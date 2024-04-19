@@ -9,6 +9,21 @@
     var dts = Model.ElementAt(0).Dates; 
 }
 
+<div class="row mb-3">
+    <div class="col-md-6 inline">
+        <div id="FormDiv">
+
+        @using (Html.BeginForm("Index","TimeShift"))
+        {
+            @Html.DropDownList("departmentId", new SelectList(ViewBag.Departments, "Id", "Name"),"-- Подразделение",new { id="depList", @class="form-control dropdown"})
+        }
+        </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>

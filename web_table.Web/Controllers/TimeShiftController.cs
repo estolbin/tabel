@@ -15,9 +15,25 @@ namespace web_table.Web.Controllers
 
         public IActionResult Index()
         {
+
+            var departments = _service.GetAllDepartments().Result;
+            ViewBag.Departments = departments;
+
             var result = _service.GetCurrentTimeShift().Result;
             var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
             return View(r);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string? departmentId)
+        {
+            if (departmentId == null) { return RedirectToAction("Index"); }
+            ViewBag.Departments = _service.GetAllDepartments().Result;
+            
+            var result = _service.GetTimeShiftsByDepartment(new Guid(departmentId)).Result;
+
+            var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
+            return View("Index", r);
         }
 
         public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate)

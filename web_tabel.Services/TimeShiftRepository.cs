@@ -95,4 +95,22 @@ public class TimeShiftRepository : ITimeShiftRepository
         var res = await _context.TimeShifts.FirstOrDefaultAsync(x => x.Id == id);
         return res;
     }
+
+    public async Task<IEnumerable<Department>> GetAllDepartments()
+    {
+        return await _context.Departments.ToListAsync();
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartment(Guid departmentId)
+    {
+        var emps = _context.Employees.Where(x => x.Department.Id == departmentId).ToList();
+
+        var ts = _context.TimeShifts
+            .Include(e => e.Employee)
+               .ThenInclude(n => n.Name)
+            .Where(e => emps.Contains(e.Employee));
+
+        return ts;
+
+    }
 }

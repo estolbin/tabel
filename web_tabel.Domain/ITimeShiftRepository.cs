@@ -18,4 +18,8 @@ public interface ITimeShiftRepository
     public void UpdateTimeShift(TimeShift timeShift);
 
     public Task<TimeShift> GetTimeShiftById(Guid id);
+
+    public Task<IEnumerable<Department>> GetAllDepartments();
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByDepartment(Guid departmentId);
 }
