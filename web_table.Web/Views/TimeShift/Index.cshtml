@@ -9,6 +9,7 @@
 @{
     var dts = Model.ElementAt(0).Dates;
     CultureInfo russian = new CultureInfo("ru-RU");
+    int datesCol = dts.Count;
 }
 
 <div class="row mb-3">
@@ -46,14 +47,22 @@
     <tbody>
 
         @{
+            int orgNum = 1;
+            ViewBag.orgNum = orgNum;
             foreach(var org in ViewBag.Organizations)
             {
-                <tr><td colspan="17"><span class="h3 text-center">@org.Name</span></td></tr>
-
-                foreach (var emp in Model.Where(x => x.OrganizationId == org.Id.ToString()))
+                <tr>
+                    <td colspan="@(datesCol+3)">
+                        @*<a class="btn" data-toggle="collapse" href="@("#emps_" + orgNum)" role="button" aria-expanded="expanded" aria-controls="@("emps_" + orgNum)">*@
+                            <span class="h3 text-center">@org.Name</span>
+                        @*</a>*@
+                    </td>
+                </tr>
+                @foreach (var emp in Model.Where(x => x.OrganizationId == org.Id.ToString()))
                 {
                     @Html.Partial("_EmployeeTimeShift", emp);
                 }
+                orgNum++;
             }
         }
 
