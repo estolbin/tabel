@@ -18,11 +18,7 @@ namespace web_table.Web.Controllers
             return View(result.Result);
         }
 
-        public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate)
-        {
-            return View(_service.GetTimeShiftByEmpAndDate(empid, curDate).Result);
-        }
-
+        public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate) =>  View(_service.GetTimeShiftByEmpAndDate(empid, curDate).Result);
 
         [HttpPost]
         public async Task<IActionResult> UpdateNewHours(TimeShift timeShift)
