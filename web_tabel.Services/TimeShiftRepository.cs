@@ -16,7 +16,13 @@ public class TimeShiftRepository : ITimeShiftRepository
     public async Task<IEnumerable<TimeShift>> GetTimeShiftsByPeriod(TimeShiftPeriod period)
     {
         return await _context.TimeShifts
-            .Include(ts => ts.Employee).ThenInclude(emp => emp.Name)
+            .Include(ts => ts.Employee)
+                .ThenInclude(emp => emp.Name)
+            .Include(ts => ts.Employee)
+                .ThenInclude(emp => emp.StaffSchedule)
+                    .ThenInclude(s => s.Position)
+             .Include(ts => ts.Employee)
+                .ThenInclude(w => w.TypeOfEmployment)
             .Include(ts => ts.TypeEmployment)
             .Include(ts => ts.WorkSchedule)
             .OrderBy(ts => ts.WorkDate)
@@ -94,5 +100,98 @@ public class TimeShiftRepository : ITimeShiftRepository
     {
         var res = await _context.TimeShifts.FirstOrDefaultAsync(x => x.Id == id);
         return res;
+    }
+
+    public async Task<IEnumerable<Department>> GetAllDepartments()
+    {
+        return await _context.Departments
+            .Include(e => e.Organization)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartment(Guid departmentId)
+    {
+        List<Employee> emps = GetEmployeesByDepId(departmentId);
+
+        IQueryable<TimeShift> ts = GetTimeShiftByEmployeeList(emps);
+
+        return ts;
+
+    }
+
+    private IQueryable<TimeShift> GetTimeShiftByEmployeeList(List<Employee> emps)
+    {
+        return _context.TimeShifts
+            .Include(e => e.Employee)
+               .ThenInclude(n => n.Name)
+            .Include(ts => ts.Employee)
+                .ThenInclude(emp => emp.StaffSchedule)
+                    .ThenInclude(s => s.Position)
+            .Include(ts => ts.Employee)
+                .ThenInclude(e => e.TypeOfEmployment)
+            .Include(ts => ts.WorkSchedule)
+            .Include(tp => tp.TypeEmployment)
+            .Where(e => emps.Contains(e.Employee));
+    }
+
+    private List<Employee> GetEmployeesByDepId(Guid departmentId)
+    {
+        return _context.Employees.Where(x => x.Department.Id == departmentId).ToList();
+    }
+
+    public async Task<IEnumerable<Organization>> GetAllOrganizations()
+    {
+        return await _context.Organizations.ToListAsync();
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId)
+    {
+        List<Employee> emp = GetEmployeesByOrgId(organizationId);
+        var ts = GetTimeShiftByEmployeeList(emp);
+        return ts;
+    }
+
+    private List<Employee> GetEmployeesByOrgId(Guid organizationId)
+    {
+        return _context.Employees.Where(x => x.Organization.Id == organizationId).ToList();
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
+    {
+        var names = _context.EmployeeNames.AsEnumerable().Where(x => x.FullName.ToLower().Contains(empLike.ToLower()));
+        if (names == null) return null;
+        var emps = _context.Employees.Where(e => names.Contains(e.Name)).ToList();
+        var ts = GetTimeShiftByEmployeeList(emps);
+        return ts;
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
+    {
+        List<TimeShift> ts = new List<TimeShift>();
+        foreach ( var dep in depsGuids) 
+        {
+            var temp = GetTimeShiftByDepartment(dep).Result;
+            foreach (var item in temp)
+            {
+                ts.Add(item);
+            }
+
+        }
+        return ts;
+
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
+    {
+        var ts = new List<TimeShift>();
+        foreach (var org in orgGuids)
+        {
+            var temp = GetTimeShiftByOrganization(org).Result;
+            foreach (var item in temp)
+            {
+                ts.Add(item);
+            }
+        }
+        return ts;
     }
 }

@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\multiselect-dropdown.js",
+      "PackagePath": "staticwebassets\\js\\multiselect-dropdown.js"
+    },
+    {
       "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

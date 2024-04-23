@@ -62,6 +62,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9FbXBsb3llZVRpbWVTaGlmdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/code/vm_tabel/web_table.Web/Views/TimeShift/_OrpDepName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9PcnBEZXBOYW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/TimeShift/_SelectList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9TZWxlY3RMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/TimeShift/__Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9fSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/code/vm_tabel/web_table.Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

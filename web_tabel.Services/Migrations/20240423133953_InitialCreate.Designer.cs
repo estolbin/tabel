@@ -11,8 +11,8 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    [Migration("20240415140913_Initial")]
-    partial class Initial
+    [Migration("20240423133953_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,9 @@ namespace web_tabel.Services.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("TypeOfEmploymentId")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid>("WorkScheduleId")
                         .HasColumnType("TEXT");
 
@@ -76,6 +79,8 @@ namespace web_tabel.Services.Migrations
                     b.HasIndex("StaffScheduleId");
 
                     b.HasIndex("TypeEmploymentName");
+
+                    b.HasIndex("TypeOfEmploymentId");
 
                     b.HasIndex("WorkScheduleId");
 
@@ -158,6 +163,9 @@ namespace web_tabel.Services.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<float>("NumberOfPositions")
+                        .HasColumnType("REAL");
+
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("TEXT");
 
@@ -202,7 +210,6 @@ namespace web_tabel.Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TypeEmploymentName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("WorkDate")
@@ -248,7 +255,22 @@ namespace web_tabel.Services.Migrations
                     b.ToTable("TimeShiftPeriods");
                 });
 
-            modelBuilder.Entity("web_tabel.Domain.TypeEmployment", b =>
+            modelBuilder.Entity("web_tabel.Domain.TypeOfEmployment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeOfEmployments");
+                });
+
+            modelBuilder.Entity("web_tabel.Domain.TypeOfWorkingTime", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -317,9 +339,15 @@ namespace web_tabel.Services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_tabel.Domain.TypeEmployment", "TypeEmployment")
+                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeEmployment")
                         .WithMany()
                         .HasForeignKey("TypeEmploymentName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("web_tabel.Domain.TypeOfEmployment", "TypeOfEmployment")
+                        .WithMany()
+                        .HasForeignKey("TypeOfEmploymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -338,6 +366,8 @@ namespace web_tabel.Services.Migrations
                     b.Navigation("StaffSchedule");
 
                     b.Navigation("TypeEmployment");
+
+                    b.Navigation("TypeOfEmployment");
 
                     b.Navigation("WorkSchedule");
                 });
@@ -410,11 +440,9 @@ namespace web_tabel.Services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_tabel.Domain.TypeEmployment", "TypeEmployment")
+                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeEmployment")
                         .WithMany()
-                        .HasForeignKey("TypeEmploymentName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeEmploymentName");
 
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()

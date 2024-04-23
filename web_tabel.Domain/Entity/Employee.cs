@@ -19,16 +19,16 @@ public class Employee : Entity
     /// Должность по штатному расписанию.
     /// </summary>
     public StaffSchedule StaffSchedule {  get; set; }
-    //{
-    //    get
-    //    {
-    //        StaffSchedule = value;
-    //        if (_workSchedule == null && _staffSchedule.WorkSchedule!= null) 
-    //            SetWorkSchedule(_staffSchedule.WorkSchedule);
-    //    }
-    //}
 
-    public TypeEmployment TypeEmployment {  get; set; }
+    /// <summary>
+    /// Вид рабочего времени
+    /// </summary>
+    public TypeOfWorkingTime TypeEmployment {  get; set; }
+
+    /// <summary>
+    /// Вид занятости (основное место работы, совместительство)
+    /// </summary>
+    public TypeOfEmployment TypeOfEmployment { get; set; }
 
     public Employee(EmployeeName name, Organization organization, Department department, StaffSchedule staffSchedule)
     {

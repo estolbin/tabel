@@ -55,7 +55,7 @@ public class WorkSchedule : Entity
         set => _hoursOfWork = value;
     }
 
-    public float GetHoursByDate(DateTime workDate, TypeEmployment typeEmployment)
+    public float GetHoursByDate(DateTime workDate, TypeOfWorkingTime typeEmployment)
     {
         return _hoursByDayNumbers.ContainsKey((int) workDate.DayOfWeek) ? _hoursByDayNumbers[(int) workDate.DayOfWeek] : 0f;
     }

@@ -1,17 +1,55 @@
-﻿@model IEnumerable<web_tabel.Domain.TimeShift>
+﻿@using System.Globalization
+@using web_tabel.Domain
+@model IEnumerable<web_table.Web.ViewModel.EmployeeTimeShiftDTO>
 @{
     Layout = "_Layout";
 }
 
 <h1>Текущий табель</h1>
 
+@{
+    var dts = Model.ElementAt(0).Dates;
+    CultureInfo russian = new CultureInfo("ru-RU");
+    int datesCol = dts.Count;
+}
+
+<div class="row mb-3">
+    <div class="col-md-6 inline">
+        <div id="FormDiv">
+        @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}))
+        {
+            //@Html.DropDownList("depId", new SelectList(ViewBag.Departments, "Value", "Text"),new { id="depList",multiple="multiple", @class="form-select"})
+            <select id="depList" class="form-select" multiple name="depId">
+                @foreach (var d in ViewBag.Departments)
+                {
+                    <option selected="@d.Selected" value="@d.Value">@d.Text</option>        
+                }
+            </select>
+
+            <input type="submit" value="Отбор" class="btn btn-primary d-inline-block"/>
+        }
+        </div>
+    </div>
+    <div class="col-md-6">
+        @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}))
+        {
+            @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Value", "Text"), new { id = "orgList", @class = "form-select", multiple="multiple" })
+            <input type="submit" value="Отбор" class="btn btn-primary d-inline-block" />
+        }
+    </div>
+</div>
+
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
-            <td>Сотрудник</td>
-            @foreach (var item in Model)
+            <td class="text-sm-center">Сотрудник<br/><br/></td>
+            <td class="text-center"><small>Должность<div class="border-top my-1"></div>График</small></td>
+            @foreach (var item in dts)
             {
-                <td style="width:10px">@item.WorkDate.ToString("M")</td>
+                <td style="width:10px" class="text-center">
+                    @item.ToString("dd.MMM")<br />
+                    @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek) 
+                </td>
             }
             <td></td>
         </tr>
@@ -19,42 +57,48 @@
     <tbody>
 
         @{
-            var employees = Model.Select(i => i.Employee).Distinct().ToList();
-        }
-
-
-        @{
-            web_tabel.Domain.Employee emp = Model.ElementAt(0).Employee;
-        }
-        <tr>
-            <td rowspan="2">
-
-                <a onclick="showInPopup('@Url.Action("Details","Employee", new {id = emp.Id},Context.Request.Scheme)','Детали')" class="link-info">
-                    @emp.Name.FullName
-                </a>
-
-            </td>
-            @foreach(var item in Model)
+            int orgNum = 1;
+            ViewBag.orgNum = orgNum;
+            var deps = ViewBag.DepartmentsRaw as IEnumerable<Department>;
+            foreach(var org in ViewBag.OrganizationsRaw)
             {
-                <td>
-                    @item.HoursPlanned
-                </td>
+                if (Model.Where(x => x.OrganizationId == org.Id.ToString()).ToList().Count == 0) continue;
+
+                @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
+                {
+                    { "colSpan", datesCol+3},
+                    { "header", "h3" },
+                    { "Name", org.Name }
+                });
+
+                var empByOrg = Model.Where(x => x.OrganizationId == org.Id.ToString());
+                var depsByOrg = deps.Where(x => x.Organization.Id == org.Id);
+
+                foreach(var d in depsByOrg)
+                {
+
+                    var empByDep = empByOrg.Where(x => x.DepartmentId == d.Id.ToString());
+                    if (empByDep.Count() == 0) continue;
+
+                    @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
+                    {
+                        { "colSpan", datesCol+3},
+                        { "header", "h5" },
+                        { "Name", d.Name }
+                    });
+                    
+                    @foreach (var emp in empByDep)
+                    {
+                        @Html.Partial("_EmployeeTimeShift", emp);
+                    }
+                }
+
+                orgNum++;
             }
-            <td></td>
-        </tr>
-        <tr>
-            @foreach (var item in Model)
-            {
-                <td>
-                    <a onclick="showInPopup('@Url.Action("SetNewHours","TimeShift", new {empid = emp.Id, curDate = item.WorkDate.ToString("yyyy-MM-dd")},Context.Request.Scheme)','Новые часы')" class="link-primary">
-                        @item.HoursWorked
-                    </a>
-                </td>
-            }
-            <td>
-            </td>
-        </tr>
+        }
 
     </tbody>
 </table>
+
+
 

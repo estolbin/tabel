@@ -1,0 +1,60 @@
+﻿@model IEnumerable<web_tabel.Domain.TimeShift>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Текущий табель</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Сотрудник</td>
+            @foreach (var item in Model)
+            {
+                <td style="width:10px">@item.WorkDate.ToString("M")</td>
+            }
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            var employees = Model.Select(i => i.Employee).Distinct().ToList();
+        }
+
+
+        @{
+            web_tabel.Domain.Employee emp = Model.ElementAt(0).Employee;
+        }
+        <tr>
+            <td rowspan="2">
+
+                <a onclick="showInPopup('@Url.Action("Details","Employee", new {id = emp.Id},Context.Request.Scheme)','Детали')" class="link-info">
+                    @emp.Name.FullName
+                </a>
+
+            </td>
+            @foreach(var item in Model)
+            {
+                <td>
+                    @item.HoursPlanned
+                </td>
+            }
+            <td></td>
+        </tr>
+        <tr>
+            @foreach (var item in Model)
+            {
+                <td>
+                    <a onclick="showInPopup('@Url.Action("SetNewHours","TimeShift", new {empid = emp.Id, curDate = item.WorkDate.ToString("yyyy-MM-dd")},Context.Request.Scheme)','Новые часы')" class="link-primary">
+                        @item.HoursWorked
+                    </a>
+                </td>
+            }
+            <td>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
