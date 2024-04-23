@@ -46,7 +46,7 @@ public class DBContextTests : IDisposable
 
         var name = new EmployeeName("Иванов Иван Иванович");
         var emp = new Employee(name, org, dep, staff);
-        emp.TypeEmployment = new TypeEmployment("РВ", "Рабочее время");
+        emp.TypeEmployment = new TypeOfWorkingTime("РВ", "Рабочее время");
         emp.WorkSchedule = workSchedule;
         
         _context.Organizations.Add(org);

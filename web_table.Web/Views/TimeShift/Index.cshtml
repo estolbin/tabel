@@ -18,15 +18,23 @@
         <div id="FormDiv">
         @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}))
         {
-            @Html.DropDownList("depId", new SelectList(ViewBag.Departments, "Value", "Text"),"-- Подразделение",new { id="depList", @class="form-select"})
-                @*@Html.ListBox("depId", new SelectList(ViewBag.Departments, "Value", "Text"), new { id = "depList", @class = "form-select", SelectionMode="multiple" })*@
+            //@Html.DropDownList("depId", new SelectList(ViewBag.Departments, "Value", "Text"),new { id="depList",multiple="multiple", @class="form-select"})
+            <select id="depList" class="form-select" multiple name="depId">
+                @foreach (var d in ViewBag.Departments)
+                {
+                    <option selected="@d.Selected" value="@d.Value">@d.Text</option>        
+                }
+            </select>
+
+            <input type="submit" value="Отбор" class="btn btn-primary d-inline-block"/>
         }
         </div>
     </div>
     <div class="col-md-6">
         @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}))
         {
-            @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Id", "Name"), "-- Организация", new { id = "orgList", @class = "form-select" })
+            @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Value", "Text"), new { id = "orgList", @class = "form-select", multiple="multiple" })
+            <input type="submit" value="Отбор" class="btn btn-primary d-inline-block" />
         }
     </div>
 </div>
@@ -52,28 +60,38 @@
             int orgNum = 1;
             ViewBag.orgNum = orgNum;
             var deps = ViewBag.DepartmentsRaw as IEnumerable<Department>;
-            foreach(var org in ViewBag.Organizations)
+            foreach(var org in ViewBag.OrganizationsRaw)
             {
                 if (Model.Where(x => x.OrganizationId == org.Id.ToString()).ToList().Count == 0) continue;
 
-                <tr id="@("org_"+orgNum)">
-                    <td colspan="@(datesCol+3)">
-                        <span class="h3 text-center">@org.Name</span>
-                    </td>
-                </tr>
+                @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
+                {
+                    { "colSpan", datesCol+3},
+                    { "header", "h3" },
+                    { "Name", org.Name }
+                });
 
-                // вывод подразделения
+                var empByOrg = Model.Where(x => x.OrganizationId == org.Id.ToString());
                 var depsByOrg = deps.Where(x => x.Organization.Id == org.Id);
 
                 foreach(var d in depsByOrg)
                 {
+
+                    var empByDep = empByOrg.Where(x => x.DepartmentId == d.Id.ToString());
+                    if (empByDep.Count() == 0) continue;
+
+                    @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
+                    {
+                        { "colSpan", datesCol+3},
+                        { "header", "h5" },
+                        { "Name", d.Name }
+                    });
                     
-                    @foreach (var emp in Model.Where(x => x.OrganizationId == org.Id.ToString()))
+                    @foreach (var emp in empByDep)
                     {
                         @Html.Partial("_EmployeeTimeShift", emp);
                     }
                 }
-
 
                 orgNum++;
             }
@@ -81,4 +99,6 @@
 
     </tbody>
 </table>
+
+
 

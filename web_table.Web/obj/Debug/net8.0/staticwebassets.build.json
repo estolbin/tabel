@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Q0+JGWeicZ5LJNYBp3nLQ/SmYBcanRxIGOVEtz9lGrw=",
+  "Hash": "ChPZ63mhcbuRK5z5OJExQ2MkTgrZBkS1DmAj6bsbKWU=",
   "Source": "web_table.Web",
   "BasePath": "_content/web_table.Web",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\multiselect-dropdown.js",
+      "SourceId": "web_table.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\",
+      "BasePath": "_content/web_table.Web",
+      "RelativePath": "js/multiselect-dropdown.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\multiselect-dropdown.js"
     },
     {
       "Identity": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\site.js",

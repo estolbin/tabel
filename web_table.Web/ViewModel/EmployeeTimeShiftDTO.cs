@@ -13,11 +13,13 @@ namespace web_table.Web.ViewModel
         public string OrganizationId { get; set; }
         public string DepartmentId { get; set; }
 
-        public List<TypeEmployment> Types { get; set; } = new List<TypeEmployment>();
+        public List<TypeOfWorkingTime> Types { get; set; } = new List<TypeOfWorkingTime>();
 
         public string PositionName {  get; set; }
 
         public string WorkScheduleName { get; set; }
+
+        public string TypeOfEmp { get; set; }
 
         public EmployeeTimeShiftDTO() { }
 
@@ -34,6 +36,9 @@ namespace web_table.Web.ViewModel
                 empTS.PositionName = employee.StaffSchedule.Position.Name;
                 empTS.WorkScheduleName = employee.WorkSchedule.Name;
                 empTS.OrganizationId = employee.Organization.Id.ToString();
+                empTS.DepartmentId = employee.Department.Id.ToString();
+
+                empTS.TypeOfEmp = employee.TypeOfEmployment.Name;
 
                 var res = timeShifts.OrderBy(x=>x.WorkDate).Where(e => e.Employee == employee).ToList();
                 foreach (var item in res)

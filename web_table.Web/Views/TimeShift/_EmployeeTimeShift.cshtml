@@ -1,12 +1,13 @@
 ﻿@model web_table.Web.ViewModel.EmployeeTimeShiftDTO;
 
 <tr>
-    <td rowspan="2" class="table-active">
+    <td rowspan="2" class="table-active border-bottom border-dark">
         @*<div class="card">*@
             <div class="card-body">
 
         <a onclick="showInPopup('@Url.Action("Details","Employee", new {id = Model.EmployeeId},Context.Request.Scheme)','Детали')"> @*class="btn btn-outline-info text-black">*@
-            @Model.EmployeeName
+            @Model.EmployeeName<br/>
+            <small class="badge bg-secondary">(@Model.TypeOfEmp)</small>
         </a>
             </div>
         @*</div>*@
@@ -22,7 +23,7 @@
     }
     <td></td>
 </tr>
-<tr>
+<tr class="border-bottom border-dark">
     @{
         int i = 0;
     }

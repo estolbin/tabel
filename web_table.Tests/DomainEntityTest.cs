@@ -61,11 +61,11 @@ public class DomainEntityTest
     [Fact]
     public void Should_Create_TypeEmployment()
     {
-        var typeEmployment = new TypeEmployment();
+        var typeEmployment = new TypeOfWorkingTime();
         typeEmployment.Name = "РB"; // рабочее время
         typeEmployment.Description = "Рабочее время";
 
-        var typeEmployment1 = new TypeEmployment();
+        var typeEmployment1 = new TypeOfWorkingTime();
         typeEmployment1.Name = "РB"; // рабочее время
         typeEmployment1.Description = "Еще одно рабочее время";
         
@@ -77,14 +77,14 @@ public class DomainEntityTest
     [Fact]
     public void Should_Exeption_When_Name_Is_Null()
     {
-        var typeEmployment = new TypeEmployment();
+        var typeEmployment = new TypeOfWorkingTime();
         Assert.Throws<ArgumentNullException>(() => typeEmployment.Name = null);
     }
 
     [Fact]
     public void Should_Exeption_When_Name_More_Than_Max_Length()
     {
-        var typeEmployment = new TypeEmployment();
+        var typeEmployment = new TypeOfWorkingTime();
         Assert.Throws<ArgumentOutOfRangeException>(() => typeEmployment.Name = new string('*', 10));
     }
 
@@ -198,7 +198,7 @@ public class DomainEntityTest
         var name = new EmployeeName("Иванов Иван Иванович");
         var emp = new Employee(name, TestOrganization, TestDep(), TestStaff());
         emp.WorkSchedule = TestStaff().WorkSchedule;
-        emp.TypeEmployment = new TypeEmployment("РВ");
+        emp.TypeEmployment = new TypeOfWorkingTime("РВ");
         
         var period = new TimeShiftPeriod("Test", DateTime.Parse("01.04.2024"), DateTime.Parse("14.04.2024"), false);
 

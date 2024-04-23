@@ -16,6 +16,12 @@ namespace web_table.Web
             Guid orgGuid = new Guid("C5DCDC10-1AD6-4F76-AC8A-BE6E4F169AAA");
             Guid depGuid = new Guid("5AFEFC11-D0D6-4D1A-AEAB-7607CD8E2C04");
 
+            TypeOfEmployment mainType = new TypeOfEmployment() { Id = Guid.NewGuid(), Name = "Основное место работы" };
+            TypeOfEmployment addType = new TypeOfEmployment() { Id = Guid.NewGuid(), Name = "Внутреннее совместительство" };
+
+            dbContext.TypeOfEmployments.Add(mainType);
+            dbContext.TypeOfEmployments.Add(addType);
+
             var org = new Organization()
             {
                 Id = orgGuid,
@@ -34,8 +40,8 @@ namespace web_table.Web
             };
             var staff = new StaffSchedule(org, dep, pos, workSchedule, "Штатное расписание");
 
-            var te = new TypeEmployment("РВ", "Рабочее время");
-            var te1 = new TypeEmployment("ВХ", "Выходной");
+            var te = new TypeOfWorkingTime("РВ", "Рабочее время");
+            var te1 = new TypeOfWorkingTime("ВХ", "Выходной");
             dbContext.TypeEmployments.Add(te);
             dbContext.TypeEmployments.Add(te1);
 
@@ -43,6 +49,7 @@ namespace web_table.Web
             var emp = new Employee(name, org, dep, staff);
             emp.TypeEmployment  = te;
             emp.WorkSchedule = workSchedule;
+            emp.TypeOfEmployment = addType;
 
             dbContext.Organizations.Add(org);
             dbContext.Departments.Add(dep);
@@ -65,6 +72,8 @@ namespace web_table.Web
 
             dbContext.SaveChanges();
 
+            // second employee
+
             var org1 = new Organization() { Id = new Guid(), Name = "ООО Ромашка" };
             var dep1 = new Department() { Id = new Guid(), Name = "Дирекция", Organization = org1 };
             var pos1 = new Position() { Id = new Guid(), Name = "ДиреХтор", Organization = org1, Department = dep1 };
@@ -78,6 +87,7 @@ namespace web_table.Web
             var emp1 = new Employee(name1, org1, dep1, staff1);
             emp1.TypeEmployment = te;
             emp1.WorkSchedule = workSchedule;
+            emp1.TypeOfEmployment = mainType;
 
             dbContext.StaffSchedules.Add(staff1);
             dbContext.EmployeeNames.Add(name1);
@@ -91,6 +101,67 @@ namespace web_table.Web
             }
             dbContext.TimeShifts.AddRange(tsper1);
             dbContext.SaveChanges();
+
+            // third employee
+
+            //org1 = new Organization() { Id = new Guid(), Name = "ООО Ромашка" };
+            //var dep1 = new Department() { Id = new Guid(), Name = "Дирекция", Organization = org1 };
+            pos1 = new Position() { Id = new Guid(), Name = "Главный бухгалтер", Organization = org1, Department = dep1 };
+
+            //dbContext.Organizations.Add(org1);
+            //dbContext.Departments.Add(dep1);
+            dbContext.Positions.Add(pos1);
+
+            staff1 = new StaffSchedule() { Id = new Guid(), Name = "Главный бухгалтер/Администрация", Organization = org1, Department = dep1, Position = pos1, WorkSchedule = workSchedule };
+            name1 = new EmployeeName("Романова Виктория Александровна");
+            emp1 = new Employee(name1, org1, dep1, staff1);
+            emp1.TypeEmployment = te;
+            emp1.WorkSchedule = workSchedule;
+            emp1.TypeOfEmployment = mainType;
+
+            dbContext.StaffSchedules.Add(staff1);
+            dbContext.EmployeeNames.Add(name1);
+            dbContext.Employees.Add(emp1);
+
+            tsper1 = new();
+            for (DateTime date = per.Start; date <= per.End; date = date.AddDays(1))
+            {
+                var t = new TimeShift(per, emp1, date);
+                tsper1.Add(t);
+            }
+            dbContext.TimeShifts.AddRange(tsper1);
+            dbContext.SaveChanges();
+
+            // fourth employee
+            //org1 = new Organization() { Id = new Guid(), Name = "ООО Ромашка" };
+            dep1 = new Department() { Id = new Guid(), Name = "Бухгалтерия", Organization = org1 };
+            pos1 = new Position() { Id = new Guid(), Name = "Бухгалтер-расчетчик", Organization = org1, Department = dep1 };
+
+            //dbContext.Organizations.Add(org1);
+            dbContext.Departments.Add(dep1);
+            dbContext.Positions.Add(pos1);
+
+            staff1 = new StaffSchedule() { Id = new Guid(), Name = "Бухгалтер-расчетчик/Бухгалтерия", Organization = org1, Department = dep1, Position = pos1, WorkSchedule = workSchedule };
+            name1 = new EmployeeName("Константинова Зинаида Вячеславовна");
+            emp1 = new Employee(name1, org1, dep1, staff1);
+            emp1.TypeEmployment = te;
+            emp1.WorkSchedule = workSchedule;
+            emp1.TypeOfEmployment = mainType;
+
+            dbContext.StaffSchedules.Add(staff1);
+            dbContext.EmployeeNames.Add(name1);
+            dbContext.Employees.Add(emp1);
+
+            tsper1 = new();
+            for (DateTime date = per.Start; date <= per.End; date = date.AddDays(1))
+            {
+                var t = new TimeShift(per, emp1, date);
+                tsper1.Add(t);
+            }
+            dbContext.TimeShifts.AddRange(tsper1);
+            dbContext.SaveChanges();
+
+
         }
     }
 }

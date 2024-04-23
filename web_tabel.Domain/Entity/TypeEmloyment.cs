@@ -3,18 +3,18 @@ namespace web_tabel.Domain;
 /// <summary>
 /// Вид рабочего времени
 /// </summary>
-public class TypeEmployment
+public class TypeOfWorkingTime
 {
     public string Name { get; set; }
 
-    public TypeEmployment(string name)
+    public TypeOfWorkingTime(string name)
     {
         Name = name ?? throw new ArgumentNullException("Name can't be empty");
     }
     
-    public TypeEmployment() {}
+    public TypeOfWorkingTime() {}
 
-    public TypeEmployment(string name, string description) : this(name)
+    public TypeOfWorkingTime(string name, string description) : this(name)
     {
         Description = description?? throw new ArgumentNullException("Description can't be empty");
     }
@@ -25,7 +25,7 @@ public class TypeEmployment
     {
         if (obj is null) return false;
         
-        if (obj is TypeEmployment other)
+        if (obj is TypeOfWorkingTime other)
         {
             return this.Name == other.Name;
         }
@@ -37,13 +37,13 @@ public class TypeEmployment
         return Name;
     }
 
-    public static TypeEmployment GetWorkType()
+    public static TypeOfWorkingTime GetWorkType()
     {
-        return new TypeEmployment() { Name = "РВ", Description = "Рабочее время" };
+        return new TypeOfWorkingTime() { Name = "РВ", Description = "Рабочее время" };
     }
 
-    public static TypeEmployment GetWeekend()
+    public static TypeOfWorkingTime GetWeekend()
     {
-        return new TypeEmployment() { Name = "ВХ", Description = "Выходной" };
+        return new TypeOfWorkingTime() { Name = "ВХ", Description = "Выходной" };
     }
 }

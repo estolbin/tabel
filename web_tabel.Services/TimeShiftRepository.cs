@@ -21,6 +21,8 @@ public class TimeShiftRepository : ITimeShiftRepository
             .Include(ts => ts.Employee)
                 .ThenInclude(emp => emp.StaffSchedule)
                     .ThenInclude(s => s.Position)
+             .Include(ts => ts.Employee)
+                .ThenInclude(w => w.TypeOfEmployment)
             .Include(ts => ts.TypeEmployment)
             .Include(ts => ts.WorkSchedule)
             .OrderBy(ts => ts.WorkDate)
@@ -125,6 +127,8 @@ public class TimeShiftRepository : ITimeShiftRepository
             .Include(ts => ts.Employee)
                 .ThenInclude(emp => emp.StaffSchedule)
                     .ThenInclude(s => s.Position)
+            .Include(ts => ts.Employee)
+                .ThenInclude(e => e.TypeOfEmployment)
             .Include(ts => ts.WorkSchedule)
             .Include(tp => tp.TypeEmployment)
             .Where(e => emps.Contains(e.Employee));
@@ -158,6 +162,36 @@ public class TimeShiftRepository : ITimeShiftRepository
         if (names == null) return null;
         var emps = _context.Employees.Where(e => names.Contains(e.Name)).ToList();
         var ts = GetTimeShiftByEmployeeList(emps);
+        return ts;
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
+    {
+        List<TimeShift> ts = new List<TimeShift>();
+        foreach ( var dep in depsGuids) 
+        {
+            var temp = GetTimeShiftByDepartment(dep).Result;
+            foreach (var item in temp)
+            {
+                ts.Add(item);
+            }
+
+        }
+        return ts;
+
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
+    {
+        var ts = new List<TimeShift>();
+        foreach (var org in orgGuids)
+        {
+            var temp = GetTimeShiftByOrganization(org).Result;
+            foreach (var item in temp)
+            {
+                ts.Add(item);
+            }
+        }
         return ts;
     }
 }

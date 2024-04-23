@@ -8,12 +8,8 @@ namespace web_table.Web.Controllers
     public class TimeShiftController : Controller
     {
         private readonly ITimeShiftService _service;
-        private string SearchText;
 
-        public TimeShiftController(ITimeShiftService service)
-        {
-            _service = service;
-        }
+        public TimeShiftController(ITimeShiftService service) => _service = service;
 
         public IActionResult Index()
         {
@@ -28,35 +24,47 @@ namespace web_table.Web.Controllers
         {
             IEnumerable<Department> listDeps = _service.GetAllDepartments().Result;
             ViewBag.DepartmentsRaw  = listDeps; // для вывода по подразделениям
-            IEnumerable<SelectListItem> list = listDeps.AsEnumerable().Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = string.Format("{0} ({1})", x.Name, x.Organization.Name)
-            });
+            
+            IEnumerable<SelectListItem> list = listDeps.ToSelectListItem(x => x.Id, x => string.Format("{0} ({1})", x.Name, x.Organization.Name), TempData["depId"] as string[]);
             ViewBag.Departments = list;
-            ViewBag.Organizations = _service.GetAllOrganization().Result;
+
+            IEnumerable<Organization> listOrgs = _service.GetAllOrganization().Result;
+            ViewBag.OrganizationsRaw = listOrgs;
+            IEnumerable<SelectListItem> listOrg = listOrgs.ToSelectListItem(x => x.Id, x => x.Name, TempData["orgId"] as string[]);
+            ViewBag.Organizations = listOrg;
         }
 
         [HttpPost]
-        public IActionResult Index(string? depId, string? orgId, bool isDepartment = false, bool isOrganization = false) 
+        public IActionResult Index(string[] depId, string[] orgId, bool isDepartment = false, bool isOrganization = false) 
         {
-            SetViewBagForSelect();
-
             IEnumerable<TimeShift> result = new List<TimeShift>();
+            List<Guid> ids = new List<Guid>();
+
             if (isDepartment)
             {
-                if (depId == null) { return RedirectToAction("Index"); }
-                result = _service.GetTimeShiftsByDepartment(new Guid(depId)).Result;
+                if (depId.Length == 0) { return RedirectToAction("Index"); }
+                foreach(var item in depId)
+                {
+                    ids.Add(new Guid(item));
+                }
+                result = _service.GetTimeShiftByDepartments(ids).Result;
+                SetTempData("depId", depId);
             } else if (isOrganization )
             {
-                if(orgId == null) { return RedirectToAction("Index"); }
-                result = _service.GetTimeShiftByOrganization(new Guid(orgId)).Result;
-                
+                if(orgId.Length == 0) { return RedirectToAction("Index"); }
+                foreach(var item in orgId)
+                {
+                    ids.Add(new Guid(item));
+                }
+                result = _service.GetTimeShiftByOrganizations(ids).Result;
+                SetTempData("orgId", orgId);
             }
-
+            SetViewBagForSelect();
             var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
-            return View("Index", r);
+            return View("Index",r);
         }
+
+        private void SetTempData(string keyName, string[] value) =>  TempData[keyName] = value;
 
         [HttpPost]
         public IActionResult Search(string? searchText)
@@ -79,17 +87,12 @@ namespace web_table.Web.Controllers
 
             var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
 
-
             TempData["SearchString"] = searchText;
             return View("Index", r);
 
         }
 
-        public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate)
-        {
-            return View(_service.GetTimeShiftByEmpAndDate(empid, curDate).Result);
-        }
-
+        public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate) => View(_service.GetTimeShiftByEmpAndDate(empid, curDate).Result);
 
         [HttpPost]
         public async Task<IActionResult> UpdateNewHours(TimeShift timeShift)

@@ -16,7 +16,7 @@ public class TimeShift : Entity
 
     public DateTime WorkDate { get; set; }
 
-    public TypeEmployment? TypeEmployment { get; set; }
+    public TypeOfWorkingTime? TypeEmployment { get; set; }
 
     /// <summary>
     /// Конструктор записи табеля по сотруднику
@@ -32,7 +32,7 @@ public class TimeShift : Entity
         Employee employee, 
         WorkSchedule workSchedule, 
         DateTime workDate, 
-        TypeEmployment typeEmployment)
+        TypeOfWorkingTime typeEmployment)
     {
         if (timeShiftPeriod.Closed) throw new Exception("Закрытый период");
         
@@ -49,10 +49,10 @@ public class TimeShift : Entity
     {
         if (HoursPlanned > 0)
         {
-            if (TypeEmployment == null) TypeEmployment = TypeEmployment.GetWorkType();
+            if (TypeEmployment == null) TypeEmployment = TypeOfWorkingTime.GetWorkType();
         } else
         {
-            if (TypeEmployment != TypeEmployment.GetWeekend()) TypeEmployment = TypeEmployment.GetWeekend();
+            if (TypeEmployment != TypeOfWorkingTime.GetWeekend()) TypeEmployment = TypeOfWorkingTime.GetWeekend();
         }
     }
 

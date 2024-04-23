@@ -1,0 +1,8 @@
+﻿@model IEnumerable<SelectListItem>
+
+<select id="@ViewData["Id"]"  name="@ViewData["Name"]" class="form-select">
+    @foreach(var item in Model)
+    {
+        <option value="@item.Value">@item.Text</option> 
+    }
+</select>

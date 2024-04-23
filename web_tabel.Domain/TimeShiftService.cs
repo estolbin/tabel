@@ -1,3 +1,6 @@
+
+using System.Collections.Generic;
+
 namespace web_tabel.Domain;
 
 public class TimeShiftService : ITimeShiftService
@@ -112,6 +115,16 @@ public class TimeShiftService : ITimeShiftService
     public Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
     {
         return _repository.GetTimeShiftByEmpLike(empLike);
+    }
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
+    {
+        return _repository.GetTimeShiftByDepartments(depsGuids);
+    }
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
+    {
+        return _repository.GetTimeShiftByOrganizations(orgGuids);
     }
 }
 
