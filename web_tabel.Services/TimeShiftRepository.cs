@@ -102,7 +102,9 @@ public class TimeShiftRepository : ITimeShiftRepository
 
     public async Task<IEnumerable<Department>> GetAllDepartments()
     {
-        return await _context.Departments.ToListAsync();
+        return await _context.Departments
+            .Include(e => e.Organization)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartment(Guid departmentId)
@@ -124,6 +126,7 @@ public class TimeShiftRepository : ITimeShiftRepository
                 .ThenInclude(emp => emp.StaffSchedule)
                     .ThenInclude(s => s.Position)
             .Include(ts => ts.WorkSchedule)
+            .Include(tp => tp.TypeEmployment)
             .Where(e => emps.Contains(e.Employee));
     }
 
@@ -147,5 +150,14 @@ public class TimeShiftRepository : ITimeShiftRepository
     private List<Employee> GetEmployeesByOrgId(Guid organizationId)
     {
         return _context.Employees.Where(x => x.Organization.Id == organizationId).ToList();
+    }
+
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
+    {
+        var names = _context.EmployeeNames.AsEnumerable().Where(x => x.FullName.ToLower().Contains(empLike.ToLower()));
+        if (names == null) return null;
+        var emps = _context.Employees.Where(e => names.Contains(e.Name)).ToList();
+        var ts = GetTimeShiftByEmployeeList(emps);
+        return ts;
     }
 }

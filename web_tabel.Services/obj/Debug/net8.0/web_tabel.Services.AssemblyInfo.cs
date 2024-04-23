@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("web_tabel.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82fbd0c5128ef7bf1b8e09db72d6a478949df715")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15c4cb45d2e436bcfff7f91127e597d0236b2582")]
 [assembly: System.Reflection.AssemblyProductAttribute("web_tabel.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("web_tabel.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

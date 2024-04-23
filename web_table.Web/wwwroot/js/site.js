@@ -25,13 +25,20 @@ showInPopup = (url, title) => {
     })
 }
 
-$('#depList').on('change', function (event) {
-    var form = $(event.target).parents('form');
-    form.submit();
-})
+//$('#depList').on('change', function (event) {
+//    var form = $(event.target).parents('form');
+//    form.submit();
+//})
 
 $('#orgList').on('change', function (event) {
     var form = $(event.target).parents('form');
     form.submit();
+})
+
+$('tr[id^="org_"').click(function () {
+    console.log($(this).attr("id"));
+    var className = $(this).attr("id");
+    let id = className.replace("org_", "");
+    $(".organization_" + id).toggle();
 })
 

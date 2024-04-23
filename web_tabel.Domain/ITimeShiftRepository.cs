@@ -25,4 +25,6 @@ public interface ITimeShiftRepository
     public Task<IEnumerable<Organization>> GetAllOrganizations();
 
     public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId);
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string  empLike);
 }

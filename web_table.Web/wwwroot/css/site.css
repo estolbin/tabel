@@ -63,3 +63,9 @@ keyframes spin {
 tr.collapse.in {
     display: table-row;
 }
+
+#navbarMenu .form-inline {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}

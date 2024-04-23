@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using web_tabel.Domain
 @model IEnumerable<web_table.Web.ViewModel.EmployeeTimeShiftDTO>
 @{
     Layout = "_Layout";
@@ -17,20 +18,21 @@
         <div id="FormDiv">
         @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}))
         {
-            @Html.DropDownList("depId", new SelectList(ViewBag.Departments, "Id", "Name"),"-- Подразделение",new { id="depList", @class="form-control dropdown"})
+            @Html.DropDownList("depId", new SelectList(ViewBag.Departments, "Value", "Text"),"-- Подразделение",new { id="depList", @class="form-select"})
+                @*@Html.ListBox("depId", new SelectList(ViewBag.Departments, "Value", "Text"), new { id = "depList", @class = "form-select", SelectionMode="multiple" })*@
         }
         </div>
     </div>
     <div class="col-md-6">
         @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}))
         {
-            @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Id", "Name"), "-- Организация", new { id = "orgList", @class = "form-control dropdown" })
+            @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Id", "Name"), "-- Организация", new { id = "orgList", @class = "form-select" })
         }
     </div>
 </div>
 
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <td class="text-sm-center">Сотрудник<br/><br/></td>
             <td class="text-center"><small>Должность<div class="border-top my-1"></div>График</small></td>
@@ -49,19 +51,30 @@
         @{
             int orgNum = 1;
             ViewBag.orgNum = orgNum;
+            var deps = ViewBag.DepartmentsRaw as IEnumerable<Department>;
             foreach(var org in ViewBag.Organizations)
             {
-                <tr>
+                if (Model.Where(x => x.OrganizationId == org.Id.ToString()).ToList().Count == 0) continue;
+
+                <tr id="@("org_"+orgNum)">
                     <td colspan="@(datesCol+3)">
-                        @*<a class="btn" data-toggle="collapse" href="@("#emps_" + orgNum)" role="button" aria-expanded="expanded" aria-controls="@("emps_" + orgNum)">*@
-                            <span class="h3 text-center">@org.Name</span>
-                        @*</a>*@
+                        <span class="h3 text-center">@org.Name</span>
                     </td>
                 </tr>
-                @foreach (var emp in Model.Where(x => x.OrganizationId == org.Id.ToString()))
+
+                // вывод подразделения
+                var depsByOrg = deps.Where(x => x.Organization.Id == org.Id);
+
+                foreach(var d in depsByOrg)
                 {
-                    @Html.Partial("_EmployeeTimeShift", emp);
+                    
+                    @foreach (var emp in Model.Where(x => x.OrganizationId == org.Id.ToString()))
+                    {
+                        @Html.Partial("_EmployeeTimeShift", emp);
+                    }
                 }
+
+
                 orgNum++;
             }
         }

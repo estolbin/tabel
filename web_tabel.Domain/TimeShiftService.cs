@@ -108,5 +108,10 @@ public class TimeShiftService : ITimeShiftService
     {
         return _repository.GetTimeShiftByOrganization(organizationId);
     }
+
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
+    {
+        return _repository.GetTimeShiftByEmpLike(empLike);
+    }
 }
 
