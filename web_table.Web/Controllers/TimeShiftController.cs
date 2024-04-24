@@ -1,105 +1,113 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using web_tabel.Domain;
 using web_table.Web.ViewModel;
+using System.Collections.Generic;
 
 namespace web_table.Web.Controllers
 {
     public class TimeShiftController : Controller
     {
         private readonly ITimeShiftService _service;
+        private IEnumerable<Department> _departments;
+        private IEnumerable<Organization> _organizations;
 
         public TimeShiftController(ITimeShiftService service) => _service = service;
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             SetViewBagForSelect();
 
-            var result = _service.GetCurrentTimeShift().Result;
-            var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
-            return View(r);
+            var currentTimeShift = await _service.GetCurrentTimeShift();
+            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift);
+            return View(employeeTimeShiftList);
         }
 
-        private void SetViewBagForSelect()
+        private async void SetViewBagForSelect()
         {
-            IEnumerable<Department> listDeps = _service.GetAllDepartments().Result;
-            ViewBag.DepartmentsRaw  = listDeps; // для вывода по подразделениям
-            
-            IEnumerable<SelectListItem> list = listDeps.ToSelectListItem(x => x.Id, x => string.Format("{0} ({1})", x.Name, x.Organization.Name), TempData["depId"] as string[]);
-            ViewBag.Departments = list;
 
-            IEnumerable<Organization> listOrgs = _service.GetAllOrganization().Result;
-            ViewBag.OrganizationsRaw = listOrgs;
-            IEnumerable<SelectListItem> listOrg = listOrgs.ToSelectListItem(x => x.Id, x => x.Name, TempData["orgId"] as string[]);
-            ViewBag.Organizations = listOrg;
+            if (_departments == null)
+                _departments = await _service.GetAllDepartments();
+            if (_organizations == null)
+                _organizations = await _service.GetAllOrganization();
+
+            ViewBag.DepartmentsRaw = _departments;
+            ViewBag.Departments = _departments.ToSelectListItem(x => x.Id, x => $"{x.Name} ({x.Organization.Name})", TempData["depId"] as string[]);
+
+            ViewBag.OrganizationsRaw = _organizations;
+            ViewBag.Organizations = _organizations.ToSelectListItem(x => x.Id, x => x.Name, TempData["orgId"] as string[]);
         }
 
         [HttpPost]
-        public IActionResult Index(string[] depId, string[] orgId, bool isDepartment = false, bool isOrganization = false) 
+        public async Task<IActionResult> Index(string[] depId, string[] orgId, bool isDepartment = false, bool isOrganization = false)
         {
             IEnumerable<TimeShift> result = new List<TimeShift>();
             List<Guid> ids = new List<Guid>();
 
             if (isDepartment)
             {
-                if (depId.Length == 0) { return RedirectToAction("Index"); }
-                foreach(var item in depId)
+                if (depId.Length == 0) 
+                    return RedirectToAction("Index");
+
+                foreach (var item in depId)
                 {
                     ids.Add(new Guid(item));
                 }
-                result = _service.GetTimeShiftByDepartments(ids).Result;
+                result = await _service.GetTimeShiftByDepartments(ids);
                 SetTempData("depId", depId);
-            } else if (isOrganization )
+            }
+            else if (isOrganization)
             {
-                if(orgId.Length == 0) { return RedirectToAction("Index"); }
-                foreach(var item in orgId)
+                if (orgId.Length == 0) 
+                    return RedirectToAction("Index");
+
+                foreach (var item in orgId)
                 {
                     ids.Add(new Guid(item));
                 }
-                result = _service.GetTimeShiftByOrganizations(ids).Result;
+                result = await _service.GetTimeShiftByOrganizations(ids);
                 SetTempData("orgId", orgId);
             }
             SetViewBagForSelect();
-            var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
-            return View("Index",r);
+            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(result);
+            return View("Index", employeeTimeShiftList);
         }
 
-        private void SetTempData(string keyName, string[] value) =>  TempData[keyName] = value;
+        private void SetTempData(string keyName, string[] value) => TempData[keyName] = value;
 
         [HttpPost]
-        public IActionResult Search(string? searchText)
+        public async Task<IActionResult> Search(string searchText)
         {
-            if (searchText == null) 
+            if (string.IsNullOrEmpty(searchText))
             {
                 TempData["SearchString"] = "";
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
+
             SetViewBagForSelect();
+            var result = await _service.GetTimeShiftByEmpLike(searchText);
 
-            var result = _service.GetTimeShiftByEmpLike(searchText).Result;
-
-            if (result == null || result.ToList().Count < 1) 
+            if (result == null || result.ToList().Count < 1)
             {
                 ViewData["Message"] = "Не найдено в базе";
                 TempData["SearchString"] = "";
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
 
-            var r = EmployeeTimeShiftDTO.ToListFromTimeShift(result);
-
+            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(result);
             TempData["SearchString"] = searchText;
-            return View("Index", r);
-
+            return View("Index", employeeTimeShiftList);
         }
 
-        public async Task<IActionResult> SetNewHours(Guid empid, DateTime curDate) => View(_service.GetTimeShiftByEmpAndDate(empid, curDate).Result);
+        public async Task<IActionResult> SetNewHours(Guid empId, DateTime curDate) => View(_service.GetTimeShiftByEmpAndDate(empId, curDate).Result);
 
         [HttpPost]
         public async Task<IActionResult> UpdateNewHours(TimeShift timeShift)
         {
-            var ts = await _service.GetTimeShiftByID(timeShift.Id);
-            ts.HoursWorked = timeShift.HoursWorked;
-            _service.UpdateTimeShift(ts);
+            var existingTimeShift = await _service.GetTimeShiftByID(timeShift.Id);
+            existingTimeShift.HoursWorked = timeShift.HoursWorked;
+            _service.UpdateTimeShift(existingTimeShift);
 
             return RedirectToAction(nameof(Index));
         }

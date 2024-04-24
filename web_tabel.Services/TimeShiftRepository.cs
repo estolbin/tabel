@@ -8,12 +8,9 @@ public class TimeShiftRepository : ITimeShiftRepository
 {
     private readonly TimeShiftDBContext _context;
 
-    public TimeShiftRepository(TimeShiftDBContext context)
-    {
-        _context = context;
-    }
+    public TimeShiftRepository(TimeShiftDBContext context) => _context = context;
     
-    public async Task<IEnumerable<TimeShift>> GetTimeShiftsByPeriod(TimeShiftPeriod period)
+    public async Task<List<TimeShift>> GetTimeShiftsByPeriod(TimeShiftPeriod period)
     {
         return await _context.TimeShifts
             .Include(ts => ts.Employee)
@@ -113,13 +110,11 @@ public class TimeShiftRepository : ITimeShiftRepository
     {
         List<Employee> emps = GetEmployeesByDepId(departmentId);
 
-        IQueryable<TimeShift> ts = GetTimeShiftByEmployeeList(emps);
-
-        return ts;
+        return GetTimeShiftByEmployeeList(emps);
 
     }
 
-    private IQueryable<TimeShift> GetTimeShiftByEmployeeList(List<Employee> emps)
+    private IQueryable<TimeShift> GetTimeShiftByEmployeeList(List<Employee> employees)
     {
         return _context.TimeShifts
             .Include(e => e.Employee)
@@ -131,7 +126,7 @@ public class TimeShiftRepository : ITimeShiftRepository
                 .ThenInclude(e => e.TypeOfEmployment)
             .Include(ts => ts.WorkSchedule)
             .Include(tp => tp.TypeEmployment)
-            .Where(e => emps.Contains(e.Employee));
+            .Where(ts => employees.Select(e => e.Id).Contains(ts.Employee.Id));
     }
 
     private List<Employee> GetEmployeesByDepId(Guid departmentId)
@@ -167,31 +162,22 @@ public class TimeShiftRepository : ITimeShiftRepository
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
     {
-        List<TimeShift> ts = new List<TimeShift>();
-        foreach ( var dep in depsGuids) 
-        {
-            var temp = GetTimeShiftByDepartment(dep).Result;
-            foreach (var item in temp)
-            {
-                ts.Add(item);
-            }
-
-        }
-        return ts;
-
+        var tasks = depsGuids.Select(dep => GetTimeShiftByDepartment(dep));
+        var results = await Task.WhenAll(tasks);
+        return results.SelectMany(ts => ts);
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
     {
-        var ts = new List<TimeShift>();
-        foreach (var org in orgGuids)
-        {
-            var temp = GetTimeShiftByOrganization(org).Result;
-            foreach (var item in temp)
-            {
-                ts.Add(item);
-            }
-        }
-        return ts;
+        return await _context.TimeShifts
+            .Include(ts => ts.Employee)
+                .ThenInclude(emp => emp.StaffSchedule)
+                    .ThenInclude(s => s.Position)
+            .Include(ts => ts.Employee)
+                .ThenInclude(e => e.TypeOfEmployment)
+            .Include(ts => ts.TypeEmployment)
+            .Include(ts => ts.WorkSchedule)
+            .Where(ts => orgGuids.Contains(ts.Employee.Organization.Id))
+            .ToListAsync();
     }
 }

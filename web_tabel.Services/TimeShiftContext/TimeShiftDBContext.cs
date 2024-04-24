@@ -18,7 +18,10 @@ public class TimeShiftDBContext : DbContext
 
     public DbSet<TypeOfEmployment> TypeOfEmployments { get; set; }
     
-    public TimeShiftDBContext(DbContextOptions<TimeShiftDBContext> options) : base(options) {}
+    public TimeShiftDBContext(DbContextOptions<TimeShiftDBContext> options) : base(options) 
+    {
+        this.ChangeTracker.LazyLoadingEnabled = true;
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

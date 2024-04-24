@@ -21,9 +21,8 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<TimeShiftPeriod> GetLastUnclosedPeriod(CancellationToken token = default)
     {
-        var period = await _repository.GetAllPeriods();
-        var result = period.LastOrDefault(x => x.Closed == false);
-        return result;
+        var periods = await _repository.GetAllPeriods();
+        return  periods.LastOrDefault(x => !x.Closed);
     }
 
     public async Task<IEnumerable<TimeShiftPeriod>> GetAllPeriods()
@@ -33,13 +32,12 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<TimeShiftPeriod> GetPeriodByDate(DateTime date, CancellationToken token = default)
     {
-        var period = await _repository.GetTimeShiftsPeriodByDate(date);
-        return period;
+        return await _repository.GetTimeShiftsPeriodByDate(date);
     }
 
     public async Task<TimeShiftPeriod> GetLastPeriod(CancellationToken token = default)
     {
-        var period = await _repository.GetLastPeriod();
+        var period =  await _repository.GetLastPeriod();
         if (period.Name.ToString() == "")
         {
             _repository.RemoveTimeShiftPeriodByID(period.Id);
@@ -61,23 +59,21 @@ public class TimeShiftService : ITimeShiftService
 
     }
 
-    public Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default)
+    public async Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default)
     {
         var period = _repository.GetLastPeriod().Result;
-        var list = _repository.GetTimeShiftsByPeriod(period);
+        var list = await _repository.GetTimeShiftsByPeriod(period);
         return list;
     }
 
-    public Task<Employee> GetEmployeeById(Guid id)
+    public async Task<Employee> GetEmployeeById(Guid id)
     {
-        var res = _repository.GetEmployeeById(id);
-        return res;
+        return await _repository.GetEmployeeById(id);
     }
 
-    public Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, CancellationToken token = default)
+    public async Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, CancellationToken token = default)
     {
-        var res = _repository.GetTimeShiftByEmpDate(id, date);
-        return res;
+        return await _repository.GetTimeShiftByEmpDate(id, date);
     }
 
     public void UpdateTimeShift(TimeShift timeShift)
@@ -87,44 +83,44 @@ public class TimeShiftService : ITimeShiftService
     }
 
 
-    public Task<TimeShift> GetTimeShiftByID(Guid id) 
+    public async Task<TimeShift> GetTimeShiftByID(Guid id) 
     {
-        return _repository.GetTimeShiftById(id);
+        return await _repository.GetTimeShiftById(id);
     }
 
-    public Task<IEnumerable<Department>> GetAllDepartments()
+    public async Task<IEnumerable<Department>> GetAllDepartments()
     {
-        return _repository.GetAllDepartments();
+        return await  _repository.GetAllDepartments();
     }
 
-    public Task<IEnumerable<TimeShift>> GetTimeShiftsByDepartment(Guid departmentId)
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftsByDepartment(Guid departmentId)
     {
-        return _repository.GetTimeShiftByDepartment(departmentId); 
+        return await _repository.GetTimeShiftByDepartment(departmentId); 
     }
 
-    public Task<IEnumerable<Organization>> GetAllOrganization()
+    public async Task<IEnumerable<Organization>> GetAllOrganization()
     {
-        return _repository.GetAllOrganizations();
+        return await _repository.GetAllOrganizations();
     }
 
-    public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId)
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId)
     {
-        return _repository.GetTimeShiftByOrganization(organizationId);
+        return await _repository.GetTimeShiftByOrganization(organizationId);
     }
 
-    public Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
     {
-        return _repository.GetTimeShiftByEmpLike(empLike);
+        return await _repository.GetTimeShiftByEmpLike(empLike);
     }
 
-    public Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
     {
-        return _repository.GetTimeShiftByDepartments(depsGuids);
+        return await _repository.GetTimeShiftByDepartments(depsGuids);
     }
 
-    public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
+    public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
     {
-        return _repository.GetTimeShiftByOrganizations(orgGuids);
+        return await _repository.GetTimeShiftByOrganizations(orgGuids);
     }
 }
 

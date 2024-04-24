@@ -23,34 +23,35 @@ namespace web_table.Web.ViewModel
 
         public EmployeeTimeShiftDTO() { }
 
-        public static IEnumerable<EmployeeTimeShiftDTO> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts) 
+        public async static Task<IEnumerable<EmployeeTimeShiftDTO>> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts) 
         {
-            List<EmployeeTimeShiftDTO > temp = new List<EmployeeTimeShiftDTO>();
+            var employeeTimeShiftDTOs = new List<EmployeeTimeShiftDTO>();
 
-            var employees = timeShifts.Select(e => e.Employee).Distinct().ToList();
-            foreach (var employee in employees)
+            // TODO: need to include all fields
+            var distinctEmployees = timeShifts.Select(ts => ts.Employee).Distinct().ToList();
+            await Task.WhenAll(distinctEmployees.Select(async employee =>
             {
-                var empTS = new EmployeeTimeShiftDTO();
-                empTS.EmployeeName = employee.Name.FullName;
-                empTS.EmployeeId = employee.Id;
-                empTS.PositionName = employee.StaffSchedule.Position.Name;
-                empTS.WorkScheduleName = employee.WorkSchedule.Name;
-                empTS.OrganizationId = employee.Organization.Id.ToString();
-                empTS.DepartmentId = employee.Department.Id.ToString();
-
-                empTS.TypeOfEmp = employee.TypeOfEmployment.Name;
-
-                var res = timeShifts.OrderBy(x=>x.WorkDate).Where(e => e.Employee == employee).ToList();
-                foreach (var item in res)
+                var employeeTimeShiftDTO = new EmployeeTimeShiftDTO
                 {
-                    empTS.HoursWorked.Add(item.HoursWorked);
-                    empTS.HoursPlanned.Add(item.HoursPlanned);
-                    empTS.Dates.Add(item.WorkDate);
-                    empTS.Types.Add(item.TypeEmployment);
-                }
-                temp.Add(empTS);
-            }
-            return temp;
+
+                    EmployeeName = employee.Name.FullName,
+                    EmployeeId = employee.Id,
+                    PositionName = employee.StaffSchedule.Position.Name,
+                    WorkScheduleName = employee.WorkSchedule.Name,
+                    OrganizationId = employee.Organization.Id.ToString(),
+                    DepartmentId = employee.Department.Id.ToString(),
+                    TypeOfEmp = employee.TypeOfEmployment.Name
+                };
+
+                var employeeTimeShifts = timeShifts.Where(ts => ts.Employee == employee).OrderBy(ts => ts.WorkDate).ToList();
+                employeeTimeShiftDTO.HoursWorked.AddRange(employeeTimeShifts.Select(ts => ts.HoursWorked));
+                employeeTimeShiftDTO.HoursPlanned.AddRange(employeeTimeShifts.Select(ts => ts.HoursPlanned));
+                employeeTimeShiftDTO.Dates.AddRange(employeeTimeShifts.Select(ts => ts.WorkDate));
+                employeeTimeShiftDTO.Types.AddRange(employeeTimeShifts.Select(ts => ts.TypeEmployment));
+
+                employeeTimeShiftDTOs.Add(employeeTimeShiftDTO);
+            }));
+            return employeeTimeShiftDTOs;
         }
     }
 }
