@@ -169,15 +169,8 @@ public class TimeShiftRepository : ITimeShiftRepository
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
     {
-        return await _context.TimeShifts
-            .Include(ts => ts.Employee)
-                .ThenInclude(emp => emp.StaffSchedule)
-                    .ThenInclude(s => s.Position)
-            .Include(ts => ts.Employee)
-                .ThenInclude(e => e.TypeOfEmployment)
-            .Include(ts => ts.TypeEmployment)
-            .Include(ts => ts.WorkSchedule)
-            .Where(ts => orgGuids.Contains(ts.Employee.Organization.Id))
-            .ToListAsync();
+        var tasks = orgGuids.Select(org => GetTimeShiftByOrganization(org));
+        var results = await Task.WhenAll(tasks);
+        return results.SelectMany(ts => ts);
     }
 }
