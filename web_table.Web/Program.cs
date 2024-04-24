@@ -19,7 +19,7 @@ builder.Services.AddScoped<DbInitializer>();
 
 
 builder.Services.AddScoped<ITimeShiftService, TimeShiftService>();
-builder.Services.AddScoped<ITimeShiftRepository, TimeShiftRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 

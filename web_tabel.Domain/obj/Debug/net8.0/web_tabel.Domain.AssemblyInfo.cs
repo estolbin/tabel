@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("web_tabel.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2db62e94309c225bac4cb54558bd7d51cf6cf64")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8478d849c600eea83803df1b7ab5197f3468037c")]
 [assembly: System.Reflection.AssemblyProductAttribute("web_tabel.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("web_tabel.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

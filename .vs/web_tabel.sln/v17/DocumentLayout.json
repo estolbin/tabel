@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\code\\vm_tabel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|d:\\code\\vm_tabel\\web_tabel.services\\timeshiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|solutionrelative:web_tabel.services\\timeshiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|d:\\code\\vm_tabel\\web_tabel.services\\timeshiftrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|solutionrelative:web_tabel.services\\timeshiftrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|d:\\code\\vm_tabel\\web_tabel.domain\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|solutionrelative:web_tabel.domain\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB897273-D14D-4320-923A-70028B691C1E}|web_table.Tests\\web_table.Tests.csproj|d:\\code\\vm_tabel\\web_table.tests\\dbcontexttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB897273-D14D-4320-923A-70028B691C1E}|web_table.Tests\\web_table.Tests.csproj|solutionrelative:web_table.tests\\dbcontexttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|d:\\code\\vm_tabel\\web_tabel.services\\timeshiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|solutionrelative:web_tabel.services\\timeshiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\controllers\\timeshiftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,32 +55,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TimeShiftRepository.cs",
-              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftRepository.cs",
-              "RelativeDocumentMoniker": "web_tabel.Services\\TimeShiftRepository.cs",
-              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftRepository.cs",
-              "RelativeToolTip": "web_tabel.Services\\TimeShiftRepository.cs",
-              "ViewState": "AQIAAIwAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "IGenericRepository.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Domain\\IGenericRepository.cs",
+              "RelativeDocumentMoniker": "web_tabel.Domain\\IGenericRepository.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Domain\\IGenericRepository.cs",
+              "RelativeToolTip": "web_tabel.Domain\\IGenericRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-24T12:02:58.699Z",
+              "WhenOpened": "2024-04-24T12:18:28.276Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Program.cs",
+              "RelativeDocumentMoniker": "web_table.Web\\Program.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Program.cs",
+              "RelativeToolTip": "web_table.Web\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:17:13.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DBContextTests.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Tests\\DBContextTests.cs",
+              "RelativeDocumentMoniker": "web_table.Tests\\DBContextTests.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Tests\\DBContextTests.cs",
+              "RelativeToolTip": "web_table.Tests\\DBContextTests.cs",
+              "ViewState": "AQIAAJwAAAAAAAAAAAAmwBQAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:16:49.475Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "TimeShiftService.cs",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftService.cs",
               "RelativeDocumentMoniker": "web_tabel.Services\\TimeShiftService.cs",
               "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftService.cs",
               "RelativeToolTip": "web_tabel.Services\\TimeShiftService.cs",
-              "ViewState": "AQIAAIMAAAAAAAAAAAA1wJEAAAAIAAAA",
+              "ViewState": "AQIAAIMAAAAAAAAAAAA1wJIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-24T11:58:01.831Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "TimeShift.cs",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\TimeShift.cs",
               "RelativeDocumentMoniker": "web_tabel.Domain\\Entity\\TimeShift.cs",
@@ -85,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "_EmployeeTimeShift.cshtml",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
               "RelativeDocumentMoniker": "web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
@@ -98,20 +132,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "TimeShiftController.cs",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\TimeShiftController.cs",
               "RelativeDocumentMoniker": "web_table.Web\\Controllers\\TimeShiftController.cs",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\TimeShiftController.cs",
               "RelativeToolTip": "web_table.Web\\Controllers\\TimeShiftController.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAAAcwFUAAAAMAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAAAwwFcAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-24T11:54:04.855Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "EmployeeTimeShiftDTO.cs",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
               "RelativeDocumentMoniker": "web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",

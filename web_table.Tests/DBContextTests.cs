@@ -8,7 +8,7 @@ namespace web_table.Tests;
 public class DBContextTests : IDisposable
 {
     private readonly TimeShiftDBContext _context;
-    private readonly TimeShiftRepository _repo;
+    //private readonly TimeShiftRepository _repo;
 
     public DBContextTests()
     {
@@ -18,7 +18,7 @@ public class DBContextTests : IDisposable
         _context = new TimeShiftDBContext(options);
         _context.Database.EnsureCreated();
 
-        _repo = new TimeShiftRepository(_context);
+      //  _repo = new TimeShiftRepository(_context);
     }
 
     private Guid orgGuid = new Guid("C5DCDC10-1AD6-4F76-AC8A-BE6E4F169AAA");
