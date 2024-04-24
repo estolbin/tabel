@@ -5,7 +5,7 @@ public interface ITimeShiftRepository
     public Task<List<TimeShift>> GetTimeShiftsByPeriod(TimeShiftPeriod period);
     public Task<TimeShiftPeriod> GetTimeShiftsPeriodByDate(DateTime date);
     public Task<IEnumerable<TimeShiftPeriod>> GetAllPeriods();
-    
+
     public Task<TimeShiftPeriod> GetLastPeriod();
 
 
@@ -13,7 +13,7 @@ public interface ITimeShiftRepository
     public void RemoveTimeShiftPeriodByID(Guid id);
     public Task<Employee> GetEmployeeById(Guid id);
 
-    public Task<TimeShift> GetTimeShiftByEmpDate(Guid id,  DateTime date);
+    public Task<TimeShift> GetTimeShiftByEmpDate(Guid id, DateTime date);
 
     public void UpdateTimeShift(TimeShift timeShift);
 
@@ -26,7 +26,7 @@ public interface ITimeShiftRepository
 
     public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId);
 
-    public Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string  empLike);
+    public Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike);
     public Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids);
     public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids);
 }

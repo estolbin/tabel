@@ -4,8 +4,8 @@ namespace web_table.Web
 {
     internal static class DbInitializerExtension
     {
-        public static IApplicationBuilder UseItToSeedSqliteServer(this IApplicationBuilder app) 
-        { 
+        public static IApplicationBuilder UseItToSeedSqliteServer(this IApplicationBuilder app)
+        {
             ArgumentNullException.ThrowIfNull(app, nameof(app));
 
             using var scope = app.ApplicationServices.CreateScope();

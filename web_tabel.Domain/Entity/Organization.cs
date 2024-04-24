@@ -14,6 +14,6 @@ public class Organization : Entity
     {
         _name = name ?? throw new ArgumentNullException(nameof(name));
     }
-    
-    public Organization() {}
+
+    public Organization() { }
 }

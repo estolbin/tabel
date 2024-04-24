@@ -15,7 +15,7 @@ namespace web_table.Web
                 Value = valueSelector(x).ToString(),
                 Text = textSelector(x),
                 Selected = isSelected(valueSelector(x).ToString())
-            }); 
+            });
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using web_tabel.Domain;
 using web_table.Web.ViewModel;
-using System.Collections.Generic;
 
 namespace web_table.Web.Controllers
 {
@@ -19,8 +16,8 @@ namespace web_table.Web.Controllers
         {
             SetViewBagForSelect();
 
-            var currentTimeShift = await _service.GetCurrentTimeShift();
-            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift);
+            IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift();
+            var employeeTimeShiftList = EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift).Result;
             return View(employeeTimeShiftList);
         }
 
@@ -47,7 +44,7 @@ namespace web_table.Web.Controllers
 
             if (isDepartment)
             {
-                if (depId.Length == 0) 
+                if (depId.Length == 0)
                     return RedirectToAction("Index");
 
                 foreach (var item in depId)
@@ -59,7 +56,7 @@ namespace web_table.Web.Controllers
             }
             else if (isOrganization)
             {
-                if (orgId.Length == 0) 
+                if (orgId.Length == 0)
                     return RedirectToAction("Index");
 
                 foreach (var item in orgId)
@@ -86,7 +83,7 @@ namespace web_table.Web.Controllers
             }
 
             SetViewBagForSelect();
-            var result = await _service.GetTimeShiftByEmpLike(searchText);
+            var result = _service.GetTimeShiftByEmpLike(searchText).Result;
 
             if (result == null || result.ToList().Count < 1)
             {

@@ -17,10 +17,21 @@ public class TimeShiftDBContext : DbContext
     public DbSet<StaffSchedule> StaffSchedules { get; set; }
 
     public DbSet<TypeOfEmployment> TypeOfEmployments { get; set; }
-    
-    public TimeShiftDBContext(DbContextOptions<TimeShiftDBContext> options) : base(options) 
+
+    public TimeShiftDBContext(DbContextOptions<TimeShiftDBContext> options) : base(options)
     {
         this.ChangeTracker.LazyLoadingEnabled = true;
+    }
+
+    public TimeShiftDBContext()
+    {
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .UseLazyLoadingProxies()
+            .UseSqlite("Data Source=TimeShift.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

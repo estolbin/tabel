@@ -8,15 +8,15 @@ public class TimeShift : Entity
     public float HoursPlanned { get; set; }
     public float HoursWorked { get; set; }
 
-    public TimeShiftPeriod TimeShiftPeriod { get; set; }
+    public virtual TimeShiftPeriod TimeShiftPeriod { get; set; }
 
-    public Employee Employee { get; set; }
+    public virtual Employee Employee { get; set; }
 
-    public WorkSchedule WorkSchedule { get; set; }
+    public virtual WorkSchedule WorkSchedule { get; set; }
 
     public DateTime WorkDate { get; set; }
 
-    public TypeOfWorkingTime? TypeEmployment { get; set; }
+    public virtual TypeOfWorkingTime? TypeEmployment { get; set; }
 
     /// <summary>
     /// Конструктор записи табеля по сотруднику
@@ -28,19 +28,19 @@ public class TimeShift : Entity
     /// <param name="typeEmployment">Вид рабочего времени</param>
     /// <exception cref="Exception"></exception>
     public TimeShift(
-        TimeShiftPeriod timeShiftPeriod, 
-        Employee employee, 
-        WorkSchedule workSchedule, 
-        DateTime workDate, 
+        TimeShiftPeriod timeShiftPeriod,
+        Employee employee,
+        WorkSchedule workSchedule,
+        DateTime workDate,
         TypeOfWorkingTime typeEmployment)
     {
         if (timeShiftPeriod.Closed) throw new Exception("Закрытый период");
-        
+
         TimeShiftPeriod = timeShiftPeriod ?? throw new ArgumentNullException(nameof(timeShiftPeriod));
-        Employee = employee?? throw new ArgumentNullException(nameof(employee));
-        WorkSchedule = workSchedule?? throw new ArgumentNullException(nameof(workSchedule));
+        Employee = employee ?? throw new ArgumentNullException(nameof(employee));
+        WorkSchedule = workSchedule ?? throw new ArgumentNullException(nameof(workSchedule));
         WorkDate = workDate;
-        TypeEmployment = typeEmployment?? throw new ArgumentNullException(nameof(typeEmployment));
+        TypeEmployment = typeEmployment ?? throw new ArgumentNullException(nameof(typeEmployment));
         CalculatePlannedHours();
         //CheckTypeEmloyment();
     }
@@ -50,18 +50,20 @@ public class TimeShift : Entity
         if (HoursPlanned > 0)
         {
             if (TypeEmployment == null) TypeEmployment = TypeOfWorkingTime.GetWorkType();
-        } else
+        }
+        else
         {
             if (TypeEmployment != TypeOfWorkingTime.GetWeekend()) TypeEmployment = TypeOfWorkingTime.GetWeekend();
         }
     }
 
-    public TimeShift() {}
+    public TimeShift() { }
     public void CalculatePlannedHours()
     {
         HoursPlanned = WorkSchedule.GetHoursByDate(WorkDate, TypeEmployment);
     }
-    
-    public TimeShift(TimeShiftPeriod period, Employee employee, DateTime workDate) : 
-        this(period, employee, employee.WorkSchedule, workDate, employee.TypeEmployment) {}
+
+    public TimeShift(TimeShiftPeriod period, Employee employee, DateTime workDate) :
+        this(period, employee, employee.WorkSchedule, workDate, employee.TypeEmployment)
+    { }
 }

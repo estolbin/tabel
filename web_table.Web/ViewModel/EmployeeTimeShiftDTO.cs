@@ -15,7 +15,7 @@ namespace web_table.Web.ViewModel
 
         public List<TypeOfWorkingTime> Types { get; set; } = new List<TypeOfWorkingTime>();
 
-        public string PositionName {  get; set; }
+        public string PositionName { get; set; }
 
         public string WorkScheduleName { get; set; }
 
@@ -23,17 +23,16 @@ namespace web_table.Web.ViewModel
 
         public EmployeeTimeShiftDTO() { }
 
-        public async static Task<IEnumerable<EmployeeTimeShiftDTO>> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts) 
+        public async static Task<IEnumerable<EmployeeTimeShiftDTO>> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts)
         {
-            var employeeTimeShiftDTOs = new List<EmployeeTimeShiftDTO>();
+            var employeeTimeShifts = new List<EmployeeTimeShiftDTO>();
 
-            // TODO: need to include all fields
-            var distinctEmployees = timeShifts.Select(ts => ts.Employee).Distinct().ToList();
-            await Task.WhenAll(distinctEmployees.Select(async employee =>
+            // TODO: select distinct employees from list
+            IEnumerable<Employee> employees = timeShifts.Select(ts => ts.Employee).Distinct();
+            foreach (var employee in employees)
             {
-                var employeeTimeShiftDTO = new EmployeeTimeShiftDTO
+                var employeeTimeShift = new EmployeeTimeShiftDTO
                 {
-
                     EmployeeName = employee.Name.FullName,
                     EmployeeId = employee.Id,
                     PositionName = employee.StaffSchedule.Position.Name,
@@ -43,15 +42,17 @@ namespace web_table.Web.ViewModel
                     TypeOfEmp = employee.TypeOfEmployment.Name
                 };
 
-                var employeeTimeShifts = timeShifts.Where(ts => ts.Employee == employee).OrderBy(ts => ts.WorkDate).ToList();
-                employeeTimeShiftDTO.HoursWorked.AddRange(employeeTimeShifts.Select(ts => ts.HoursWorked));
-                employeeTimeShiftDTO.HoursPlanned.AddRange(employeeTimeShifts.Select(ts => ts.HoursPlanned));
-                employeeTimeShiftDTO.Dates.AddRange(employeeTimeShifts.Select(ts => ts.WorkDate));
-                employeeTimeShiftDTO.Types.AddRange(employeeTimeShifts.Select(ts => ts.TypeEmployment));
+                var employeeTimeShiftsList = timeShifts.Where(ts => ts.Employee == employee).OrderBy(ts => ts.WorkDate);
+                employeeTimeShift.HoursWorked.AddRange(employeeTimeShiftsList.Select(ts => ts.HoursWorked));
+                employeeTimeShift.HoursPlanned.AddRange(employeeTimeShiftsList.Select(ts => ts.HoursPlanned));
+                employeeTimeShift.Dates.AddRange(employeeTimeShiftsList.Select(ts => ts.WorkDate));
+                employeeTimeShift.Types.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmployment));
 
-                employeeTimeShiftDTOs.Add(employeeTimeShiftDTO);
-            }));
-            return employeeTimeShiftDTOs;
+                employeeTimeShifts.Add(employeeTimeShift);
+            };
+
+            return employeeTimeShifts;
+
         }
     }
 }

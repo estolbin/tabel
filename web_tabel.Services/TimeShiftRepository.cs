@@ -9,7 +9,7 @@ public class TimeShiftRepository : ITimeShiftRepository
     private readonly TimeShiftDBContext _context;
 
     public TimeShiftRepository(TimeShiftDBContext context) => _context = context;
-    
+
     public async Task<List<TimeShift>> GetTimeShiftsByPeriod(TimeShiftPeriod period)
     {
         return await _context.TimeShifts

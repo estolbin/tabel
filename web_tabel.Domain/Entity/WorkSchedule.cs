@@ -44,7 +44,7 @@ public class WorkSchedule : Entity
             _name = value;
         }
     }
-    
+
     private float _hoursOfWork;
     /// <summary>
     /// Длительность рабочей недели в часах 
@@ -57,6 +57,6 @@ public class WorkSchedule : Entity
 
     public float GetHoursByDate(DateTime workDate, TypeOfWorkingTime typeEmployment)
     {
-        return _hoursByDayNumbers.ContainsKey((int) workDate.DayOfWeek) ? _hoursByDayNumbers[(int) workDate.DayOfWeek] : 0f;
+        return _hoursByDayNumbers.ContainsKey((int)workDate.DayOfWeek) ? _hoursByDayNumbers[(int)workDate.DayOfWeek] : 0f;
     }
 }

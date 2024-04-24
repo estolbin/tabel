@@ -8,11 +8,13 @@ D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_table.Tests.deps.json
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_table.Tests.runtimeconfig.json
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_table.Tests.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_table.Tests.pdb
+D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Castle.Core.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
@@ -37,6 +39,7 @@ D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\NuGet.Frameworks.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\SQLitePCLRaw.core.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll
+D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\xunit.abstractions.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\xunit.assert.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\xunit.core.dll
@@ -126,6 +129,8 @@ D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\runtimes\win-arm\native\e_sqli
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_tabel.Domain.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_tabel.Services.dll
 D:\code\vm_tabel\web_table.Tests\bin\Debug\net8.0\web_tabel.Domain.pdb

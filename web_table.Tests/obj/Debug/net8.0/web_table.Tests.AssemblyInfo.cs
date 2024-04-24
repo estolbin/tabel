@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("web_table.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbcec66672d2759d5e20c17bbf3f325eb786f8da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2db62e94309c225bac4cb54558bd7d51cf6cf64")]
 [assembly: System.Reflection.AssemblyProductAttribute("web_table.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("web_table.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

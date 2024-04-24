@@ -8,27 +8,27 @@ public class Employee : Entity
     /// <summary>
     /// Полные фаилия, имя, отчество. Без сокращений.
     /// </summary>
-    public EmployeeName Name {  get; set; }
+    public virtual EmployeeName Name { get; set; }
 
-    public Organization Organization {  get; set; }
+    public virtual Organization Organization { get; set; }
 
-    public Department Department { get; set; }
+    public virtual Department Department { get; set; }
 
-    
+
     /// <summary>
     /// Должность по штатному расписанию.
     /// </summary>
-    public StaffSchedule StaffSchedule {  get; set; }
+    public virtual StaffSchedule StaffSchedule { get; set; }
 
     /// <summary>
     /// Вид рабочего времени
     /// </summary>
-    public TypeOfWorkingTime TypeEmployment {  get; set; }
+    public virtual TypeOfWorkingTime TypeEmployment { get; set; }
 
     /// <summary>
     /// Вид занятости (основное место работы, совместительство)
     /// </summary>
-    public TypeOfEmployment TypeOfEmployment { get; set; }
+    public virtual TypeOfEmployment TypeOfEmployment { get; set; }
 
     public Employee(EmployeeName name, Organization organization, Department department, StaffSchedule staffSchedule)
     {
@@ -43,6 +43,6 @@ public class Employee : Entity
     }
 
 
-    public WorkSchedule WorkSchedule {  get; set; }
+    public virtual WorkSchedule WorkSchedule { get; set; }
 }
 

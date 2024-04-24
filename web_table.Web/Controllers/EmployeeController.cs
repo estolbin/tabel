@@ -7,8 +7,8 @@ namespace web_table.Web.Controllers
     {
         private readonly ITimeShiftService _service;
 
-        public EmployeeController(ITimeShiftService service) 
-        { 
+        public EmployeeController(ITimeShiftService service)
+        {
             _service = service;
         }
 

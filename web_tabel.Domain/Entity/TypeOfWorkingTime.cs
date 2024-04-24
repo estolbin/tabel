@@ -11,20 +11,20 @@ public class TypeOfWorkingTime
     {
         Name = name ?? throw new ArgumentNullException("Name can't be empty");
     }
-    
-    public TypeOfWorkingTime() {}
+
+    public TypeOfWorkingTime() { }
 
     public TypeOfWorkingTime(string name, string description) : this(name)
     {
-        Description = description?? throw new ArgumentNullException("Description can't be empty");
+        Description = description ?? throw new ArgumentNullException("Description can't be empty");
     }
-    
+
     public string Description { get; set; }
 
     public override bool Equals(object? obj)
     {
         if (obj is null) return false;
-        
+
         if (obj is TypeOfWorkingTime other)
         {
             return this.Name == other.Name;

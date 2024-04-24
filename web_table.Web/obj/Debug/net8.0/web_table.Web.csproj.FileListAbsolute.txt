@@ -6,6 +6,7 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.deps.json
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.runtimeconfig.json
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.pdb
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Castle.Core.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Humanizer.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -16,6 +17,7 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll

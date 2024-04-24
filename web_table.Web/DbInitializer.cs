@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using web_tabel.Domain;
+﻿using web_tabel.Domain;
 using web_tabel.Services.TimeShiftContext;
 
 namespace web_table.Web
@@ -47,7 +45,7 @@ namespace web_table.Web
 
             var name = new EmployeeName("Иванов Иван Иванович");
             var emp = new Employee(name, org, dep, staff);
-            emp.TypeEmployment  = te;
+            emp.TypeEmployment = te;
             emp.WorkSchedule = workSchedule;
             emp.TypeOfEmployment = addType;
 

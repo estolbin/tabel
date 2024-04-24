@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using web_tabel.Domain;
 
 namespace web_table.Web.Controllers
@@ -43,7 +42,7 @@ namespace web_table.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(TimeShiftPeriod period)
         {
-            
+
             _service.AddPeriod(period);
 
             try
@@ -83,7 +82,7 @@ namespace web_table.Web.Controllers
             if (_service.RemovePeriodById(id))
             {
                 ViewBag.Message = $"Период с идентификатором {id} удален.";
-            } 
+            }
             else
             {
                 ViewBag.Message = "Ошибка удаления";
