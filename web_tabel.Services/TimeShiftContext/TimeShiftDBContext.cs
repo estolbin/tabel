@@ -14,7 +14,6 @@ public class TimeShiftDBContext : DbContext
     public DbSet<TypeOfWorkingTime> TypeEmployments { get; set; }
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<Department> Departments { get; set; }
-    public DbSet<Position> Positions { get; set; }
     public DbSet<StaffSchedule> StaffSchedules { get; set; }
 
     public DbSet<TypeOfEmployment> TypeOfEmployments { get; set; }

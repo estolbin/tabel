@@ -73,8 +73,9 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default)
     {
+        var periods = unitOfWork.TimeShiftPeriodRepository.GetAll();
 
-        var period = unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => !x.Closed);
+        var period = periods.OrderByDescending(x => x.End).FirstOrDefault();
         return unitOfWork.TimeShiftRepository.Get(x => x.TimeShiftPeriod == period);
 
         //var period = _repository.GetLastPeriod().Result;

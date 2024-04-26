@@ -21,6 +21,15 @@ builder.Services.AddScoped<DbInitializer>();
 builder.Services.AddScoped<ITimeShiftService, TimeShiftService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".web_table.Session";
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.IsEssential = true;
+    options.Cookie.HttpOnly = true;
+});
+
 var app = builder.Build();
 
 app.UseItToSeedSqliteServer();
@@ -34,6 +43,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 

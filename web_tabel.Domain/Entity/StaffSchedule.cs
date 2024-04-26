@@ -10,8 +10,6 @@ public class StaffSchedule : Entity
 
     public virtual Department Department { get; set; }
 
-    public virtual Position Position { get; set; }
-
     public Guid? ParentId { get; set; }
 
     /// <summary>
@@ -26,11 +24,10 @@ public class StaffSchedule : Entity
 
     public virtual WorkSchedule WorkSchedule { get; set; }
 
-    public StaffSchedule(Organization organization, Department department, Position position, WorkSchedule workSchedule, string name)
+    public StaffSchedule(Organization organization, Department department, WorkSchedule workSchedule, string name)
     {
         Organization = organization ?? throw new ArgumentNullException(nameof(organization));
         Department = department ?? throw new ArgumentNullException(nameof(department));
-        Position = position ?? throw new ArgumentNullException(nameof(position));
         WorkSchedule = workSchedule ?? throw new ArgumentNullException(nameof(workSchedule));
         Name = name ?? throw new ArgumentNullException(nameof(name));
     }

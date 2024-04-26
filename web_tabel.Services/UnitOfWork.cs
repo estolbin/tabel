@@ -15,7 +15,6 @@ namespace web_tabel.Services
         private GenericRepository<Employee> _employeeRepository;
         private GenericRepository<EmployeeName> _employeeNameRepository;
         private GenericRepository<Organization> _organizationRepository;
-        private GenericRepository<Position> _positionRepository;    
         private GenericRepository<StaffSchedule> _staffScheduleRepository;
         private GenericRepository<TimeShift> _timeShiftRepository;
         private GenericRepository<TimeShiftPeriod> _timeShiftPeriodRepository;
@@ -27,7 +26,6 @@ namespace web_tabel.Services
         public GenericRepository<Employee> EmployeeRepository => _employeeRepository ??= new(_context);
         public GenericRepository<EmployeeName> EmployeeNameRepository => _employeeNameRepository ??= new(_context);
         public GenericRepository<Organization> OrganizationRepository => _organizationRepository ??= new(_context);
-        public GenericRepository<Position> PositionRepository => _positionRepository ??= new(_context);
         public GenericRepository<StaffSchedule> StaffScheduleRepository => _staffScheduleRepository ??= new(_context);
         public GenericRepository<TimeShift> TimeShiftRepository => _timeShiftRepository ??= new(_context);
         public GenericRepository<TimeShiftPeriod> TimeShiftPeriodRepository => _timeShiftPeriodRepository ??= new(_context);
