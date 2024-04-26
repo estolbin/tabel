@@ -1,5 +1,8 @@
 namespace web_tabel.Domain;
 
+/// <summary>
+/// Период, за который заполняем табель
+/// </summary>
 public class TimeShiftPeriod : Entity
 {
     public DateTime Start { get; set; }

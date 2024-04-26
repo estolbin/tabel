@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using web_tabel.Domain;
 
 namespace web_tabel.Services.TimeShiftContext;
@@ -29,9 +30,15 @@ public class TimeShiftDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .Build();
+
         optionsBuilder
             .UseLazyLoadingProxies()
-            .UseSqlite("Data Source=TimeShift.db");
+            .UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            //.UseSqlite("Data Source=TimeShift.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
