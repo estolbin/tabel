@@ -14,6 +14,18 @@ namespace web_table.Web.Controllers
             _unitOfWork = new UnitOfWork();
         }
 
+        private async Task<Guid> GetGuidFromSession()
+        {
+            var periodId = HttpContext.Session.GetString("SessionPeriodId");
+            // if periodId == null, we must take last period
+            var dbPeriod = _unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => x.Name != null);
+            if (periodId == null)
+            {
+                periodId = dbPeriod.Id.ToString();
+            };
+            return periodId == null ? Guid.Empty : new Guid(periodId);
+        }
+
         /// <summary>
         /// Список всех периодов
         /// </summary>
@@ -78,6 +90,26 @@ namespace web_table.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<IActionResult> FillPeriod(string periodId)
+        {
+            var period = _unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => x.Id == new Guid(periodId));
+            var employees = _unitOfWork.EmployeeRepository.GetAll();
+            
+            foreach (var employee in employees)
+            {
+                //TODO: set Type of working time
+                var listTimeShift = period.FilllTimeShiftPlan(employee).Select(x => { 
+                    x.TypeEmployment = _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefault(n => n.Name == x.TypeEmployment.Name);
+                    return x;
+                 });
+                _unitOfWork.TimeShiftRepository.AddRange(listTimeShift);
+            }
+            _unitOfWork.Save();
+
+            //return Task.FromResult((IActionResult)Ok());
+            return RedirectToAction(nameof(Index));
         }
 
    

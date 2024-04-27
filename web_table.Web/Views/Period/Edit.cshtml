@@ -1,19 +1,26 @@
 ﻿@model web_tabel.Domain.TimeShiftPeriod;
 
 @{
-    Layout = "_Layout";
+    Layout = null;
 }
-
-@Html.BeginForm("Edit", "Period", FormMethod.Post)
-{
-    @Html.HiddenFor(m => m.Id)
-    @Html.LabelFor(m => m.Name)
-    @Html.EditorFor(m => m.Name)
-
-    @Html.LabelFor(m => m.Start)
-    @Html.EditorFor(m => m.Start)
-
-    @Html.LabelFor(m => m.End)
-    @Html.EditorFor(m => m.End)
-
-}
+<div class="row">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Наименование</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Start" class="control-label">Дата начала</label>
+            <input asp-for="Start" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="End" class="control-label">Дата окончания</label>
+            <input asp-for="End" class="form-control"/>
+        </div>
+        <div class="form-group mt-3">
+            <a asp-action="FillPeriod" asp-controller="Period" class="btn btn-outline-secondary" asp-route-periodId="@Model.Id">Заполнить период</a>
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

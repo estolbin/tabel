@@ -45,5 +45,6 @@ public class TimeShiftDBContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<TypeOfWorkingTime>()
             .HasKey(t => new { t.Name });
+
     }
 }

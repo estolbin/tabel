@@ -5,6 +5,9 @@ namespace web_tabel.Domain;
 /// </summary>
 public class TimeShift : Entity
 {
+    private static TypeOfWorkingTime _workType = TypeOfWorkingTime.GetWorkType();
+    private static TypeOfWorkingTime _weekendType = TypeOfWorkingTime.GetWeekend();
+
     public float HoursPlanned { get; set; }
     public float HoursWorked { get; set; }
 
@@ -12,10 +15,16 @@ public class TimeShift : Entity
 
     public virtual Employee Employee { get; set; }
 
+    /// <summary>
+    /// График работы сотрудника
+    /// </summary>
     public virtual WorkSchedule WorkSchedule { get; set; }
 
     public DateTime WorkDate { get; set; }
 
+    /// <summary>
+    /// Вид рабочего времени
+    /// </summary>
     public virtual TypeOfWorkingTime? TypeEmployment { get; set; }
 
     /// <summary>
@@ -41,26 +50,27 @@ public class TimeShift : Entity
         WorkSchedule = workSchedule ?? throw new ArgumentNullException(nameof(workSchedule));
         WorkDate = workDate;
         TypeEmployment = typeEmployment ?? throw new ArgumentNullException(nameof(typeEmployment));
-        CalculatePlannedHours();
-        //CheckTypeEmloyment();
+        CheckTypeEmloyment();
     }
 
     private void CheckTypeEmloyment()
     {
+        HoursPlanned = GetPlannedHours(WorkDate);
         if (HoursPlanned > 0)
         {
-            if (TypeEmployment == null) TypeEmployment = TypeOfWorkingTime.GetWorkType();
+            if (TypeEmployment == null) TypeEmployment = _workType;
         }
         else
         {
-            if (TypeEmployment != TypeOfWorkingTime.GetWeekend()) TypeEmployment = TypeOfWorkingTime.GetWeekend();
+            if (TypeEmployment != TypeOfWorkingTime.GetWeekend()) TypeEmployment = _weekendType;
         }
     }
 
     public TimeShift() { }
-    public void CalculatePlannedHours()
+
+    public float GetPlannedHours(DateTime day, TypeOfWorkingTime? work = null, TypeOfWorkingTime? weekend = null)
     {
-        HoursPlanned = WorkSchedule.GetHoursByDate(WorkDate, TypeEmployment);
+        return WorkSchedule.GetHoursByDate(WorkDate, TypeEmployment);
     }
 
     public TimeShift(TimeShiftPeriod period, Employee employee, DateTime workDate) :

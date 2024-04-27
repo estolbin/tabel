@@ -10,7 +10,7 @@ namespace web_tabel.Services
 {
     public class UnitOfWork : IDisposable
     {
-        private TimeShiftDBContext _context = new();
+        private readonly TimeShiftDBContext _context = new();
         private GenericRepository<Department> _departmentRepository;
         private GenericRepository<Employee> _employeeRepository;
         private GenericRepository<EmployeeName> _employeeNameRepository;

@@ -57,5 +57,10 @@ namespace web_tabel.Services
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }
+
+        public void AddRange(IEnumerable<T> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
     }
 }

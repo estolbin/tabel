@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace web_tabel.Domain;
 
 /// <summary>
@@ -5,10 +7,16 @@ namespace web_tabel.Domain;
 /// </summary>
 public class TimeShiftPeriod : Entity
 {
+    [DataType(DataType.Date)]
+    [Display(Name = "Начало периода")]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateTime Start { get; set; }
+    [DataType(DataType.Date)]
+    [Display(Name = "Конец периода")]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateTime End { get; set; }
     public bool Closed { get; set; }
-
+    [Display(Name = "Наименование")]
     public string Name { get; set; }
 
     public TimeShiftPeriod(string name, DateTime start, DateTime end, bool closed = false)
@@ -42,12 +50,17 @@ public class TimeShiftPeriod : Entity
         return result;
     }
 
-    public void FilllTimeShiftPlan(Employee employee)
+    public IEnumerable<TimeShift> FilllTimeShiftPlan(Employee employee)
     {
         List<TimeShift> shifts = new();
-        foreach (var day in GetAllDaysInPeriod())
+        foreach (var day in GetAllDaysInPeriod(true))
         {
-            shifts.Add(new TimeShift(this, employee, day));
+            var ts = new TimeShift(this, employee, day);
+            ts.HoursPlanned = ts.GetPlannedHours(day);
+
+            shifts.Add(ts);
         }
+
+        return shifts.AsEnumerable();
     }
 }
