@@ -10,3 +10,11 @@
 /.vs/web_tabel.sln/FileContentIndex/eb6dc7c8-207b-4ecd-9784-eed7545e295a.vsidx
 /.vs/web_tabel.sln/FileContentIndex
 /web_table.Web/time_shift.db-shm
+/web_tabel.API/obj/Debug/net8.0/web_tabel.API.AssemblyInfo.cs
+/web_tabel.API/obj/Debug/net8.0/web_tabel.API.AssemblyInfoInputs.cache
+/web_tabel.API/obj/Debug/net8.0/web_tabel.API.csproj.AssemblyReference.cache
+/web_tabel.Domain/obj/Debug/net8.0/web_tabel.Domain.AssemblyInfo.cs
+/web_tabel.Domain/obj/Debug/net8.0/web_tabel.Domain.AssemblyInfoInputs.cache
+/web_table.Web/obj/Debug/net8.0/web_table.Web.AssemblyInfo.cs
+/web_table.Web/obj/Debug/net8.0/web_table.Web.AssemblyInfoInputs.cache
+/web_table.Web/obj/Debug/net8.0/web_table.Web.csproj.AssemblyReference.cache
