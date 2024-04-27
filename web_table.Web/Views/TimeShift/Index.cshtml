@@ -13,6 +13,7 @@
     int datesCol = dts.Count;
 }
 
+
 <div class="row mb-3">
     <div class="col-md-6 inline">
         <div id="FormDiv">
@@ -64,7 +65,7 @@
             {
                 if (Model.Where(x => x.OrganizationId == org.Id.ToString()).ToList().Count == 0) continue;
 
-                @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
+                                            @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
                 {
                     { "colSpan", datesCol+3},
                     { "header", "h3" },
@@ -80,16 +81,16 @@
                     var empByDep = empByOrg.Where(x => x.DepartmentId == d.Id.ToString());
                     if (empByDep.Count() == 0) continue;
 
-                    @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
+                                                @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
                     {
                         { "colSpan", datesCol+3},
                         { "header", "h5" },
                         { "Name", d.Name }
                     });
                     
-                    @foreach (var emp in empByDep)
+                                                @foreach (var emp in empByDep)
                     {
-                        @Html.Partial("_EmployeeTimeShift", emp);
+                                                    @Html.Partial("_EmployeeTimeShift", emp);
                     }
                 }
 
@@ -100,5 +101,29 @@
     </tbody>
 </table>
 
+@Html.Partial("Error")
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+        function ShowErrorModal(errorMessage) {
+            let MessageBody = document.getElementById('ErrorModalBody');
+            MessageBody.innerHTML = errorMessage;
+            if (errorMessage.length > 0) { 
+                $('#ErrorModal').modal('show');
+            }
+        }
+
+
+        $(document).ready(function () {
+            var msg = "@TempData["ErrorMessage"]";
+            if (msg && msg.length > 0){
+                ShowErrorModal(msg);
+            }
+        });
+    </script>
+}
 
 

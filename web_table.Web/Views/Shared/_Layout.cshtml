@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json
+@using web_tabel.Domain
+@{
+    var selectedPeriodString = Context.Session.GetString("SessionPeriodId");
+    Guid selectedPeriod = selectedPeriodString == null ? Guid.Empty : new Guid(selectedPeriodString);
+    string periodsJson = Context.Session.GetString("SessionPeriods");
+    List<TimeShiftPeriod> periods = string.IsNullOrEmpty(periodsJson) ? new List<TimeShiftPeriod>() : JsonConvert.DeserializeObject<List<TimeShiftPeriod>>(periodsJson); 
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,6 +37,11 @@
                         </li>
                     </ul>
                 </div>
+                <div class="d-flex align-items-center flex-nowrap me-3">
+                    <select id="select_period" class="nav-item form-select" asp-items="@(new SelectList(periods, "Id", "Name", selectedPeriod))">
+                        <option value="">Выберите период</option>
+                    </select>
+                </div>
                 <form class="d-flex align-items-center flex-nowrap" asp-controller="TimeShift" asp-action="Search">
                     <input name="searchText" class="form-control" type="search" placeholder="Search" aria-label="Search" value="@TempData["SearchString"]" />
                     <div class="input-group-append">
@@ -42,7 +57,7 @@
         </main>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="form-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -1,0 +1,14 @@
+﻿<div class="row">
+    <div class="col">
+        @using (Html.BeginForm("Index", "TimeShift"))
+        {
+            <select id="periodList" class="form-select" name="periodId">
+                @foreach (var p in ViewBag.Periods)
+                {
+                    <option selected="@p.Selected" value="@p.Value">@p.Text</option>
+                }
+            </select>
+            <input type="submit" value="Отбор" class="btn btn-primary d-inline-block" />
+        }
+    </div>
+</div>

@@ -27,7 +27,7 @@
                 <td>@item.End.ToString("dd.MM.yyyy")</td>
                 <td>@(item.Closed ? "Закрыт" : "Открыт")</td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
                 </td>
             </tr>
         }

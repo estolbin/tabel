@@ -29,14 +29,13 @@ namespace web_table.Web
 
 
             var dep = new Department("Тестовое подразделение", org);
-            var pos = new Position("Должность", org, dep);
             var workSchedule = new WorkSchedule()
             {
                 Id = depGuid,
                 Name = "Тестовая пятидневка",
                 HoursOfWork = 40f
             };
-            var staff = new StaffSchedule(org, dep, pos, workSchedule, "Штатное расписание");
+            var staff = new StaffSchedule(org, dep, workSchedule, "Штатное расписание");
 
             var te = new TypeOfWorkingTime("РВ", "Рабочее время");
             var te1 = new TypeOfWorkingTime("ВХ", "Выходной");
@@ -51,7 +50,6 @@ namespace web_table.Web
 
             dbContext.Organizations.Add(org);
             dbContext.Departments.Add(dep);
-            dbContext.Positions.Add(pos);
             dbContext.WorkSchedules.Add(workSchedule);
             dbContext.StaffSchedules.Add(staff);
             dbContext.EmployeeNames.Add(name);
@@ -74,13 +72,11 @@ namespace web_table.Web
 
             var org1 = new Organization() { Id = new Guid(), Name = "ООО Ромашка" };
             var dep1 = new Department() { Id = new Guid(), Name = "Дирекция", Organization = org1 };
-            var pos1 = new Position() { Id = new Guid(), Name = "ДиреХтор", Organization = org1, Department = dep1 };
 
             dbContext.Organizations.Add(org1);
             dbContext.Departments.Add(dep1);
-            dbContext.Positions.Add(pos1);
 
-            var staff1 = new StaffSchedule() { Id = new Guid(), Name = "Test", Organization = org1, Department = dep1, Position = pos1, WorkSchedule = workSchedule };
+            var staff1 = new StaffSchedule() { Id = new Guid(), Name = "Test", Organization = org1, Department = dep1, WorkSchedule = workSchedule };
             var name1 = new EmployeeName("Сидоров Макар Ромашкович");
             var emp1 = new Employee(name1, org1, dep1, staff1);
             emp1.TypeEmployment = te;
@@ -104,13 +100,11 @@ namespace web_table.Web
 
             //org1 = new Organization() { Id = new Guid(), Name = "ООО Ромашка" };
             //var dep1 = new Department() { Id = new Guid(), Name = "Дирекция", Organization = org1 };
-            pos1 = new Position() { Id = new Guid(), Name = "Главный бухгалтер", Organization = org1, Department = dep1 };
 
             //dbContext.Organizations.Add(org1);
             //dbContext.Departments.Add(dep1);
-            dbContext.Positions.Add(pos1);
 
-            staff1 = new StaffSchedule() { Id = new Guid(), Name = "Главный бухгалтер/Администрация", Organization = org1, Department = dep1, Position = pos1, WorkSchedule = workSchedule };
+            staff1 = new StaffSchedule() { Id = new Guid(), Name = "Главный бухгалтер/Администрация", Organization = org1, Department = dep1, WorkSchedule = workSchedule };
             name1 = new EmployeeName("Романова Виктория Александровна");
             emp1 = new Employee(name1, org1, dep1, staff1);
             emp1.TypeEmployment = te;
@@ -133,13 +127,11 @@ namespace web_table.Web
             // fourth employee
             //org1 = new Organization() { Id = new Guid(), Name = "ООО Ромашка" };
             dep1 = new Department() { Id = new Guid(), Name = "Бухгалтерия", Organization = org1 };
-            pos1 = new Position() { Id = new Guid(), Name = "Бухгалтер-расчетчик", Organization = org1, Department = dep1 };
 
             //dbContext.Organizations.Add(org1);
             dbContext.Departments.Add(dep1);
-            dbContext.Positions.Add(pos1);
 
-            staff1 = new StaffSchedule() { Id = new Guid(), Name = "Бухгалтер-расчетчик/Бухгалтерия", Organization = org1, Department = dep1, Position = pos1, WorkSchedule = workSchedule };
+            staff1 = new StaffSchedule() { Id = new Guid(), Name = "Бухгалтер-расчетчик/Бухгалтерия", Organization = org1, Department = dep1, WorkSchedule = workSchedule };
             name1 = new EmployeeName("Константинова Зинаида Вячеславовна");
             emp1 = new Employee(name1, org1, dep1, staff1);
             emp1.TypeEmployment = te;

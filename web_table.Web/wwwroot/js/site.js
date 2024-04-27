@@ -24,3 +24,19 @@ $('tr[id^="org_"').click(function () {
     const id = $(this).attr("id").replace("org_", "");
     $(".organization_" + id).toggle();
 })
+
+$('#select_period').change(function () {
+    const period = $(this).val();
+    //alert(period)
+    $.ajax({
+        url: '/TimeShift/SavePeriodId',
+        type: 'POST',
+        data: { periodId: period },
+        success: function (response) {
+            //window.location.reload();
+            window.location.href = '/TimeShift/Index';
+        }
+    })
+})
+
+

@@ -21,6 +21,8 @@ namespace web_table.Web.ViewModel
 
         public string TypeOfEmp { get; set; }
 
+        public string Period {  get; set; }
+
         public EmployeeTimeShiftDTO() { }
 
         public async static Task<IEnumerable<EmployeeTimeShiftDTO>> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts)
@@ -35,11 +37,12 @@ namespace web_table.Web.ViewModel
                 {
                     EmployeeName = employee.Name.FullName,
                     EmployeeId = employee.Id,
-                    PositionName = employee.StaffSchedule.Position.Name,
+                    PositionName = employee.StaffSchedule.Name,
                     WorkScheduleName = employee.WorkSchedule.Name,
                     OrganizationId = employee.Organization.Id.ToString(),
                     DepartmentId = employee.Department.Id.ToString(),
-                    TypeOfEmp = employee.TypeOfEmployment.Name
+                    TypeOfEmp = employee.TypeOfEmployment.Name,
+                    Period = timeShifts.FirstOrDefault(ts => ts.Employee == employee)?.TimeShiftPeriod.Name
                 };
 
                 var employeeTimeShiftsList = timeShifts.Where(ts => ts.Employee == employee).OrderBy(ts => ts.WorkDate);

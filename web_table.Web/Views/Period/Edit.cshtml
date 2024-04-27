@@ -1,0 +1,19 @@
+﻿@model web_tabel.Domain.TimeShiftPeriod;
+
+@{
+    Layout = "_Layout";
+}
+
+@Html.BeginForm("Edit", "Period", FormMethod.Post)
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.LabelFor(m => m.Name)
+    @Html.EditorFor(m => m.Name)
+
+    @Html.LabelFor(m => m.Start)
+    @Html.EditorFor(m => m.Start)
+
+    @Html.LabelFor(m => m.End)
+    @Html.EditorFor(m => m.End)
+
+}
