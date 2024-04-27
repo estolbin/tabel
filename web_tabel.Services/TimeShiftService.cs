@@ -71,16 +71,21 @@ public class TimeShiftService : ITimeShiftService
 
     }
 
-    public async Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default)
+
+    // TODO Refactor this method
+    public async Task<IEnumerable<TimeShift>> GetCurrentTimeShift(Guid? periodId = null, CancellationToken token = default)
     {
-        var periods = unitOfWork.TimeShiftPeriodRepository.GetAll();
+        IEnumerable<TimeShiftPeriod> periods = new List<TimeShiftPeriod>();
+        if (periodId == null || periodId == Guid.Empty)
+        {
+            periods = unitOfWork.TimeShiftPeriodRepository.GetAll();
+        } else
+        {
+            periods = unitOfWork.TimeShiftPeriodRepository.Get(x => x.Id == periodId);
+        }
 
         var period = periods.OrderByDescending(x => x.End).FirstOrDefault();
         return unitOfWork.TimeShiftRepository.Get(x => x.TimeShiftPeriod == period);
-
-        //var period = _repository.GetLastPeriod().Result;
-        //var list = await _repository.GetTimeShiftsByPeriod(period);
-        //return list;
     }
 
     public async Task<Employee> GetEmployeeById(Guid id)
@@ -89,19 +94,26 @@ public class TimeShiftService : ITimeShiftService
         return unitOfWork.EmployeeRepository.Get(x => x.Id == id).FirstOrDefault();
     }
 
-    public async Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, CancellationToken token = default)
+    public async Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, Guid? periodId = null,  CancellationToken token = default)
     {
         //return await _repository.GetTimeShiftByEmpDate(id, date);
         var employee = unitOfWork.EmployeeRepository.Get(x => x.Id == id).FirstOrDefault();
-        var period = unitOfWork.TimeShiftPeriodRepository.Get(x => x.Start <= date && x.End >= date).LastOrDefault();
-        return unitOfWork.TimeShiftRepository.Get(x => x.Employee == employee && x.TimeShiftPeriod == period).LastOrDefault();
+        TimeShiftPeriod period;
+        if (periodId == null || periodId == Guid.Empty)
+        {
+            period = unitOfWork.TimeShiftPeriodRepository.Get(x => x.Start <= date && x.End >= date).LastOrDefault();
+        } else
+        {
+            period = unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => x.Id == periodId);
+        }
+        return unitOfWork.TimeShiftRepository.Get(x => x.Employee == employee && x.TimeShiftPeriod == period && x.WorkDate == date).LastOrDefault();
     }
 
     public void UpdateTimeShift(TimeShift timeShift)
     {
         //_repository.UpdateTimeShift(timeShift);
         unitOfWork.TimeShiftRepository.Update(timeShift);
-
+        unitOfWork.Save();
     }
 
 

@@ -14,6 +14,18 @@ namespace web_table.Web.Controllers
 
         public TimeShiftController(ITimeShiftService service) => _service = service;
 
+        private async Task<Guid> GetGuidFromSession()
+        {
+            var periodId = HttpContext.Session.GetString("SessionPeriodId");
+            // if periodId == null, we must take last period
+            var dbPeriod = await _service.GetLastPeriod();
+            if (periodId == null)
+            {
+                periodId = dbPeriod.Id.ToString();
+            };
+            return periodId == null ? Guid.Empty : new Guid(periodId);
+        }
+
         public async Task<IActionResult> Index()
         {
             SetViewBagForSelect();
@@ -22,11 +34,11 @@ namespace web_table.Web.Controllers
             string periodsJson = JsonConvert.SerializeObject(periods);
             HttpContext.Session.SetString("SessionPeriods", periodsJson);
 
-
-            IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift();
+            var periodId = GetGuidFromSession().Result;
+            IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift(periodId);
             if (currentTimeShift == null || !currentTimeShift.Any()) return View("Clean");
             var employeeTimeShiftList = EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift).Result;
-            return View(employeeTimeShiftList);
+            return View(employeeTimeShiftList); 
         }
 
         private async void SetViewBagForSelect()
@@ -112,7 +124,14 @@ namespace web_table.Web.Controllers
             return View("Index", employeeTimeShiftList);
         }
 
-        public async Task<IActionResult> SetNewHours(Guid empId, DateTime curDate) => View(_service.GetTimeShiftByEmpAndDate(empId, curDate).Result);
+        private DateTime EmptyDate = new DateTime(0001, 01, 01);
+
+        public async Task<IActionResult> SetNewHours(Guid empId, DateTime currentDate)
+        {
+            var periodId = GetGuidFromSession().Result;
+            var timeShifts = await _service.GetTimeShiftByEmpAndDate(empId, currentDate, periodId);
+            return View(timeShifts);
+        }
 
         [HttpPost]
         public async Task<IActionResult> UpdateNewHours(TimeShift timeShift)
@@ -124,9 +143,13 @@ namespace web_table.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //public async Task<IActionResult> ShowError(string message)
-        //{
-        //    return View("Error", message);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> SavePeriodId(String  periodId)
+        {
+            HttpContext.Session.SetString("SessionPeriodId", periodId);
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

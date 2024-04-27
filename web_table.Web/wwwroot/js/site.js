@@ -27,7 +27,16 @@ $('tr[id^="org_"').click(function () {
 
 $('#select_period').change(function () {
     const period = $(this).val();
-    alert(period)
+    //alert(period)
+    $.ajax({
+        url: '/TimeShift/SavePeriodId',
+        type: 'POST',
+        data: { periodId: period },
+        success: function (response) {
+            //window.location.reload();
+            window.location.href = '/TimeShift/Index';
+        }
+    })
 })
 
 

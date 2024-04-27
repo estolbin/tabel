@@ -11,10 +11,10 @@ public interface ITimeShiftService
 
     void AddPeriod(TimeShiftPeriod period);
 
-    public Task<IEnumerable<TimeShift>> GetCurrentTimeShift(CancellationToken token = default);
+    public Task<IEnumerable<TimeShift>> GetCurrentTimeShift(Guid? periodId, CancellationToken token = default);
     public Task<Employee> GetEmployeeById(Guid id);
 
-    public Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, CancellationToken token = default);
+    public Task<TimeShift> GetTimeShiftByEmpAndDate(Guid employeeId, DateTime date, Guid? periodId, CancellationToken token = default);
 
     public void UpdateTimeShift(TimeShift timeShift);
 
