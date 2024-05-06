@@ -5,12 +5,28 @@
       "PackagePath": "staticwebassets\\web_table.Web.bundle.scp.css"
     },
     {
+      "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\css\\datatables.css",
+      "PackagePath": "staticwebassets\\css\\datatables.css"
+    },
+    {
+      "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\css\\datatables.min.css",
+      "PackagePath": "staticwebassets\\css\\datatables.min.css"
+    },
+    {
       "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\datatables.js",
+      "PackagePath": "staticwebassets\\js\\datatables.js"
+    },
+    {
+      "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\datatables.min.js",
+      "PackagePath": "staticwebassets\\js\\datatables.min.js"
     },
     {
       "Id": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\multiselect-dropdown.js",

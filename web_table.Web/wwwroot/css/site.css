@@ -4,7 +4,7 @@ html {
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -44,15 +44,13 @@ body {
 }
 
 keyframes spin {
-    0%
+    0% {
+        transform: rotate(0deg);
+    }
 
-{
-    transform: rotate(0deg);
-}
-
-100% {
-    transform: rotate(360deg);
-}
+    100% {
+        transform: rotate(360deg);
+    }
 
 }
 
@@ -60,12 +58,22 @@ keyframes spin {
     display: none;
 }
 
-tr.collapse.in {
-    display: table-row;
-}
-
 #navbarMenu .form-inline {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
 }
+
+th, td {
+    white-space: nowrap;
+}
+
+div.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+td.first-col {
+    width: 10%;
+}
+

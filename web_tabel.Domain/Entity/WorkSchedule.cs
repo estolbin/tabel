@@ -5,11 +5,11 @@ namespace web_tabel.Domain;
 /// </summary>
 public class WorkSchedule : Entity
 {
-    private string _name;
+    public virtual string Name { get; set; }
     /// <summary>
     /// Словарь, где ключ - номер дня недели, значение - часы работы
     /// </summary>
-    private Dictionary<int, float> _hoursByDayNumbers = DefaultHoursOfWork();
+    public Dictionary<int, float> HoursByDayNumbers = DefaultHoursOfWork();
 
     /// <summary>
     /// Стандартный график для пятидневного графика
@@ -29,34 +29,15 @@ public class WorkSchedule : Entity
         };
     }
 
-    public void SetHoursOfWork(Dictionary<int, float> hoursOfWork)
-    {
-        _hoursByDayNumbers = hoursOfWork;
-    }
 
-    public string Name
-    {
-        get => _name;
-        set
-        {
-            if (value.Length > 100)
-                throw new ArgumentException("Название графика не может быть больше 100 символов");
-            _name = value;
-        }
-    }
 
-    private float _hoursOfWork;
     /// <summary>
     /// Длительность рабочей недели в часах 
     /// </summary>
-    public float HoursOfWork
-    {
-        get => _hoursOfWork;
-        set => _hoursOfWork = value;
-    }
+    public float HoursOfWork { get; set; }
 
     public float GetHoursByDate(DateTime workDate, TypeOfWorkingTime typeEmployment)
     {
-        return _hoursByDayNumbers.ContainsKey((int)workDate.DayOfWeek) ? _hoursByDayNumbers[(int)workDate.DayOfWeek] : 0f;
+        return HoursByDayNumbers.ContainsKey((int)workDate.DayOfWeek) ? HoursByDayNumbers[(int)workDate.DayOfWeek] : 0f;
     }
 }

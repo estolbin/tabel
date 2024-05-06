@@ -40,3 +40,19 @@ $('#select_period').change(function () {
 })
 
 
+$(document).ready(function () {
+    let table  = $('#timeShiftTable').DataTable
+        ({
+            ordering: false,
+            searching: false,
+            paging: false,
+            info: false,
+            scrollX: true,
+            scrollCollapse: true,
+            fixedColumns: {
+                start: 2,
+                heightMatch: 'auto'
+            },
+            fixedHeader: true
+        });
+})

@@ -40,19 +40,21 @@
     </div>
 </div>
 
-<table class="table table-responsive">
+<div class="dataTables_wrapper">
+
+
+<table id="timeShiftTable" class="table table-striped display nowrap" style="width:100%">
     <thead class="thead-dark">
         <tr>
-            <td class="text-sm-center">Сотрудник<br/><br/></td>
-            <td class="text-center"><small>Должность<div class="border-top my-1"></div>График</small></td>
+            <th scope="col" class="first-col text-center  text-sm-center">Сотрудник</th>
+            <th class="text-center" scope="col"><small>Должность<div class="border-top my-1"></div>График</small></th>
             @foreach (var item in dts)
             {
-                <td style="width:10px" class="text-center">
-                    @item.ToString("dd.MMM")<br />
+                <th class="text-center" scope="col">
+                    @item.ToString("dd")<br />
                     @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek) 
-                </td>
+                </th>
             }
-            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -67,7 +69,7 @@
 
                                             @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
                 {
-                    { "colSpan", datesCol+3},
+                    { "colSpan", datesCol+2},
                     { "header", "h3" },
                     { "Name", org.Name }
                 });
@@ -83,14 +85,14 @@
 
                                                 @Html.Partial("_OrpDepName", new ViewDataDictionary(ViewData)
                     {
-                        { "colSpan", datesCol+3},
+                        { "colSpan", datesCol+2},
                         { "header", "h5" },
                         { "Name", d.Name }
                     });
                     
-                                                @foreach (var emp in empByDep)
+                    @foreach (var emp in empByDep)
                     {
-                                                    @Html.Partial("_EmployeeTimeShift", emp);
+                        @Html.Partial("_EmployeeTimeShift", emp);
                     }
                 }
 
@@ -100,6 +102,7 @@
 
     </tbody>
 </table>
+</div>
 
 @Html.Partial("Error")
 

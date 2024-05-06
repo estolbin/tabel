@@ -93,6 +93,7 @@ namespace web_table.Web.Controllers
 
             TempData["ErrorMessage"] = "По вашему запросу ничего не найдено";
             if (!result.Any()) return RedirectToAction("Index");
+            else TempData["ErrorMessage"] = "";
 
             var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(result);
             return View("Index", employeeTimeShiftList);

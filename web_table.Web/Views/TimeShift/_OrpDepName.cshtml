@@ -1,6 +1,11 @@
-﻿<tr id="@("org_"+ViewData["orgNum"])">
-    <td colspan="@(ViewData["colSpan"])">
+﻿<tr> @* id="@("org_"+ViewData["orgNum"])"> *@
+    @*<td colspan="@(ViewData["colSpan"])">*@
+    <td class="first-col">
         <span class="@ViewData["header"] text-center">@ViewData["Name"]</span>
     </td>
+    @for(int j = 0; j < (int)ViewData["colSpan"] - 1; j++)
+    {
+        <td></td>
+    }
 </tr>
 

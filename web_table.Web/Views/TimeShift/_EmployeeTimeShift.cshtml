@@ -1,13 +1,14 @@
 ﻿@model web_table.Web.ViewModel.EmployeeTimeShiftDTO;
 
 <tr>
-    <td rowspan="2" class="table-active border-bottom border-dark">
+    <td class="first-col">
+        <!--  rowspan="2"-->
         @*<div class="card">*@
             <div class="card-body">
 
         <a onclick="showInPopup('@Url.Action("Details","Employee", new {id = Model.EmployeeId},Context.Request.Scheme)','Детали')"> 
             @Model.EmployeeName<br/>
-            <small class="badge bg-secondary">(@Model.TypeOfEmp)</small>
+            
         </a>
             </div>
         @*</div>*@
@@ -21,12 +22,12 @@
             @item
         </td>
     }
-    <td></td>
 </tr>
 <tr class="border-bottom border-dark">
     @{
         int i = 0;
     }
+    <td class="border-bottom border-dark"><small class="badge bg-secondary">(@Model.TypeOfEmp)</small></td>
     <td><small>@Model.WorkScheduleName</small></td>
     @foreach (var item in Model.Dates)
     {
@@ -39,6 +40,4 @@
         </td>
         i++;
     }
-    <td>
-    </td>
 </tr>
