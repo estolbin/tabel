@@ -15,7 +15,11 @@ namespace web_tabel.Services.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true);
 
             modelBuilder.Entity("web_tabel.Domain.Department", b =>
                 {
@@ -46,17 +50,10 @@ namespace web_tabel.Services.Migrations
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("NameId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("StaffScheduleId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TypeEmploymentName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("TypeOfEmploymentId")
@@ -69,42 +66,15 @@ namespace web_tabel.Services.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("NameId");
-
                     b.HasIndex("OrganizationId");
 
                     b.HasIndex("StaffScheduleId");
-
-                    b.HasIndex("TypeEmploymentName");
 
                     b.HasIndex("TypeOfEmploymentId");
 
                     b.HasIndex("WorkScheduleId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("web_tabel.Domain.EmployeeName", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmployeeNames");
                 });
 
             modelBuilder.Entity("web_tabel.Domain.Organization", b =>
@@ -120,31 +90,6 @@ namespace web_tabel.Services.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Organizations");
-                });
-
-            modelBuilder.Entity("web_tabel.Domain.Position", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Positions");
                 });
 
             modelBuilder.Entity("web_tabel.Domain.StaffSchedule", b =>
@@ -169,9 +114,6 @@ namespace web_tabel.Services.Migrations
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PositionId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("WorkScheduleId")
                         .HasColumnType("TEXT");
 
@@ -180,8 +122,6 @@ namespace web_tabel.Services.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("OrganizationId");
-
-                    b.HasIndex("PositionId");
 
                     b.HasIndex("WorkScheduleId");
 
@@ -287,11 +227,14 @@ namespace web_tabel.Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("HoursOfWork")
+                    b.Property<float>("HoursInWeek")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ReferenceDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -318,12 +261,6 @@ namespace web_tabel.Services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_tabel.Domain.EmployeeName", "Name")
-                        .WithMany()
-                        .HasForeignKey("NameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("web_tabel.Domain.Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
@@ -333,12 +270,6 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.StaffSchedule", "StaffSchedule")
                         .WithMany()
                         .HasForeignKey("StaffScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeEmployment")
-                        .WithMany()
-                        .HasForeignKey("TypeEmploymentName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -354,38 +285,46 @@ namespace web_tabel.Services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("web_tabel.Domain.EmployeeName", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("EmployeeId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("FirstName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("LastName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("MiddleName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("EmployeeId");
+
+                            b1.ToTable("EmployeeNames");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmployeeId");
+                        });
+
                     b.Navigation("Department");
 
-                    b.Navigation("Name");
+                    b.Navigation("Name")
+                        .IsRequired();
 
                     b.Navigation("Organization");
 
                     b.Navigation("StaffSchedule");
 
-                    b.Navigation("TypeEmployment");
-
                     b.Navigation("TypeOfEmployment");
 
                     b.Navigation("WorkSchedule");
-                });
-
-            modelBuilder.Entity("web_tabel.Domain.Position", b =>
-                {
-                    b.HasOne("web_tabel.Domain.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("web_tabel.Domain.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Organization");
                 });
 
             modelBuilder.Entity("web_tabel.Domain.StaffSchedule", b =>
@@ -402,12 +341,6 @@ namespace web_tabel.Services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_tabel.Domain.Position", "Position")
-                        .WithMany()
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()
                         .HasForeignKey("WorkScheduleId")
@@ -417,8 +350,6 @@ namespace web_tabel.Services.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Organization");
-
-                    b.Navigation("Position");
 
                     b.Navigation("WorkSchedule");
                 });
@@ -454,6 +385,43 @@ namespace web_tabel.Services.Migrations
                     b.Navigation("TypeEmployment");
 
                     b.Navigation("WorkSchedule");
+                });
+
+            modelBuilder.Entity("web_tabel.Domain.WorkSchedule", b =>
+                {
+                    b.OwnsMany("web_tabel.Domain.WorkSchedulleHours", "HoursByDayNumbers", b1 =>
+                        {
+                            b1.Property<Guid>("WorkScheduleId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("DayNumber")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("TypeOfWorkingTimeName")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<float>("Hours")
+                                .HasColumnType("REAL");
+
+                            b1.HasKey("WorkScheduleId", "DayNumber", "TypeOfWorkingTimeName");
+
+                            b1.HasIndex("TypeOfWorkingTimeName");
+
+                            b1.ToTable("WorkSchedulleHours");
+
+                            b1.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeOfWorkingTime")
+                                .WithMany()
+                                .HasForeignKey("TypeOfWorkingTimeName")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("WorkScheduleId");
+
+                            b1.Navigation("TypeOfWorkingTime");
+                        });
+
+                    b.Navigation("HoursByDayNumbers");
                 });
 #pragma warning restore 612, 618
         }

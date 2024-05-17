@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\code\\vm_tabel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D5DBCB15-4D7C-4E5D-AFD8-FB14B80D279A}|web_tabel.API\\web_tabel.API.csproj|d:\\code\\vm_tabel\\web_tabel.api\\controllers\\typeofworkingtypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5DBCB15-4D7C-4E5D-AFD8-FB14B80D279A}|web_tabel.API\\web_tabel.API.csproj|solutionrelative:web_tabel.api\\controllers\\typeofworkingtypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|d:\\code\\vm_tabel\\web_tabel.domain\\entity\\workschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|solutionrelative:web_tabel.domain\\entity\\workschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D5DBCB15-4D7C-4E5D-AFD8-FB14B80D279A}|web_tabel.API\\web_tabel.API.csproj|d:\\code\\vm_tabel\\web_tabel.api\\controllers\\organizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5DBCB15-4D7C-4E5D-AFD8-FB14B80D279A}|web_tabel.API\\web_tabel.API.csproj|solutionrelative:web_tabel.api\\controllers\\organizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\controllers\\periodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\controllers\\periodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|d:\\code\\vm_tabel\\web_tabel.domain\\entity\\typeofworkingtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|solutionrelative:web_tabel.domain\\entity\\typeofworkingtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|d:\\code\\vm_tabel\\web_tabel.services\\timeshiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|solutionrelative:web_tabel.services\\timeshiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +30,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrganizationController.cs",
-              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.API\\Controllers\\OrganizationController.cs",
-              "RelativeDocumentMoniker": "web_tabel.API\\Controllers\\OrganizationController.cs",
-              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.API\\Controllers\\OrganizationController.cs",
-              "RelativeToolTip": "web_tabel.API\\Controllers\\OrganizationController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "WorkSchedule.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\WorkSchedule.cs",
+              "RelativeDocumentMoniker": "web_tabel.Domain\\Entity\\WorkSchedule.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\WorkSchedule.cs",
+              "RelativeToolTip": "web_tabel.Domain\\Entity\\WorkSchedule.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABQAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-06T08:57:21.401Z",
+              "WhenOpened": "2024-05-17T11:37:08.276Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TypeOfWorkingTypeController.cs",
-              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.API\\Controllers\\TypeOfWorkingTypeController.cs",
-              "RelativeDocumentMoniker": "web_tabel.API\\Controllers\\TypeOfWorkingTypeController.cs",
-              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.API\\Controllers\\TypeOfWorkingTypeController.cs",
-              "RelativeToolTip": "web_tabel.API\\Controllers\\TypeOfWorkingTypeController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABkAAABOAAAA",
+              "DocumentIndex": 1,
+              "Title": "PeriodController.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\PeriodController.cs",
+              "RelativeDocumentMoniker": "web_table.Web\\Controllers\\PeriodController.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\PeriodController.cs",
+              "RelativeToolTip": "web_table.Web\\Controllers\\PeriodController.cs",
+              "ViewState": "AQIAAFYAAAAAAAAAAAAAwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-06T08:57:11.644Z",
+              "WhenOpened": "2024-05-17T11:36:08.929Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "TypeOfWorkingTime.cs",
-              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\TypeOfWorkingTime.cs",
-              "RelativeDocumentMoniker": "web_tabel.Domain\\Entity\\TypeOfWorkingTime.cs",
-              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\TypeOfWorkingTime.cs",
-              "RelativeToolTip": "web_tabel.Domain\\Entity\\TypeOfWorkingTime.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "TimeShiftService.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftService.cs",
+              "RelativeDocumentMoniker": "web_tabel.Services\\TimeShiftService.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftService.cs",
+              "RelativeToolTip": "web_tabel.Services\\TimeShiftService.cs",
+              "ViewState": "AQIAAJUAAAAAAAAAAAAAAK0AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-06T08:56:15.902Z",
+              "WhenOpened": "2024-05-17T11:35:46.302Z",
               "EditorCaption": ""
             }
           ]

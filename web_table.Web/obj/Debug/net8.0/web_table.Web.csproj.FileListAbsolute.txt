@@ -132,3 +132,4 @@ D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\refint\web_table.Web.dll
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.pdb
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.genruntimeconfig.cache
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\ref\web_table.Web.dll
+D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.sourcelink.json

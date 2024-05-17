@@ -21,11 +21,6 @@ public class Employee : Entity
     public virtual StaffSchedule StaffSchedule { get; set; }
 
     /// <summary>
-    /// Вид рабочего времени
-    /// </summary>
-    public virtual TypeOfWorkingTime TypeEmployment { get; set; }
-
-    /// <summary>
     /// Вид занятости (основное место работы, совместительство)
     /// </summary>
     public virtual TypeOfEmployment TypeOfEmployment { get; set; }

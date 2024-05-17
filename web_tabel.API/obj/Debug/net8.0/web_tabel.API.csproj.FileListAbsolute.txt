@@ -49,6 +49,7 @@ D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.GeneratedMSBuildEd
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.AssemblyInfoInputs.cache
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.AssemblyInfo.cs
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.csproj.CoreCompileInputs.cache
+D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.MvcApplicationPartsAssemblyInfo.cs
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.MvcApplicationPartsAssemblyInfo.cache
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\staticwebassets.build.json
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\staticwebassets.development.json

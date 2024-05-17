@@ -47,12 +47,16 @@ $(document).ready(function () {
             searching: false,
             paging: false,
             info: false,
+            autoWidth: true,
             scrollX: true,
             scrollCollapse: true,
             fixedColumns: {
                 start: 2,
                 heightMatch: 'auto'
             },
-            fixedHeader: true
+            fixedHeader: {
+                header: true,
+                footer: true
+            }
         });
 })

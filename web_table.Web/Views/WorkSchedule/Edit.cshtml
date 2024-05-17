@@ -1,0 +1,24 @@
+﻿@model web_tabel.Domain.WorkSchedule
+@{
+    Layout = "_Layout";
+}
+
+<h3>@Model.Name</h3>
+
+<h4>Часов в неделе: @Model.HoursInWeek</h4>
+
+<table class="table table-striped">
+    <tr>
+        <th>День недели</th>
+        <th>Часы</th>
+        <th>Вид рабочего времени</th>
+    </tr>
+@foreach(var item in Model.HoursByDayNumbers)
+{
+    <tr>
+        <td>@item.DayNumber</td>
+        <td>@item.Hours</td>
+        <td>@item.TypeOfWorkingTime</td>
+    </tr>
+}
+</table>

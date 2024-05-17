@@ -21,7 +21,7 @@ namespace web_table.Web.Controllers
             var dbPeriod = await _service.GetLastPeriod();
             if (periodId == null)
             {
-                periodId = dbPeriod.Id.ToString();
+                periodId = dbPeriod == null ? null : dbPeriod.Id.ToString();
             };
             return periodId == null ? Guid.Empty : new Guid(periodId);
         }

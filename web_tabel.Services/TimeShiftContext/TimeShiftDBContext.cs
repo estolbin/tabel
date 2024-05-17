@@ -42,9 +42,21 @@ public class TimeShiftDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Employee>().OwnsOne(e => e.Name);
+
+        modelBuilder.Entity<WorkSchedule>()
+            .OwnsMany(w => w.HoursByDayNumbers, h =>
+            {
+                h.WithOwner().HasForeignKey("WorkScheduleId");
+                h.HasKey(x => new { x.WorkScheduleId, x.DayNumber, x.TypeOfWorkingTimeName });
+            });
+
         modelBuilder.Entity<TypeOfWorkingTime>()
             .HasKey(t => new { t.Name });
+     
+        
+        base.OnModelCreating(modelBuilder);
 
     }
 }

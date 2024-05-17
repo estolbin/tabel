@@ -58,6 +58,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/code/vm_tabel/web_table.Web/Views/StaffSchedule/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZTY2hlZHVsZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/code/vm_tabel/web_table.Web/Views/TimeShift/Clean.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XENsZWFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -88,6 +92,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/code/vm_tabel/web_table.Web/Views/TimeShift/__Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9fSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/WorkSchedule/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1NjaGVkdWxlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/WorkSchedule/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1NjaGVkdWxlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/code/vm_tabel/web_table.Web/Views/_ViewImports.cshtml]

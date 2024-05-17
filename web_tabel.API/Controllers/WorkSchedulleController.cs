@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using web_tabel.Domain;
+using web_tabel.Services;
 
 namespace web_tabel.API.Controllers
 {
@@ -7,5 +9,39 @@ namespace web_tabel.API.Controllers
     [ApiController]
     public class WorkSchedulleController : ControllerBase
     {
+
+        private UnitOfWork _unitOfWork;
+        public WorkSchedulleController()
+        {
+            _unitOfWork = new UnitOfWork();
+        }
+
+        [HttpGet("GetAllWorkSchedulle")]
+        public Task<IActionResult> GetAllWorkSchedulle()
+        {
+            return Task.FromResult<IActionResult>(Ok(_unitOfWork.WorkScheduleRepository.GetAll()));
+        }
+
+        [HttpPost("AddWorkSchedulle")]
+        public Task<IActionResult> AddWorkSchedulle([FromBody] WorkSchedule workSchedulle)
+        {
+            var schedulle = _unitOfWork.WorkScheduleRepository.SingleOrDefault(x => x.Id == workSchedulle.Id);
+            if ( schedulle != null)
+            {
+                return Task.FromResult<IActionResult>(BadRequest("WorkSchedulle already exists"));
+            }
+
+            foreach (var day in workSchedulle.HoursByDayNumbers)
+            {
+                
+                day.TypeOfWorkingTime = _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefault(x => x.Name == day.TypeOfWorkingTime.Name) ?? day.TypeOfWorkingTime;
+
+            }
+
+            _unitOfWork.WorkScheduleRepository.Insert(workSchedulle);
+            _unitOfWork.Save();
+
+            return Task.FromResult<IActionResult>(Ok("Success"));
+        }
     }
 }

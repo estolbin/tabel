@@ -18,6 +18,7 @@ namespace web_tabel.API.Controllers
         [HttpPost("AddOrganization")]
         public Task<IActionResult> AddOrganization([FromBody] Organization organization)
         {
+            if (_unitOfWork.OrganizationRepository.SingleOrDefault(x => x.Id == organization.Id) != null) { return Task.FromResult<IActionResult>(BadRequest("Organization already exists")); }
             _unitOfWork.OrganizationRepository.Insert(organization);
             _unitOfWork.Save();
             return Task.FromResult<IActionResult>(Ok("Success"));

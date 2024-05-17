@@ -15,3 +15,4 @@ D:\code\vm_tabel\web_tabel.Services\obj\Debug\net8.0\refint\web_tabel.Services.d
 D:\code\vm_tabel\web_tabel.Services\obj\Debug\net8.0\web_tabel.Services.pdb
 D:\code\vm_tabel\web_tabel.Services\obj\Debug\net8.0\web_tabel.Services.genruntimeconfig.cache
 D:\code\vm_tabel\web_tabel.Services\obj\Debug\net8.0\ref\web_tabel.Services.dll
+D:\code\vm_tabel\web_tabel.Services\obj\Debug\net8.0\web_tabel.Services.sourcelink.json

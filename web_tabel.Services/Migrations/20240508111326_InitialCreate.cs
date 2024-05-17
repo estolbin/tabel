@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,20 +11,6 @@ namespace web_tabel.Services.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "EmployeeNames",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    MiddleName = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeNames", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Organizations",
                 columns: table => new
@@ -81,7 +68,8 @@ namespace web_tabel.Services.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    HoursOfWork = table.Column<float>(type: "REAL", nullable: false)
+                    ReferenceDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    HoursInWeek = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,27 +96,27 @@ namespace web_tabel.Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Positions",
+                name: "WorkSchedulleHours",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    DayNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    TypeOfWorkingTimeName = table.Column<string>(type: "TEXT", nullable: false),
+                    Hours = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Positions", x => x.Id);
+                    table.PrimaryKey("PK_WorkSchedulleHours", x => new { x.WorkScheduleId, x.DayNumber, x.TypeOfWorkingTimeName });
                     table.ForeignKey(
-                        name: "FK_Positions_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
+                        name: "FK_WorkSchedulleHours_TypeEmployments_TypeOfWorkingTimeName",
+                        column: x => x.TypeOfWorkingTimeName,
+                        principalTable: "TypeEmployments",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Positions_Organizations_OrganizationId",
-                        column: x => x.OrganizationId,
-                        principalTable: "Organizations",
+                        name: "FK_WorkSchedulleHours_WorkSchedules_WorkScheduleId",
+                        column: x => x.WorkScheduleId,
+                        principalTable: "WorkSchedules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -140,7 +128,6 @@ namespace web_tabel.Services.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PositionId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     NumberOfPositions = table.Column<float>(type: "REAL", nullable: false),
@@ -162,12 +149,6 @@ namespace web_tabel.Services.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StaffSchedules_Positions_PositionId",
-                        column: x => x.PositionId,
-                        principalTable: "Positions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_StaffSchedules_WorkSchedules_WorkScheduleId",
                         column: x => x.WorkScheduleId,
                         principalTable: "WorkSchedules",
@@ -180,11 +161,9 @@ namespace web_tabel.Services.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    NameId = table.Column<Guid>(type: "TEXT", nullable: false),
                     OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false),
                     StaffScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TypeEmploymentName = table.Column<string>(type: "TEXT", nullable: false),
                     TypeOfEmploymentId = table.Column<Guid>(type: "TEXT", nullable: false),
                     WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
@@ -195,12 +174,6 @@ namespace web_tabel.Services.Migrations
                         name: "FK_Employees_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Employees_EmployeeNames_NameId",
-                        column: x => x.NameId,
-                        principalTable: "EmployeeNames",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -216,12 +189,6 @@ namespace web_tabel.Services.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employees_TypeEmployments_TypeEmploymentName",
-                        column: x => x.TypeEmploymentName,
-                        principalTable: "TypeEmployments",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Employees_TypeOfEmployments_TypeOfEmploymentId",
                         column: x => x.TypeOfEmploymentId,
                         principalTable: "TypeOfEmployments",
@@ -231,6 +198,27 @@ namespace web_tabel.Services.Migrations
                         name: "FK_Employees_WorkSchedules_WorkScheduleId",
                         column: x => x.WorkScheduleId,
                         principalTable: "WorkSchedules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeNames",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    MiddleName = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeNames", x => x.EmployeeId);
+                    table.ForeignKey(
+                        name: "FK_EmployeeNames_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -287,11 +275,6 @@ namespace web_tabel.Services.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_NameId",
-                table: "Employees",
-                column: "NameId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_OrganizationId",
                 table: "Employees",
                 column: "OrganizationId");
@@ -300,11 +283,6 @@ namespace web_tabel.Services.Migrations
                 name: "IX_Employees_StaffScheduleId",
                 table: "Employees",
                 column: "StaffScheduleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_TypeEmploymentName",
-                table: "Employees",
-                column: "TypeEmploymentName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_TypeOfEmploymentId",
@@ -317,16 +295,6 @@ namespace web_tabel.Services.Migrations
                 column: "WorkScheduleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Positions_DepartmentId",
-                table: "Positions",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Positions_OrganizationId",
-                table: "Positions",
-                column: "OrganizationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StaffSchedules_DepartmentId",
                 table: "StaffSchedules",
                 column: "DepartmentId");
@@ -335,11 +303,6 @@ namespace web_tabel.Services.Migrations
                 name: "IX_StaffSchedules_OrganizationId",
                 table: "StaffSchedules",
                 column: "OrganizationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StaffSchedules_PositionId",
-                table: "StaffSchedules",
-                column: "PositionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffSchedules_WorkScheduleId",
@@ -365,13 +328,24 @@ namespace web_tabel.Services.Migrations
                 name: "IX_TimeShifts_WorkScheduleId",
                 table: "TimeShifts",
                 column: "WorkScheduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkSchedulleHours_TypeOfWorkingTimeName",
+                table: "WorkSchedulleHours",
+                column: "TypeOfWorkingTimeName");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "EmployeeNames");
+
+            migrationBuilder.DropTable(
                 name: "TimeShifts");
+
+            migrationBuilder.DropTable(
+                name: "WorkSchedulleHours");
 
             migrationBuilder.DropTable(
                 name: "Employees");
@@ -380,25 +354,19 @@ namespace web_tabel.Services.Migrations
                 name: "TimeShiftPeriods");
 
             migrationBuilder.DropTable(
-                name: "EmployeeNames");
+                name: "TypeEmployments");
 
             migrationBuilder.DropTable(
                 name: "StaffSchedules");
 
             migrationBuilder.DropTable(
-                name: "TypeEmployments");
-
-            migrationBuilder.DropTable(
                 name: "TypeOfEmployments");
 
             migrationBuilder.DropTable(
-                name: "Positions");
+                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "WorkSchedules");
-
-            migrationBuilder.DropTable(
-                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Organizations");

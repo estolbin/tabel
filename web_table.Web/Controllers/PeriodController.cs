@@ -80,10 +80,12 @@ namespace web_table.Web.Controllers
         // POST: PeriodController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, IFormCollection collection)
+        public ActionResult Edit(TimeShiftPeriod period, Guid id)
         {
             try
             {
+                _unitOfWork.TimeShiftPeriodRepository.Update(period);
+                _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch

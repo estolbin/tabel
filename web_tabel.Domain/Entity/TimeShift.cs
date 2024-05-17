@@ -49,7 +49,6 @@ public class TimeShift : Entity
         Employee = employee ?? throw new ArgumentNullException(nameof(employee));
         WorkSchedule = workSchedule ?? throw new ArgumentNullException(nameof(workSchedule));
         WorkDate = workDate;
-        TypeEmployment = typeEmployment ?? throw new ArgumentNullException(nameof(typeEmployment));
         CheckTypeEmloyment();
     }
 
@@ -68,12 +67,12 @@ public class TimeShift : Entity
 
     public TimeShift() { }
 
-    public float GetPlannedHours(DateTime day, TypeOfWorkingTime? work = null, TypeOfWorkingTime? weekend = null)
+    public float GetPlannedHours(DateTime day)
     {
         return WorkSchedule.GetHoursByDate(WorkDate, TypeEmployment);
     }
 
     public TimeShift(TimeShiftPeriod period, Employee employee, DateTime workDate) :
-        this(period, employee, employee.WorkSchedule, workDate, employee.TypeEmployment)
+        this(period, employee, employee.WorkSchedule, workDate, null)
     { }
 }

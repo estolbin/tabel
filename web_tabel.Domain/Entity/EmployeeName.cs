@@ -41,5 +41,12 @@ public class EmployeeName : Entity
         MiddleName = names[2] ?? throw new ArgumentException("Отчество не может быть пустым");
     }
 
-    public EmployeeName(string firstName, string lastName, string middleName) : this(lastName + " " + firstName + " " + middleName) { }
+    public EmployeeName(string firstName, string lastName, string middleName) 
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+    }
+
+    public EmployeeName() { }
 }

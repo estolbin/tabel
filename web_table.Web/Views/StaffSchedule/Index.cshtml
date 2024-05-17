@@ -1,0 +1,27 @@
+﻿@using web_tabel.Domain
+@model IEnumerable<StaffSchedule>
+@{
+    Layout = "_Layout";
+}
+
+
+@*<div class="col-md-6">
+    @using (Html.BeginForm("Index", "StaffSchedule"))
+    {
+        @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Value", "Text"), new { id = "orgList", @class = "form-select", multiple = "multiple" })
+        <input type="submit" value="Отбор" class="btn btn-primary d-inline-block" />
+    }
+</div>*@
+
+<h3>Штатное расписание</h3>
+
+<table class="table table-striped">
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Organization.Name</td>
+            <td>@item.Department.Name</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,19 @@
+﻿@using web_tabel.Domain;
+@model IEnumerable<WorkSchedule>
+@{
+    Layout = "_Layout";
+}
+
+
+<h2>Графики работ</h2>
+
+<table class="table table-striped">
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.HoursInWeek</td>    
+            <td><a href="@Url.Action("Edit", new { id = item.Id })">Редактировать</a></td>
+        </tr>
+    }
+</table>
