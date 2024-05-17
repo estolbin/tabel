@@ -11,7 +11,7 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    [Migration("20240508111326_InitialCreate")]
+    [Migration("20240517132538_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -232,6 +232,9 @@ namespace web_tabel.Services.Migrations
 
                     b.Property<float>("HoursInWeek")
                         .HasColumnType("REAL");
+
+                    b.Property<bool>("IsWeekly")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()

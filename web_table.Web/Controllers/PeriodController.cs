@@ -98,19 +98,55 @@ namespace web_table.Web.Controllers
         {
             var period = _unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => x.Id == new Guid(periodId));
             var employees = _unitOfWork.EmployeeRepository.GetAll();
+
             
             foreach (var employee in employees)
             {
-                //TODO: set Type of working time
-                var listTimeShift = period.FilllTimeShiftPlan(employee).Select(x => { 
-                    x.TypeEmployment = _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefault(n => n.Name == x.TypeEmployment.Name);
-                    return x;
-                 });
+                List<TimeShift> listTimeShift = new List<TimeShift>();
+
+
+                var workSheet = employee.WorkSchedule;
+                if (workSheet == null)
+                    continue;
+
+                // список дней в цикле
+                var daysInCycleList = workSheet.HoursByDayNumbers.ToList();
+                var numDaysInCycle = daysInCycleList.Count();
+
+                var refDate = workSheet.ReferenceDate ?? new DateTime(period.Start.Year, 1, 1);
+                int numberDayOfCycle;
+                if (workSheet.IsWeekly)
+                {
+                    numberDayOfCycle = (int)period.Start.DayOfWeek;
+                } 
+                else
+                {
+                    numberDayOfCycle = (period.Start - refDate).Days % numDaysInCycle + 1;
+
+                }
+
+                var curDate = period.Start;
+                while (curDate <= period.End)
+                {
+                    var ts = new TimeShift(period, employee, curDate);
+                    ts.HoursPlanned = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).Hours;
+                    ts.TypeEmployment = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).TypeOfWorkingTime; 
+                    if (ts.HoursPlanned == 0 && ts.TypeEmployment.Name == "Я")
+                    {
+                        ts.TypeEmployment = _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefault(x => x.Name == "В");
+                    }
+
+                    listTimeShift.Add(ts);
+                    curDate = curDate.AddDays(1);
+
+                    numberDayOfCycle++;
+                    if (numberDayOfCycle > numDaysInCycle) numberDayOfCycle = 1;
+                }
+
                 _unitOfWork.TimeShiftRepository.AddRange(listTimeShift);
             }
             _unitOfWork.Save();
 
-            //return Task.FromResult((IActionResult)Ok());
             return RedirectToAction(nameof(Index));
         }
 

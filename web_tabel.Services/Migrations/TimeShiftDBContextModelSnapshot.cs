@@ -230,6 +230,9 @@ namespace web_tabel.Services.Migrations
                     b.Property<float>("HoursInWeek")
                         .HasColumnType("REAL");
 
+                    b.Property<bool>("IsWeekly")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");

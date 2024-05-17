@@ -69,6 +69,7 @@ namespace web_tabel.Services.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ReferenceDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    IsWeekly = table.Column<bool>(type: "INTEGER", nullable: false),
                     HoursInWeek = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>

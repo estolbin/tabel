@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 using web_tabel.Domain;
 
 namespace web_tabel.Domain;
@@ -18,8 +20,12 @@ public class WorkSchedule : Entity
     /// Список дней цикла графика
     /// </summary>
     public virtual ICollection<WorkSchedulleHours> HoursByDayNumbers { get; set; }
- 
 
+    /// <summary>
+    /// Признак расчета по дням недели, не по циклам.
+    /// </summary>
+    [JsonConverter(typeof(BooleanConverter))]
+    public bool IsWeekly { get; set; }
 
     /// <summary>
     /// Длительность рабочей недели в часах 

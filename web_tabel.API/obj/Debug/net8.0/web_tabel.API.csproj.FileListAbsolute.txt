@@ -65,3 +65,4 @@ D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\refint\web_tabel.API.dll
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.pdb
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.genruntimeconfig.cache
 D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\ref\web_tabel.API.dll
+D:\code\vm_tabel\web_tabel.API\obj\Debug\net8.0\web_tabel.API.sourcelink.json
