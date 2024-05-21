@@ -1,0 +1,40 @@
+﻿@using web_tabel.Domain
+@model IEnumerable<TypeOfWorkingTime>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Виды рабочего времени</h1>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Наименование</th>
+            <th>Цвет</th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Description</td>
+        <td>
+
+        <form method="post" action="@Url.Action("SetColor", "TypeOfWorkingTime", new { name = item.Name })">
+            <div class="form-group">
+                <label>Цвет</label>
+                <input type="color" asp-for="@item.ColorText" name="color" value="@item.ColorText" class="form-control form-control-color" onchange="this.form.submit()"/>
+            </div>
+        </form>
+        </td>
+        <td></td>
+    </tr>
+}
+</table>
+
+@section Scripts {
+    
+}

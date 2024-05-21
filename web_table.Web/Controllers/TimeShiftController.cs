@@ -37,7 +37,7 @@ namespace web_table.Web.Controllers
             var periodId = GetGuidFromSession().Result;
             IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift(periodId);
             if (currentTimeShift == null || !currentTimeShift.Any()) return View("Clean");
-            var employeeTimeShiftList = EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift).Result;
+            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift);
             return View(employeeTimeShiftList); 
         }
 
@@ -111,7 +111,7 @@ namespace web_table.Web.Controllers
             }
 
             SetViewBagForSelect();
-            var result = _service.GetTimeShiftByEmpLike(searchText).Result;
+            var result = await _service.GetTimeShiftByEmpLike(searchText);
 
             if (result == null || !result.Any())
             {
@@ -129,7 +129,7 @@ namespace web_table.Web.Controllers
 
         public async Task<IActionResult> SetNewHours(Guid empId, DateTime currentDate)
         {
-            var periodId = GetGuidFromSession().Result;
+            var periodId = await GetGuidFromSession();
             var timeShifts = await _service.GetTimeShiftByEmpAndDate(empId, currentDate, periodId);
             return View(timeShifts);
         }
@@ -139,7 +139,7 @@ namespace web_table.Web.Controllers
         {
             var existingTimeShift = await _service.GetTimeShiftByID(timeShift.Id);
             existingTimeShift.HoursWorked = timeShift.HoursWorked;
-            _service.UpdateTimeShift(existingTimeShift);
+            await _service.UpdateTimeShift(existingTimeShift);
 
             return RedirectToAction(nameof(Index));
         }

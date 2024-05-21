@@ -94,12 +94,21 @@ namespace web_table.Web.Controllers
             }
         }
 
+        private async Task<TypeOfWorkingTime> GetTypeOfWorkingTime(string name)
+        {
+            return await _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefaultAsync(x => x.Name == name);
+        }
+
         public async Task<IActionResult> FillPeriod(string periodId)
         {
-            var period = _unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => x.Id == new Guid(periodId));
-            var employees = _unitOfWork.EmployeeRepository.GetAll();
-
+            var period = await _unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Id == new Guid(periodId));
+            var employees = await _unitOfWork.EmployeeRepository.GetAllAsync();
             
+            var workCalendar = await _unitOfWork.WorkingCalendarRepository.GetAsync(x => x.Year == period.Start.Year);
+
+            var weekendDayType = await GetTypeOfWorkingTime("В");
+            var celebrateDayType = await GetTypeOfWorkingTime("РВ");
+
             foreach (var employee in employees)
             {
                 List<TimeShift> listTimeShift = new List<TimeShift>();
@@ -114,33 +123,41 @@ namespace web_table.Web.Controllers
                 var numDaysInCycle = daysInCycleList.Count();
 
                 var refDate = workSheet.ReferenceDate ?? new DateTime(period.Start.Year, 1, 1);
-                int numberDayOfCycle;
-                if (workSheet.IsWeekly)
-                {
-                    numberDayOfCycle = (int)period.Start.DayOfWeek;
-                } 
-                else
-                {
-                    numberDayOfCycle = (period.Start - refDate).Days % numDaysInCycle + 1;
-
-                }
+                int numberDayOfCycle = GetNumberDayOfCycle(period, workSheet, numDaysInCycle, refDate);
 
                 var curDate = period.Start;
                 while (curDate <= period.End)
                 {
+
+                    // день по производственному календарю
+                    var calendarDay = workCalendar.FirstOrDefault(x => x.Date == curDate);
+
                     var ts = new TimeShift(period, employee, curDate);
-                    ts.HoursPlanned = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).Hours;
-                    ts.TypeEmployment = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).TypeOfWorkingTime; 
+                    ts.HoursPlanned = GetHoursPlanned(daysInCycleList, numberDayOfCycle);
+                    ts.TypeEmployment = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).TypeOfWorkingTime;
                     if (ts.HoursPlanned == 0 && ts.TypeEmployment.Name == "Я")
                     {
-                        ts.TypeEmployment = _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefault(x => x.Name == "В");
+                        ts.TypeEmployment = weekendDayType;
+                    }
+                    else if (ts.TypeEmployment.Name == "Я" && workSheet.IsWeekly) // для графиков такое условие не работает
+                    {
+                        if (calendarDay.Type == DayType.Celebrate)
+                        {
+                            ts.TypeEmployment = celebrateDayType;
+                            ts.HoursPlanned = 0;
+                        }
+                        else if (calendarDay.Type == DayType.Weekend)
+                        {
+                            ts.TypeEmployment = weekendDayType;
+                            ts.HoursPlanned = 0;
+                        }
+
                     }
 
                     listTimeShift.Add(ts);
                     curDate = curDate.AddDays(1);
 
-                    numberDayOfCycle++;
-                    if (numberDayOfCycle > numDaysInCycle) numberDayOfCycle = 1;
+                    numberDayOfCycle = GetNextDayInCycle(numDaysInCycle, numberDayOfCycle);
                 }
 
                 _unitOfWork.TimeShiftRepository.AddRange(listTimeShift);
@@ -150,6 +167,27 @@ namespace web_table.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-   
+        private static int GetNextDayInCycle(int numDaysInCycle, int numberDayOfCycle)
+        {
+            numberDayOfCycle++;
+            if (numberDayOfCycle > numDaysInCycle) numberDayOfCycle = 1;
+            return numberDayOfCycle;
+        }
+
+        private float GetHoursPlanned(List<WorkSchedulleHours> daysInCycleList, int numberDayOfCycle) => daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).Hours;
+
+        private static int GetNumberDayOfCycle(TimeShiftPeriod period, WorkSchedule workSheet, int numDaysInCycle, DateTime refDate)
+        {
+            if (workSheet.IsWeekly)
+            {
+                return (int)period.Start.DayOfWeek;
+            }
+            else
+            {
+                return (period.Start - refDate).Days % numDaysInCycle + 1;
+
+            }
+        }
+
     }
 }

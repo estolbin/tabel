@@ -3,15 +3,19 @@
     Layout = null;
 }
 
-<h4 class="col-12 text-center">@Model.Employee.Name</h4>
+<h4 class="col-12 text-center">@Model.Employee.Name?.FullName</h4>
 <h5 class="col-12 text-center">@Model.WorkDate.ToString("M")</h5>
 <hr />
 
 <form asp-action="UpdateNewHours"> 
     <input type="hidden" asp-for="Id" />
     <div class="input-group mb-3">
-        <span class="input-group-text col-6">Запланировано часов</span>
-        <span class="form-control" id="disabledInput">@Model.HoursPlanned</span>
+        <span class="input-group-text col-6 text-muted">Запланировано часов</span>
+        <span class="form-control text-muted" id="disabledInput">@Model.HoursPlanned</span>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text col-6 text-muted">Плановое значение времени</span>
+        <span class="form-control text-muted" id="disabledInput">@Model.TypeEmployment</span>
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text col-6">Отработано фактически</span>

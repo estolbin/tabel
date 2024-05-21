@@ -24,7 +24,6 @@ public class WorkSchedule : Entity
     /// <summary>
     /// Признак расчета по дням недели, не по циклам.
     /// </summary>
-    [JsonConverter(typeof(BooleanConverter))]
     public bool IsWeekly { get; set; }
 
     /// <summary>
@@ -38,6 +37,9 @@ public class WorkSchedule : Entity
         var workSchedule = HoursByDayNumbers.FirstOrDefault(x => x.DayNumber == dayNumber);
         return workSchedule != null ? workSchedule.Hours : 0f;
     }
+
+    public WorkSchedule() { }
+
 
     /// <summary>
     /// Заполняет график по умолчанию - пятидневная рабочая неделя.

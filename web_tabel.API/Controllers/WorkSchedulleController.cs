@@ -23,22 +23,22 @@ namespace web_tabel.API.Controllers
         }
 
         [HttpPost("AddWorkSchedulle")]
-        public Task<IActionResult> AddWorkSchedulle([FromBody] WorkSchedule workSchedulle)
+        public Task<IActionResult> AddWorkSchedulle([FromBody] WorkSchedule workSchedule)
         {
-            var schedulle = _unitOfWork.WorkScheduleRepository.SingleOrDefault(x => x.Id == workSchedulle.Id);
+            var schedulle = _unitOfWork.WorkScheduleRepository.SingleOrDefault(x => x.Id == workSchedule.Id);
             if ( schedulle != null)
             {
                 return Task.FromResult<IActionResult>(BadRequest("WorkSchedulle already exists"));
             }
 
-            foreach (var day in workSchedulle.HoursByDayNumbers)
+            foreach (var day in workSchedule.HoursByDayNumbers)
             {
                 
                 day.TypeOfWorkingTime = _unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefault(x => x.Name == day.TypeOfWorkingTime.Name) ?? day.TypeOfWorkingTime;
 
             }
 
-            _unitOfWork.WorkScheduleRepository.Insert(workSchedulle);
+            _unitOfWork.WorkScheduleRepository.Insert(workSchedule);
             _unitOfWork.Save();
 
             return Task.FromResult<IActionResult>(Ok("Success"));

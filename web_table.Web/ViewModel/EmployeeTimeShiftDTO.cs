@@ -14,12 +14,14 @@ namespace web_table.Web.ViewModel
         public string DepartmentId { get; set; }
 
         public List<TypeOfWorkingTime> Types { get; set; } = new List<TypeOfWorkingTime>();
+        public List<string> ColorTypes { get; set; } = new List<string>();
 
         public string PositionName { get; set; }
 
         public string WorkScheduleName { get; set; }
 
         public string TypeOfEmp { get; set; }
+
 
         public string Period {  get; set; }
 
@@ -50,6 +52,7 @@ namespace web_table.Web.ViewModel
                 employeeTimeShift.HoursPlanned.AddRange(employeeTimeShiftsList.Select(ts => ts.HoursPlanned));
                 employeeTimeShift.Dates.AddRange(employeeTimeShiftsList.Select(ts => ts.WorkDate));
                 employeeTimeShift.Types.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmployment));
+                employeeTimeShift.ColorTypes.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmployment.ColorText));
 
                 employeeTimeShifts.Add(employeeTimeShift);
             };

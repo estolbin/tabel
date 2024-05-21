@@ -94,6 +94,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9fSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/code/vm_tabel/web_table.Web/Views/TypeOfWorkingTime/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mV29ya2luZ1RpbWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/code/vm_tabel/web_table.Web/Views/WorkSchedule/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1NjaGVkdWxlXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

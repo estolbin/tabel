@@ -56,7 +56,7 @@ namespace web_tabel.Services.Migrations
                     b.Property<Guid>("StaffScheduleId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("TypeOfEmploymentId")
+                    b.Property<string>("TypeOfEmploymentName")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("WorkScheduleId")
@@ -70,7 +70,7 @@ namespace web_tabel.Services.Migrations
 
                     b.HasIndex("StaffScheduleId");
 
-                    b.HasIndex("TypeOfEmploymentId");
+                    b.HasIndex("TypeOfEmploymentName");
 
                     b.HasIndex("WorkScheduleId");
 
@@ -194,15 +194,10 @@ namespace web_tabel.Services.Migrations
 
             modelBuilder.Entity("web_tabel.Domain.TypeOfEmployment", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.ToTable("TypeOfEmployments");
                 });
@@ -210,6 +205,11 @@ namespace web_tabel.Services.Migrations
             modelBuilder.Entity("web_tabel.Domain.TypeOfWorkingTime", b =>
                 {
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColorText")
+                        .IsRequired()
+                        .HasMaxLength(7)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -245,6 +245,24 @@ namespace web_tabel.Services.Migrations
                     b.ToTable("WorkSchedules");
                 });
 
+            modelBuilder.Entity("web_tabel.Domain.WorkingCalendar", b =>
+                {
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Date");
+
+                    b.HasIndex(new[] { "Year" }, "IX_WorkingCalendar_Year");
+
+                    b.ToTable("WorkingCalendar");
+                });
+
             modelBuilder.Entity("web_tabel.Domain.Department", b =>
                 {
                     b.HasOne("web_tabel.Domain.Organization", "Organization")
@@ -278,9 +296,7 @@ namespace web_tabel.Services.Migrations
 
                     b.HasOne("web_tabel.Domain.TypeOfEmployment", "TypeOfEmployment")
                         .WithMany()
-                        .HasForeignKey("TypeOfEmploymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeOfEmploymentName");
 
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()

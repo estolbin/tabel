@@ -26,6 +26,8 @@ namespace web_tabel.API.Controllers
         {
             if (_unitOfWork.StaffScheduleRepository.SingleOrDefault(x => x.Id == staffSchedule.Id) != null) { return Task.FromResult<IActionResult>(BadRequest("StaffSchedule already exists")); }
 
+            staffSchedule.Name = staffSchedule.Name.Substring(0, staffSchedule.Name.IndexOf('/')-1);
+
             staffSchedule.Department = _unitOfWork.DepartmentRepository.SingleOrDefault(x => x.Id == staffSchedule.Department.Id) ?? staffSchedule.Department;
             staffSchedule.Organization = _unitOfWork.OrganizationRepository.SingleOrDefault(x => x.Id == staffSchedule.Organization.Id) ?? staffSchedule.Organization;
             staffSchedule.WorkSchedule = _unitOfWork.WorkScheduleRepository.SingleOrDefault(x => x.Id == staffSchedule.WorkSchedule.Id) ?? staffSchedule.WorkSchedule;

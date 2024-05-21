@@ -1,9 +1,9 @@
 ﻿$(function () {
     $("#loaderbody").addClass('hide');
 
-    $(document).on('ajaxStart', function () {
+    $(document).bind('ajaxStart', function () {
         $("#loaderbody").removeClass('hide');
-    }).on('ajaxStop', function () {
+    }).bind('ajaxStop', function () {
         $('#loaderbody').addClass('hide');
     });
 });
@@ -40,6 +40,7 @@ $('#select_period').change(function () {
 })
 
 
+
 $(document).ready(function () {
     let table  = $('#timeShiftTable').DataTable
         ({
@@ -47,7 +48,7 @@ $(document).ready(function () {
             searching: false,
             paging: false,
             info: false,
-            autoWidth: true,
+            autoWidth: false,
             scrollX: true,
             scrollCollapse: true,
             fixedColumns: {
@@ -57,6 +58,16 @@ $(document).ready(function () {
             fixedHeader: {
                 header: true,
                 footer: true
-            }
+            },
+            columnDefs: [
+                { width: '300px', targets: 0 }
+            ]
         });
+
+    table.columns.adjust().draw();
+
+    
 })
+
+
+

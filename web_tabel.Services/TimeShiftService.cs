@@ -109,11 +109,11 @@ public class TimeShiftService : ITimeShiftService
         return unitOfWork.TimeShiftRepository.Get(x => x.Employee == employee && x.TimeShiftPeriod == period && x.WorkDate == date).LastOrDefault();
     }
 
-    public void UpdateTimeShift(TimeShift timeShift)
+    public async Task UpdateTimeShift(TimeShift timeShift)
     {
         //_repository.UpdateTimeShift(timeShift);
-        unitOfWork.TimeShiftRepository.Update(timeShift);
-        unitOfWork.Save();
+        await unitOfWork.TimeShiftRepository.UpdateAsync(timeShift);
+        await unitOfWork.SaveAsync();
     }
 
 
@@ -156,9 +156,11 @@ public class TimeShiftService : ITimeShiftService
     /// <returns>—писок сотрудников, у которых есть совпадени€</returns>
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByEmpLike(string empLike)
     {
-        var names = unitOfWork.EmployeeNameRepository.GetAll().AsEnumerable().Where(x => x.FullName.ToLower().Contains(empLike.ToLower()));
-        var employees = unitOfWork.EmployeeRepository.Get(x => names.Contains(x.Name));
-        return unitOfWork.TimeShiftRepository.Get(e => employees.Contains(e.Employee));
+        // TODO: rework to async method
+        var employees = await unitOfWork.EmployeeRepository.GetAllAsync();
+        var filteredEmployees = employees.Where(x => x.Name.FullName.ToLower().Contains(empLike.ToLower()));
+
+        return await unitOfWork.TimeShiftRepository.GetAsync(e => filteredEmployees.Contains(e.Employee));
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)

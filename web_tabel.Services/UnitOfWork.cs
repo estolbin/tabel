@@ -22,6 +22,7 @@ namespace web_tabel.Services
         private GenericRepository<TypeOfWorkingTime> _typeOfWorkingTimeRepository;
         private GenericRepository<WorkSchedule> _workScheduleRepository;
         private GenericRepository<WorkSchedulleHours> _workSchedulleHoursRepository;
+        private GenericRepository<WorkingCalendar> _workingCalendarRepository;
 
         public GenericRepository<Department> DepartmentRepository => _departmentRepository ??= new(_context);
         public GenericRepository<Employee> EmployeeRepository => _employeeRepository ??= new(_context);
@@ -34,11 +35,17 @@ namespace web_tabel.Services
         public GenericRepository<TypeOfWorkingTime> TypeOfWorkingTimeRepository => _typeOfWorkingTimeRepository ??= new(_context);
         public GenericRepository<WorkSchedule> WorkScheduleRepository => _workScheduleRepository ??= new(_context);
         public GenericRepository<WorkSchedulleHours> WorkSchedulleHoursRepository => _workSchedulleHoursRepository ??= new(_context);
+        public GenericRepository<WorkingCalendar> WorkingCalendarRepository => _workingCalendarRepository ??= new(_context);
 
 
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;

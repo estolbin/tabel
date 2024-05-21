@@ -1,3 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 namespace web_tabel.Domain;
 
 /// <summary>
@@ -13,6 +17,10 @@ public class TypeOfWorkingTime
     }
 
     public TypeOfWorkingTime() { }
+
+    [JsonIgnore]
+    [MaxLength(7)]
+    public string ColorText { get; set; }
 
     public TypeOfWorkingTime(string name, string description) : this(name)
     {
@@ -30,6 +38,11 @@ public class TypeOfWorkingTime
             return this.Name == other.Name;
         }
         return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
     }
 
     public override string ToString()

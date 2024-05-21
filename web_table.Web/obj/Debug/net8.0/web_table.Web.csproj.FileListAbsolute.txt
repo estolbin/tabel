@@ -1,5 +1,6 @@
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\appsettings.Development.json
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\appsettings.json
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\libman.json
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.staticwebassets.runtime.json
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.exe
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.deps.json
@@ -8,6 +9,13 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_table.Web.pdb
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Castle.Core.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Humanizer.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.ApplicationInsights.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.ApplicationInsights.AspNetCore.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.AI.DependencyCollector.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.AI.EventCounterCollector.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.AI.PerfCounterCollector.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.AI.WindowsServer.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.AI.ServerTelemetryChannel.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -21,6 +29,8 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Pr
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.ApplicationInsights.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Mono.TextTemplating.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
@@ -32,6 +42,12 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Composition.Convention.dl
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Composition.Hosting.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Composition.Runtime.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Diagnostics.PerformanceCounter.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\System.Windows.Extensions.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -84,6 +100,7 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Worksp
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -104,6 +121,11 @@ D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win-arm\native\e_sqlite
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_tabel.Domain.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_tabel.Services.dll
 D:\code\vm_tabel\web_table.Web\bin\Debug\net8.0\web_tabel.Services.pdb
@@ -116,6 +138,7 @@ D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.csproj.CoreCompile
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.MvcApplicationPartsAssemblyInfo.cache
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.RazorAssemblyInfo.cache
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.RazorAssemblyInfo.cs
+D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.sourcelink.json
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\staticwebassets.build.json
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\staticwebassets.development.json
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\staticwebassets\msbuild.web_table.Web.Microsoft.AspNetCore.StaticWebAssets.props
@@ -132,4 +155,3 @@ D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\refint\web_table.Web.dll
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.pdb
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.genruntimeconfig.cache
 D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\ref\web_table.Web.dll
-D:\code\vm_tabel\web_table.Web\obj\Debug\net8.0\web_table.Web.sourcelink.json

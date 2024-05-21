@@ -23,7 +23,7 @@ public class Employee : Entity
     /// <summary>
     /// Вид занятости (основное место работы, совместительство)
     /// </summary>
-    public virtual TypeOfEmployment TypeOfEmployment { get; set; }
+    public virtual TypeOfEmployment? TypeOfEmployment { get; set; }
 
     public Employee(EmployeeName name, Organization organization, Department department, StaffSchedule staffSchedule)
     {

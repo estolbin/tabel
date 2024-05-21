@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using web_tabel.Domain;
 using web_tabel.Services;
 using web_tabel.Services.TimeShiftContext;
@@ -29,6 +30,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
     options.Cookie.HttpOnly = true;
 });
+builder.Services.AddApplicationInsightsTelemetry();
+
 
 var app = builder.Build();
 

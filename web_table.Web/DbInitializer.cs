@@ -29,8 +29,8 @@ namespace web_table.Web
             Guid orgGuid = new Guid("C5DCDC10-1AD6-4F76-AC8A-BE6E4F169AAA");
             Guid depGuid = new Guid("5AFEFC11-D0D6-4D1A-AEAB-7607CD8E2C04");
 
-            TypeOfEmployment mainType = new TypeOfEmployment() { Id = Guid.NewGuid(), Name = "Основное место работы" };
-            TypeOfEmployment addType = new TypeOfEmployment() { Id = Guid.NewGuid(), Name = "Внутреннее совместительство" };
+            TypeOfEmployment mainType = new TypeOfEmployment() { Name = "Основное место работы" };
+            TypeOfEmployment addType = new TypeOfEmployment() { Name = "Внутреннее совместительство" };
 
             dbContext.TypeOfEmployments.Add(mainType);
             dbContext.TypeOfEmployments.Add(addType);

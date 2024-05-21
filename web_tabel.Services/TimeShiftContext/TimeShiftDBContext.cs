@@ -54,8 +54,16 @@ public class TimeShiftDBContext : DbContext
 
         modelBuilder.Entity<TypeOfWorkingTime>()
             .HasKey(t => new { t.Name });
-     
         
+        modelBuilder.Entity<TypeOfEmployment>()
+            .HasKey(t => new {t.Name});
+
+        modelBuilder.Entity<WorkingCalendar>()
+            .HasKey(t => new { t.Date });
+
+        modelBuilder.Entity<WorkingCalendar>()
+            .HasIndex(c => new { c.Year }, "IX_WorkingCalendar_Year");
+
         base.OnModelCreating(modelBuilder);
 
     }

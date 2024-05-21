@@ -16,7 +16,7 @@ public interface ITimeShiftService
 
     public Task<TimeShift> GetTimeShiftByEmpAndDate(Guid employeeId, DateTime date, Guid? periodId, CancellationToken token = default);
 
-    public void UpdateTimeShift(TimeShift timeShift);
+    public Task UpdateTimeShift(TimeShift timeShift);
 
     public Task<TimeShift> GetTimeShiftByID(Guid id);
 
