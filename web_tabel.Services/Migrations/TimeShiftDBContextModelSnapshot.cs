@@ -208,7 +208,6 @@ namespace web_tabel.Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ColorText")
-                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("TEXT");
 

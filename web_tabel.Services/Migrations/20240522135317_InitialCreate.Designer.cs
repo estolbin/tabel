@@ -11,7 +11,7 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    [Migration("20240521072014_InitialCreate")]
+    [Migration("20240522135317_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -208,6 +208,10 @@ namespace web_tabel.Services.Migrations
             modelBuilder.Entity("web_tabel.Domain.TypeOfWorkingTime", b =>
                 {
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColorText")
+                        .HasMaxLength(7)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")

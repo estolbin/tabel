@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "D:\\code\\vm_tabel\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|d:\\code\\vm_tabel\\web_tabel.services\\timeshiftcontext\\timeshiftdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|solutionrelative:web_tabel.services\\timeshiftcontext\\timeshiftdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\views\\timeshift\\_employeetimeshift.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\views\\timeshift\\_employeetimeshift.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\views\\timeshift\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\views\\timeshift\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\viewmodel\\employeetimeshiftdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\viewmodel\\employeetimeshiftdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\controllers\\periodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\controllers\\periodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\controllers\\timeshiftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\controllers\\timeshiftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\views\\timeshift\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\views\\timeshift\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,12 +47,64 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TimeShiftDBContext.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "RelativeDocumentMoniker": "web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "RelativeToolTip": "web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAAC0AAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T14:06:12.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PeriodController.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\PeriodController.cs",
+              "RelativeDocumentMoniker": "web_table.Web\\Controllers\\PeriodController.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\PeriodController.cs",
+              "RelativeToolTip": "web_table.Web\\Controllers\\PeriodController.cs",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAAAJEAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T13:43:47.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TimeShiftController.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\TimeShiftController.cs",
+              "RelativeDocumentMoniker": "web_table.Web\\Controllers\\TimeShiftController.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Controllers\\TimeShiftController.cs",
+              "RelativeToolTip": "web_table.Web\\Controllers\\TimeShiftController.cs",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T13:43:40.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "site.js",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "web_table.Web\\wwwroot\\js\\site.js",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "web_table.Web\\wwwroot\\js\\site.js",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAADAAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-21T13:23:55.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "_EmployeeTimeShift.cshtml",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
               "RelativeDocumentMoniker": "web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
               "RelativeToolTip": "web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
-              "ViewState": "AQIAABEAAAAAAAAAAAAuwBwAAABNAAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAADkAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-05-21T11:10:51.789Z",
               "EditorCaption": ""
@@ -49,14 +117,14 @@
               "RelativeDocumentMoniker": "web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
               "RelativeToolTip": "web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADYAAAB4AAAA",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAADMAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T11:07:53.543Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\Index.cshtml",
               "RelativeDocumentMoniker": "web_table.Web\\Views\\TimeShift\\Index.cshtml",

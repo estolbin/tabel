@@ -20,7 +20,7 @@ public class TypeOfWorkingTime
 
     [JsonIgnore]
     [MaxLength(7)]
-    public string ColorText { get; set; }
+    public string? ColorText { get; set; }
 
     public TypeOfWorkingTime(string name, string description) : this(name)
     {

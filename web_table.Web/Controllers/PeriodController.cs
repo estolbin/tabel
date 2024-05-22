@@ -141,13 +141,8 @@ namespace web_table.Web.Controllers
                     }
                     else if (ts.TypeEmployment.Name == "Я" && workSheet.IsWeekly) // для графиков такое условие не работает
                     {
-                        if (calendarDay.Type == DayType.Celebrate)
-                        {
-                            ts.TypeEmployment = celebrateDayType;
-                            ts.HoursPlanned = 0;
-                        }
-                        else if (calendarDay.Type == DayType.Weekend)
-                        {
+                        if (calendarDay.Type == DayType.Celebrate || calendarDay.Type == DayType.Weekend)
+                        { 
                             ts.TypeEmployment = weekendDayType;
                             ts.HoursPlanned = 0;
                         }

@@ -43,6 +43,7 @@ namespace web_tabel.Services.Migrations
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ColorText = table.Column<string>(type: "TEXT", maxLength: 7, nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

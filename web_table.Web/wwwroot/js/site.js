@@ -46,7 +46,7 @@ $(document).ready(function () {
         ({
             ordering: false,
             searching: false,
-            paging: false,
+            paging: true,
             info: false,
             autoWidth: false,
             scrollX: true,
