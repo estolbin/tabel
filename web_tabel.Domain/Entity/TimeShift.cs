@@ -23,9 +23,14 @@ public class TimeShift : Entity
     public DateTime WorkDate { get; set; }
 
     /// <summary>
-    /// Вид рабочего времени
+    /// Вид рабочего времени по плану
     /// </summary>
-    public virtual TypeOfWorkingTime? TypeEmployment { get; set; }
+    public virtual TypeOfWorkingTime? TypeEmploymentPlanned { get; set; }
+
+    /// <summary>
+    /// Вид рабочего времени - факт
+    /// </summary>
+    public virtual TypeOfWorkingTime? TypeEmploymentWorked { get; set; } 
 
     /// <summary>
     /// Конструктор записи табеля по сотруднику
@@ -57,11 +62,11 @@ public class TimeShift : Entity
         HoursPlanned = GetPlannedHours(WorkDate);
         if (HoursPlanned > 0)
         {
-            if (TypeEmployment == null) TypeEmployment = _workType;
+            if (TypeEmploymentPlanned == null) TypeEmploymentPlanned = _workType;
         }
         else
         {
-            if (TypeEmployment != TypeOfWorkingTime.GetWeekend()) TypeEmployment = _weekendType;
+            if (TypeEmploymentPlanned != TypeOfWorkingTime.GetWeekend()) TypeEmploymentPlanned = _weekendType;
         }
     }
 
@@ -69,7 +74,7 @@ public class TimeShift : Entity
 
     public float GetPlannedHours(DateTime day)
     {
-        return WorkSchedule.GetHoursByDate(WorkDate, TypeEmployment);
+        return WorkSchedule.GetHoursByDate(WorkDate, TypeEmploymentPlanned);
     }
 
     public TimeShift(TimeShiftPeriod period, Employee employee, DateTime workDate) :

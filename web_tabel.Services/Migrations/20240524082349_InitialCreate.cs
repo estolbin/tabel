@@ -247,7 +247,8 @@ namespace web_tabel.Services.Migrations
                     EmployeeId = table.Column<Guid>(type: "TEXT", nullable: false),
                     WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
                     WorkDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TypeEmploymentName = table.Column<string>(type: "TEXT", nullable: true)
+                    TypeEmploymentPlannedName = table.Column<string>(type: "TEXT", nullable: true),
+                    TypeEmploymentWorkedName = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -265,8 +266,13 @@ namespace web_tabel.Services.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TimeShifts_TypeEmployments_TypeEmploymentName",
-                        column: x => x.TypeEmploymentName,
+                        name: "FK_TimeShifts_TypeEmployments_TypeEmploymentPlannedName",
+                        column: x => x.TypeEmploymentPlannedName,
+                        principalTable: "TypeEmployments",
+                        principalColumn: "Name");
+                    table.ForeignKey(
+                        name: "FK_TimeShifts_TypeEmployments_TypeEmploymentWorkedName",
+                        column: x => x.TypeEmploymentWorkedName,
                         principalTable: "TypeEmployments",
                         principalColumn: "Name");
                     table.ForeignKey(
@@ -333,9 +339,14 @@ namespace web_tabel.Services.Migrations
                 column: "TimeShiftPeriodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeShifts_TypeEmploymentName",
+                name: "IX_TimeShifts_TypeEmploymentPlannedName",
                 table: "TimeShifts",
-                column: "TypeEmploymentName");
+                column: "TypeEmploymentPlannedName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeShifts_TypeEmploymentWorkedName",
+                table: "TimeShifts",
+                column: "TypeEmploymentWorkedName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TimeShifts_WorkScheduleId",

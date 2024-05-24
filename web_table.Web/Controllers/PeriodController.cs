@@ -132,18 +132,23 @@ namespace web_table.Web.Controllers
                     // день по производственному календарю
                     var calendarDay = workCalendar.FirstOrDefault(x => x.Date == curDate);
 
+                    var existed = await _unitOfWork.TimeShiftRepository.GetAsync(x => x.Employee.Id == employee.Id && x.WorkDate == curDate);
+                    // TODO: уточнить, что делаем если перезаполняют табель
+                    if (existed.Any())
+                        continue;
+
                     var ts = new TimeShift(period, employee, curDate);
                     ts.HoursPlanned = GetHoursPlanned(daysInCycleList, numberDayOfCycle);
-                    ts.TypeEmployment = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).TypeOfWorkingTime;
-                    if (ts.HoursPlanned == 0 && ts.TypeEmployment.Name == "Я")
+                    ts.TypeEmploymentPlanned = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).TypeOfWorkingTime;
+                    if (ts.HoursPlanned == 0 && ts.TypeEmploymentPlanned.Name == "Я")
                     {
-                        ts.TypeEmployment = weekendDayType;
+                        ts.TypeEmploymentPlanned = weekendDayType;
                     }
-                    else if (ts.TypeEmployment.Name == "Я" && workSheet.IsWeekly) // для графиков такое условие не работает
+                    else if (ts.TypeEmploymentPlanned.Name == "Я" && workSheet.IsWeekly) // для графиков такое условие не работает
                     {
                         if (calendarDay.Type == DayType.Celebrate || calendarDay.Type == DayType.Weekend)
                         { 
-                            ts.TypeEmployment = weekendDayType;
+                            ts.TypeEmploymentPlanned = weekendDayType;
                             ts.HoursPlanned = 0;
                         }
 

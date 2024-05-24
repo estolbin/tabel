@@ -32,4 +32,8 @@ public interface ITimeShiftService
 
     public Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids);
     public Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids);
+
+    public Task<TypeOfWorkingTime> GetTypeOfWorkingTime(string name);
+
+    public Task<IEnumerable<TypeOfWorkingTime>> GetAllTypeOfWorkingTime();
 }

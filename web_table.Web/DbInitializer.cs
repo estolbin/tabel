@@ -81,8 +81,8 @@ namespace web_table.Web
             for (DateTime date = per.Start; date <= per.End; date = date.AddDays(1))
             {
                 var t = new TimeShift(per, emp, date);
-                if (t.TypeEmployment.Name == "РВ") t.TypeEmployment = te;
-                else if (t.TypeEmployment.Name == "ВХ") t.TypeEmployment = te1;
+                if (t.TypeEmploymentPlanned.Name == "РВ") t.TypeEmploymentPlanned = te;
+                else if (t.TypeEmploymentPlanned.Name == "ВХ") t.TypeEmploymentPlanned = te1;
                 tsper.Add(t);
             }
             dbContext.TimeShifts.AddRange(tsper);
@@ -119,8 +119,8 @@ namespace web_table.Web
             for (DateTime date = per.Start; date <= per.End; date = date.AddDays(1))
             {
                 var t = new TimeShift(per, emp1, date);
-                if (t.TypeEmployment.Name == "РВ") t.TypeEmployment = te;
-                else if (t.TypeEmployment.Name == "ВХ") t.TypeEmployment = te1;
+                if (t.TypeEmploymentPlanned.Name == "РВ") t.TypeEmploymentPlanned = te;
+                else if (t.TypeEmploymentPlanned.Name == "ВХ") t.TypeEmploymentPlanned = te1;
 
                 tsper1.Add(t);
             }
@@ -150,8 +150,8 @@ namespace web_table.Web
             for (DateTime date = per.Start; date <= per.End; date = date.AddDays(1))
             {
                 var t = new TimeShift(per, emp1, date);
-                if (t.TypeEmployment.Name == "РВ") t.TypeEmployment = te;
-                else if (t.TypeEmployment.Name == "ВХ") t.TypeEmployment = te1;
+                if (t.TypeEmploymentPlanned.Name == "РВ") t.TypeEmploymentPlanned = te;
+                else if (t.TypeEmploymentPlanned.Name == "ВХ") t.TypeEmploymentPlanned = te1;
 
                 tsper1.Add(t);
             }
@@ -180,8 +180,8 @@ namespace web_table.Web
             for (DateTime date = per.Start; date <= per.End; date = date.AddDays(1))
             {
                 var t = new TimeShift(per, emp1, date);
-                if (t.TypeEmployment.Name == "РВ") t.TypeEmployment = te;
-                else if (t.TypeEmployment.Name == "ВХ") t.TypeEmployment = te1;
+                if (t.TypeEmploymentPlanned.Name == "РВ") t.TypeEmploymentPlanned = te;
+                else if (t.TypeEmploymentPlanned.Name == "ВХ") t.TypeEmploymentPlanned = te1;
 
                 tsper1.Add(t);
             }

@@ -146,7 +146,10 @@ namespace web_tabel.Services.Migrations
                     b.Property<Guid>("TimeShiftPeriodId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TypeEmploymentName")
+                    b.Property<string>("TypeEmploymentPlannedName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TypeEmploymentWorkedName")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("WorkDate")
@@ -161,7 +164,9 @@ namespace web_tabel.Services.Migrations
 
                     b.HasIndex("TimeShiftPeriodId");
 
-                    b.HasIndex("TypeEmploymentName");
+                    b.HasIndex("TypeEmploymentPlannedName");
+
+                    b.HasIndex("TypeEmploymentWorkedName");
 
                     b.HasIndex("WorkScheduleId");
 
@@ -386,9 +391,13 @@ namespace web_tabel.Services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeEmployment")
+                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeEmploymentPlanned")
                         .WithMany()
-                        .HasForeignKey("TypeEmploymentName");
+                        .HasForeignKey("TypeEmploymentPlannedName");
+
+                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeEmploymentWorked")
+                        .WithMany()
+                        .HasForeignKey("TypeEmploymentWorkedName");
 
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()
@@ -400,7 +409,9 @@ namespace web_tabel.Services.Migrations
 
                     b.Navigation("TimeShiftPeriod");
 
-                    b.Navigation("TypeEmployment");
+                    b.Navigation("TypeEmploymentPlanned");
+
+                    b.Navigation("TypeEmploymentWorked");
 
                     b.Navigation("WorkSchedule");
                 });

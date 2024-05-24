@@ -11,6 +11,7 @@ namespace web_table.Web.Controllers
         private IEnumerable<Department> _departments;
         private IEnumerable<Organization> _organizations;
         private IEnumerable<TimeShiftPeriod> _periods;
+        private IEnumerable<TypeOfWorkingTime> _typeOfWorkingTimes;
 
         public TimeShiftController(ITimeShiftService service) => _service = service;
 
@@ -33,6 +34,8 @@ namespace web_table.Web.Controllers
             var periods = await _service.GetAllPeriods();
             string periodsJson = JsonConvert.SerializeObject(periods);
             HttpContext.Session.SetString("SessionPeriods", periodsJson);
+
+            _typeOfWorkingTimes = await _service.GetAllTypeOfWorkingTime();
 
             var periodId = GetGuidFromSession().Result;
             IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift(periodId);
@@ -129,16 +132,22 @@ namespace web_table.Web.Controllers
 
         public async Task<IActionResult> SetNewHours(Guid empId, DateTime currentDate)
         {
+
             var periodId = await GetGuidFromSession();
             var timeShifts = await _service.GetTimeShiftByEmpAndDate(empId, currentDate, periodId);
+
+            if (_typeOfWorkingTimes == null) _typeOfWorkingTimes = await _service.GetAllTypeOfWorkingTime();
+            ViewBag.Types = _typeOfWorkingTimes.ToSelectListItem(x => x.Name, x => x.Description, new[] { timeShifts.TypeEmploymentWorked?.Name ?? String.Empty});
+
             return View(timeShifts);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateNewHours(TimeShift timeShift)
+        public async Task<IActionResult> UpdateNewHours(TimeShift timeShift, string typeWTName)
         {
             var existingTimeShift = await _service.GetTimeShiftByID(timeShift.Id);
             existingTimeShift.HoursWorked = timeShift.HoursWorked;
+            existingTimeShift.TypeEmploymentWorked = await _service.GetTypeOfWorkingTime(typeWTName);
             await _service.UpdateTimeShift(existingTimeShift);
 
             return RedirectToAction(nameof(Index));

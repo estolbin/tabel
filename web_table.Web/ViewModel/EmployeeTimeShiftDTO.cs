@@ -13,7 +13,9 @@ namespace web_table.Web.ViewModel
         public string OrganizationId { get; set; }
         public string DepartmentId { get; set; }
 
-        public List<TypeOfWorkingTime> Types { get; set; } = new List<TypeOfWorkingTime>();
+        public List<TypeOfWorkingTime> TypesPlanned { get; set; } = new List<TypeOfWorkingTime>();
+        public List<TypeOfWorkingTime> TypesWorked { get; set; } = new List<TypeOfWorkingTime>();
+
         public List<string> ColorTypes { get; set; } = new List<string>();
 
         public string PositionName { get; set; }
@@ -51,8 +53,9 @@ namespace web_table.Web.ViewModel
                 employeeTimeShift.HoursWorked.AddRange(employeeTimeShiftsList.Select(ts => ts.HoursWorked));
                 employeeTimeShift.HoursPlanned.AddRange(employeeTimeShiftsList.Select(ts => ts.HoursPlanned));
                 employeeTimeShift.Dates.AddRange(employeeTimeShiftsList.Select(ts => ts.WorkDate));
-                employeeTimeShift.Types.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmployment));
-                employeeTimeShift.ColorTypes.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmployment.ColorText));
+                employeeTimeShift.TypesPlanned.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentPlanned));
+                employeeTimeShift.TypesWorked.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentWorked));
+                employeeTimeShift.ColorTypes.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentPlanned.ColorText));
 
                 employeeTimeShifts.Add(employeeTimeShift);
             };

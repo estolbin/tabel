@@ -15,14 +15,22 @@
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text col-6 text-muted">Плановое значение времени</span>
-        <span class="form-control text-muted" id="disabledInput">@Model.TypeEmployment</span>
+        <span class="form-control text-muted" id="disabledInput">@Model.TypeEmploymentPlanned</span>
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text col-6">Отработано фактически</span>
         <input asp-for="HoursWorked" class="form-control"/>
     </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text col-6">Фактическое значение</span>
+        <select id="typesList" class="form-select" name="typeWTName">
+            @foreach (var item in ViewBag.Types)
+            {
+                <option selected="@item.Selected" value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
 
-    @* <input type="submit" class="btn btn-primary mt-3" value="Сохранить" asp-route-empid="@Model.Employee.Id" asp-route-date="@Model.WorkDate"/> *@
     <input type="submit" value="Save" class="btn btn-primary"/>
 </form>
     

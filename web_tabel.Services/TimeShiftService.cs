@@ -171,8 +171,17 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
     {
-        //return await _repository.GetTimeShiftByOrganizations(orgGuids);
-        return unitOfWork.TimeShiftRepository.Get(x => orgGuids.Contains(x.Employee.Organization.Id));
+        return await unitOfWork.TimeShiftRepository.GetAsync(x => orgGuids.Contains(x.Employee.Organization.Id));
+    }
+
+    public async Task<TypeOfWorkingTime> GetTypeOfWorkingTime(string name)
+    {
+        return await unitOfWork.TypeOfWorkingTimeRepository.SingleOrDefaultAsync(x => x.Name == name);
+    }
+
+    public async Task<IEnumerable<TypeOfWorkingTime>> GetAllTypeOfWorkingTime()
+    {
+        return await unitOfWork.TypeOfWorkingTimeRepository.GetAllAsync();
     }
 }
 
