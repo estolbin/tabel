@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_tabel.Services.TimeShiftContext;
 
@@ -10,9 +11,11 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    partial class TimeShiftDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240527085730_AddEmployeeCondition")]
+    partial class AddEmployeeCondition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,6 +86,7 @@ namespace web_tabel.Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TypeOfWorkingTimeName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Name");
@@ -369,7 +373,9 @@ namespace web_tabel.Services.Migrations
                 {
                     b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeOfWorkingTime")
                         .WithMany()
-                        .HasForeignKey("TypeOfWorkingTimeName");
+                        .HasForeignKey("TypeOfWorkingTimeName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TypeOfWorkingTime");
                 });

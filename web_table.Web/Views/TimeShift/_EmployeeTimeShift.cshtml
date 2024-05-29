@@ -2,13 +2,10 @@
 
 <tr>
     <td>
-            @*<div class="card-body">*@
-                <a onclick="showInPopup('@Url.Action("Details","Employee", new {id = Model.EmployeeId},Context.Request.Scheme)','Детали')"> 
-                    @Model.EmployeeName<br/>
-                </a>
-            <small class="badge bg-primary">@Model.TypeOfEmp</small>
-            @*</div>*@
-
+        <a onclick="showInPopup('@Url.Action("Details","Employee", new {id = Model.EmployeeId},Context.Request.Scheme)','Детали')"> 
+            @Model.EmployeeName<br/>
+        </a>
+        <small class="badge bg-primary">@Model.TypeOfEmp</small>
     </td>
     <td>
         @{
@@ -22,6 +19,8 @@
             }
         }
     </td>
+    <td>@Model.OrganizationName</td>
+    <td>@Model.DepartmentName</td>
     
     @foreach(var item in Model.TypesPlanned)
     {
@@ -49,6 +48,8 @@
             }
         }
     </td>
+    <td>@Model.OrganizationName</td>
+    <td>@Model.DepartmentName</td>
     @foreach (var item in Model.Dates)
     {
         bool disable = (item.DayOfWeek == DayOfWeek.Saturday || item.DayOfWeek == DayOfWeek.Sunday);

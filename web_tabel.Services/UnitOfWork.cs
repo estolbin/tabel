@@ -23,6 +23,7 @@ namespace web_tabel.Services
         private GenericRepository<WorkSchedule> _workScheduleRepository;
         private GenericRepository<WorkSchedulleHours> _workSchedulleHoursRepository;
         private GenericRepository<WorkingCalendar> _workingCalendarRepository;
+        private GenericRepository<EmployeeCondition> _employeeConditionRepository;
 
         public GenericRepository<Department> DepartmentRepository => _departmentRepository ??= new(_context);
         public GenericRepository<Employee> EmployeeRepository => _employeeRepository ??= new(_context);
@@ -36,6 +37,7 @@ namespace web_tabel.Services
         public GenericRepository<WorkSchedule> WorkScheduleRepository => _workScheduleRepository ??= new(_context);
         public GenericRepository<WorkSchedulleHours> WorkSchedulleHoursRepository => _workSchedulleHoursRepository ??= new(_context);
         public GenericRepository<WorkingCalendar> WorkingCalendarRepository => _workingCalendarRepository ??= new(_context);
+        public GenericRepository<EmployeeCondition> EmployeeConditionRepository => _employeeConditionRepository ??= new(_context);
 
 
         public void Save()

@@ -18,53 +18,47 @@
     <div class="col-md-6">
         <div id="FormDiv">
 
-        @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}))
+        @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}, FormMethod.Post, true ,new { @class = "d-flex align-items-center"}))
         {
-            <div class="row">
-                <div class="col-sm-10">
 
-                <label for="depList" class="form-label">Подразделения</label>
-                <select id="depList" class="form-select" multiple name="depId">
-                    @foreach (var d in ViewBag.Departments)
-                    {
-                        <option selected="@d.Selected" value="@d.Value">@d.Text</option>        
-                    }
-                </select>
-                </div>
-                <div class="col-sm-2">
-                    <input type="submit" value="Отбор" class="btn btn-primary"/>
-                </div>
-            </div>
+            <label for="depList" class="form-label m-2">Подразделения</label>
+            <select id="depList" class="form-select " multiple name="depId">
+                @foreach (var d in ViewBag.Departments)
+                {
+                    <option selected="@d.Selected" value="@d.Value">@d.Text</option>        
+                }
+            </select>
+            <div class="input-group-append">
+                <input type="submit" value="Отбор" class="btn-sm btn-primary"/>
+             </div>
         }
         </div>
     </div>
     <div class="col-md-6">
-        @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}))
+        <div>
+
+        @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}, FormMethod.Post, true, new { @class = "d-flex align-items-center"}))
         {
-            <div class="row">
-                <div class="col-sm-10">
-            <label for="orgList" class="form-label">Организации</label>
+            <label for="orgList" class="form-label m-2">Организации</label>
             @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Value", "Text"), new { id = "orgList", @class = "form-select", multiple="multiple"})
-            </div>
-            <div class="col-sm-2">
-            <input type="submit" value="Отбор" class="btn btn-primary mb-3" />
-            </div>
+            <div class="input-group-append">
+                <input type="submit" value="Отбор" class="btn-sm btn-primary" />
             </div>
         }
+        </div>
     </div>
 </div>
 
-<div class="dataTables_wrapper">
-
-
-<table id="timeShiftTable" class="table table-striped nowrap">
+<table id="timeShiftTable" class="table nowrap" cellspacing="0" width="100%">
     <thead class="thead-dark">
         <tr>
             <th scope="col" class="text-center">Сотрудник</th>
-            <th class="text-center" scope="col"><small>Должность<div class="border-top my-1"></div>График</small></th>
+            <th scope="col" class="text-center"><small>Должность<div class="border-top my-1"></div>График</small></th>
+            <th scope="col">Организация</th>
+            <th scope="col">Подразделение</th>
             @foreach (var item in dts)
             {
-                <th class="text-center" scope="col">
+                <th scope="col">
                     @item.ToString("dd")<br />
                     @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek)
                 </th>
@@ -72,6 +66,7 @@
         </tr>
     </thead>
     <tbody>
+
 
         @{
             int orgNum = 1;
@@ -81,12 +76,6 @@
             {
                 if (Model.Where(x => x.OrganizationId == org.Id.ToString()).ToList().Count == 0) continue;
 
-                @(await Html.PartialAsync("_OrpDepName", new ViewDataDictionary(ViewData)
-                {
-                    { "colSpan", datesCol+2},
-                    { "header", "h3" },
-                    { "Name", org.Name }
-                }));
 
                 var empByOrg = Model.Where(x => x.OrganizationId == org.Id.ToString());
                 var depsByOrg = deps.Where(x => x.Organization.Id == org.Id);
@@ -97,13 +86,7 @@
                     var empByDep = empByOrg.Where(x => x.DepartmentId == d.Id.ToString());
                     if (empByDep.Count() == 0) continue;
 
-                    @(await Html.PartialAsync("_OrpDepName", new ViewDataDictionary(ViewData)
-                    {
-                        { "colSpan", datesCol+2},
-                        { "header", "h5" },
-                        { "Name", d.Name }
-                    }));
-                    
+
                     @foreach (var emp in empByDep)
                     {
                        @(await Html.PartialAsync("_EmployeeTimeShift", emp));
@@ -116,7 +99,7 @@
 
     </tbody>
 </table>
-</div>
+
 
 @(await Html.PartialAsync("Error"))
 

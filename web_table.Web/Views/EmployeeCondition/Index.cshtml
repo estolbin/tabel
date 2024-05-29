@@ -1,0 +1,39 @@
+﻿@using web_tabel.Domain;
+@model IEnumerable<EmployeeCondition>
+@{
+    ViewData["Title"] = "Состояния сотрудников";
+    Layout = "_Layout";
+    var list = ViewBag.TypeOfWorkingTimeList;
+}
+<h1>Состояния сотрудников</h1>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Состояние</td>
+            <td>Вид рабочего времени</td>
+        </tr>
+    </thead>
+    <tbody
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>
+                <form action="@Url.Action("SetTypeOfWorkingTime","EmployeeCondition")" method="post">
+                    <div>
+                        <input type="hidden" name="name" value="@item.Name" />
+                        <select name="typeWT" onchange="this.form.submit()" class="form-select">
+                            @foreach (var type in list)
+                            {
+                                <option selected="@(type.Value == item.TypeOfWorkingTime?.Name)" value="@type.Value">@type.Text</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

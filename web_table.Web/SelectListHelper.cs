@@ -12,7 +12,7 @@ namespace web_table.Web
 
             return list.Select(x => new SelectListItem
             {
-                Value = valueSelector(x).ToString(),
+                Value = valueSelector(x).ToString() ?? string.Empty,
                 Text = textSelector(x),
                 Selected = isSelected(valueSelector(x).ToString())
             });

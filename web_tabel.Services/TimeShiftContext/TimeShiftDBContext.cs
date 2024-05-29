@@ -64,6 +64,10 @@ public class TimeShiftDBContext : DbContext
         modelBuilder.Entity<WorkingCalendar>()
             .HasIndex(c => new { c.Year }, "IX_WorkingCalendar_Year");
 
+
+        modelBuilder.Entity<EmployeeCondition>()
+            .HasKey(c => new { c.Name });
+
         base.OnModelCreating(modelBuilder);
 
     }

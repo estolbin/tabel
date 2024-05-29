@@ -17,9 +17,9 @@ namespace web_tabel.API.Controllers
         }
 
         [HttpGet("GetAllDepartments")]
-        public Task<IActionResult> GetAllDepartments()
+        public async Task<IActionResult> GetAllDepartments()
         {
-            return Task.FromResult<IActionResult>(Ok(_unitOfWork.DepartmentRepository.GetAll()));
+            return Ok( await _unitOfWork.DepartmentRepository.GetAllAsync());
         }
 
         [HttpPost("AddDepartment")]

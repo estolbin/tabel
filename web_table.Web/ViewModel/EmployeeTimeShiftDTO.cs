@@ -13,6 +13,9 @@ namespace web_table.Web.ViewModel
         public string OrganizationId { get; set; }
         public string DepartmentId { get; set; }
 
+        public string OrganizationName { get; set; }
+        public string DepartmentName { get; set; }
+
         public List<TypeOfWorkingTime> TypesPlanned { get; set; } = new List<TypeOfWorkingTime>();
         public List<TypeOfWorkingTime> TypesWorked { get; set; } = new List<TypeOfWorkingTime>();
 
@@ -46,7 +49,9 @@ namespace web_table.Web.ViewModel
                     OrganizationId = employee.Organization.Id.ToString(),
                     DepartmentId = employee.Department.Id.ToString(),
                     TypeOfEmp = employee.TypeOfEmployment.Name,
-                    Period = timeShifts.FirstOrDefault(ts => ts.Employee == employee)?.TimeShiftPeriod.Name
+                    Period = timeShifts.FirstOrDefault(ts => ts.Employee == employee)?.TimeShiftPeriod.Name,
+                    OrganizationName = employee.Organization.Name,
+                    DepartmentName = employee.Department.Name
                 };
 
                 var employeeTimeShiftsList = timeShifts.Where(ts => ts.Employee == employee).OrderBy(ts => ts.WorkDate);

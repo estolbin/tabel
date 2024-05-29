@@ -42,31 +42,37 @@ $('#select_period').change(function () {
 
 
 $(document).ready(function () {
+    var groupColumn = 0;
     let table  = $('#timeShiftTable').DataTable
         ({
+            rowGroup: {
+                dataSrc: [2, 3]
+            },
+            columnDefs: [
+                {
+                    targets: [2, 3],
+                    visible: false,
+                }
+            ],
             ordering: false,
             searching: false,
             paging: true,
             info: false,
-            autoWidth: false,
+            autoWidth: true,
             scrollX: true,
             scrollCollapse: true,
             fixedColumns: {
                 start: 2,
-                heightMatch: 'auto'
             },
             fixedHeader: {
-                header: true,
-                footer: true
+                header: true
             },
-            columnDefs: [
-                { width: '300px', targets: 0 }
-            ]
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.7/i18n/ru.json',
+            },
+            initComplete: () => { table.columns.adjust().draw(); }
         });
 
-    table.columns.adjust().draw();
-
-    
 })
 
 

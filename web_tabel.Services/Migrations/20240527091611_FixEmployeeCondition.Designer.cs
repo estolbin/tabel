@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_tabel.Services.TimeShiftContext;
 
@@ -10,9 +11,11 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    partial class TimeShiftDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240527091611_FixEmployeeCondition")]
+    partial class FixEmployeeCondition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
