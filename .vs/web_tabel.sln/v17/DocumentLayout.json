@@ -3,6 +3,50 @@
   "WorkspaceRootPath": "D:\\code\\vm_tabel\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.StaffSchedules.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.Employees.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.TimeShifts.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.TypeEmployments.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.TypeOfEmployments.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.WorkingCalendar.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.WorkSchedules.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.Organizations.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DBCB15-4D7C-4E5D-AFD8-FB14B80D279A}|web_tabel.API\\web_tabel.API.csproj|d:\\code\\vm_tabel\\web_tabel.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D5DBCB15-4D7C-4E5D-AFD8-FB14B80D279A}|web_tabel.API\\web_tabel.API.csproj|solutionrelative:web_tabel.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|d:\\code\\vm_tabel\\web_tabel.services\\timeshiftcontext\\timeshiftdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA8E2BA-26C7-402E-ADCA-CFF4F053A3C8}|web_tabel.Services\\web_tabel.Services.csproj|solutionrelative:web_tabel.services\\timeshiftcontext\\timeshiftdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|d:\\code\\vm_tabel\\web_tabel.domain\\entity\\staffschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{361DE646-0EED-4233-8645-9A8E7BA8EBF2}|web_tabel.Domain\\web_tabel.Domain.csproj|solutionrelative:web_tabel.domain\\entity\\staffschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|d:\\code\\vm_tabel\\web_table.web\\views\\timeshift\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D707254B-D4E3-4AC8-88DB-ACA81DB216FA}|web_table.Web\\web_table.Web.csproj|solutionrelative:web_table.web\\views\\timeshift\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -34,7 +78,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,59 +86,204 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\appsettings.json",
+              "RelativeDocumentMoniker": "web_table.Web\\appsettings.json",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\appsettings.json",
+              "RelativeToolTip": "web_table.Web\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAHAQAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-29T09:29:24.853Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "dbo.Employees [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.Employees.sql",
+              "ToolTip": "dbo.Employees [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:25:18.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dbo.StaffSchedules [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.StaffSchedules.sql",
+              "ToolTip": "dbo.StaffSchedules [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:24:43.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "dbo.TimeShifts [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.TimeShifts.sql",
+              "ToolTip": "dbo.TimeShifts [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:24:35.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "dbo.TypeEmployments [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.TypeEmployments.sql",
+              "ToolTip": "dbo.TypeEmployments [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:24:27.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "dbo.TypeOfEmployments [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.TypeOfEmployments.sql",
+              "ToolTip": "dbo.TypeOfEmployments [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:24:24.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "dbo.WorkingCalendar [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.WorkingCalendar.sql",
+              "ToolTip": "dbo.WorkingCalendar [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:24:19.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "dbo.WorkSchedules [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.WorkSchedules.sql",
+              "ToolTip": "dbo.WorkSchedules [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:24:13.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "dbo.Organizations [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/cs_sql2/timeshifts/tabel/SqlTable/dbo.Organizations.sql",
+              "ToolTip": "dbo.Organizations [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-05-29T09:16:05.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.API\\appsettings.json",
+              "RelativeDocumentMoniker": "web_tabel.API\\appsettings.json",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.API\\appsettings.json",
+              "RelativeToolTip": "web_tabel.API\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-29T09:14:39.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "StaffSchedule.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\StaffSchedule.cs",
+              "RelativeDocumentMoniker": "web_tabel.Domain\\Entity\\StaffSchedule.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Domain\\Entity\\StaffSchedule.cs",
+              "RelativeToolTip": "web_tabel.Domain\\Entity\\StaffSchedule.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T09:05:59.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TimeShiftDBContext.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "RelativeDocumentMoniker": "web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "RelativeToolTip": "web_tabel.Services\\TimeShiftContext\\TimeShiftDBContext.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAAAFkAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T08:56:05.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Program.cs",
+              "RelativeDocumentMoniker": "web_table.Web\\Program.cs",
+              "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Program.cs",
+              "RelativeToolTip": "web_table.Web\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T08:49:02.004Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "EmployeeTimeShiftDTO.cs",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
               "RelativeDocumentMoniker": "web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
               "RelativeToolTip": "web_table.Web\\ViewModel\\EmployeeTimeShiftDTO.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADUAAAA9AAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAABBwDUAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-28T11:21:26.899Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 17,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "web_table.Web\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "web_table.Web\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABYAAAAAAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAABBwBYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-05-28T10:20:26.263Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 15,
               "Title": "site.js",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\site.js",
               "RelativeDocumentMoniker": "web_table.Web\\wwwroot\\js\\site.js",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\js\\site.js",
               "RelativeToolTip": "web_table.Web\\wwwroot\\js\\site.js",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAAEgAAAAAAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAABBwEgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-05-28T10:10:40.465Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 18,
               "Title": "site.css",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "web_table.Web\\wwwroot\\css\\site.css",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\wwwroot\\css\\site.css",
               "RelativeToolTip": "web_table.Web\\wwwroot\\css\\site.css",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAACgAAAAAAAAAAABBwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2024-05-28T09:52:21.291Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 14,
               "Title": "_EmployeeTimeShift.cshtml",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
               "RelativeDocumentMoniker": "web_table.Web\\Views\\TimeShift\\_EmployeeTimeShift.cshtml",
@@ -107,13 +296,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 13,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\Index.cshtml",
               "RelativeDocumentMoniker": "web_table.Web\\Views\\TimeShift\\Index.cshtml",
               "ToolTip": "D:\\code\\vm_tabel\\web_table.Web\\Views\\TimeShift\\Index.cshtml",
               "RelativeToolTip": "web_table.Web\\Views\\TimeShift\\Index.cshtml",
-              "ViewState": "AQIAAH4AAAAAAAAAAAAAAIMAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-05-28T09:39:25.174Z",
               "EditorCaption": ""

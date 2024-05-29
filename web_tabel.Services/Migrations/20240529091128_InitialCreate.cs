@@ -15,8 +15,8 @@ namespace web_tabel.Services.Migrations
                 name: "Organizations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,11 +27,11 @@ namespace web_tabel.Services.Migrations
                 name: "TimeShiftPeriods",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Start = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    End = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Closed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    End = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Closed = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +42,9 @@ namespace web_tabel.Services.Migrations
                 name: "TypeEmployments",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ColorText = table.Column<string>(type: "TEXT", maxLength: 7, nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ColorText = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,7 @@ namespace web_tabel.Services.Migrations
                 name: "TypeOfEmployments",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,9 +66,9 @@ namespace web_tabel.Services.Migrations
                 name: "WorkingCalendar",
                 columns: table => new
                 {
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    Year = table.Column<int>(type: "INTEGER", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,11 +79,11 @@ namespace web_tabel.Services.Migrations
                 name: "WorkSchedules",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ReferenceDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsWeekly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    HoursInWeek = table.Column<float>(type: "REAL", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReferenceDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsWeekly = table.Column<bool>(type: "bit", nullable: false),
+                    HoursInWeek = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,9 +94,9 @@ namespace web_tabel.Services.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrganizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,13 +110,30 @@ namespace web_tabel.Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmployeeCondition",
+                columns: table => new
+                {
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TypeOfWorkingTimeName = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeCondition", x => x.Name);
+                    table.ForeignKey(
+                        name: "FK_EmployeeCondition_TypeEmployments_TypeOfWorkingTimeName",
+                        column: x => x.TypeOfWorkingTimeName,
+                        principalTable: "TypeEmployments",
+                        principalColumn: "Name");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkSchedulleHours",
                 columns: table => new
                 {
-                    DayNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TypeOfWorkingTimeName = table.Column<string>(type: "TEXT", nullable: false),
-                    Hours = table.Column<float>(type: "REAL", nullable: false)
+                    DayNumber = table.Column<int>(type: "int", nullable: false),
+                    WorkScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TypeOfWorkingTimeName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Hours = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,13 +156,13 @@ namespace web_tabel.Services.Migrations
                 name: "StaffSchedules",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    NumberOfPositions = table.Column<float>(type: "REAL", nullable: false),
-                    WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrganizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberOfPositions = table.Column<float>(type: "real", nullable: false),
+                    WorkScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,8 +177,7 @@ namespace web_tabel.Services.Migrations
                         name: "FK_StaffSchedules_Organizations_OrganizationId",
                         column: x => x.OrganizationId,
                         principalTable: "Organizations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_StaffSchedules_WorkSchedules_WorkScheduleId",
                         column: x => x.WorkScheduleId,
@@ -174,12 +190,12 @@ namespace web_tabel.Services.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    StaffScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TypeOfEmploymentName = table.Column<string>(type: "TEXT", nullable: true),
-                    WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrganizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StaffScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TypeOfEmploymentName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    WorkScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,14 +210,12 @@ namespace web_tabel.Services.Migrations
                         name: "FK_Employees_Organizations_OrganizationId",
                         column: x => x.OrganizationId,
                         principalTable: "Organizations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Employees_StaffSchedules_StaffScheduleId",
                         column: x => x.StaffScheduleId,
                         principalTable: "StaffSchedules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Employees_TypeOfEmployments_TypeOfEmploymentName",
                         column: x => x.TypeOfEmploymentName,
@@ -219,11 +233,11 @@ namespace web_tabel.Services.Migrations
                 name: "EmployeeNames",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    MiddleName = table.Column<string>(type: "TEXT", nullable: false),
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,15 +254,15 @@ namespace web_tabel.Services.Migrations
                 name: "TimeShifts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    HoursPlanned = table.Column<float>(type: "REAL", nullable: false),
-                    HoursWorked = table.Column<float>(type: "REAL", nullable: false),
-                    TimeShiftPeriodId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    EmployeeId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    WorkScheduleId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    WorkDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TypeEmploymentPlannedName = table.Column<string>(type: "TEXT", nullable: true),
-                    TypeEmploymentWorkedName = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HoursPlanned = table.Column<float>(type: "real", nullable: false),
+                    HoursWorked = table.Column<float>(type: "real", nullable: false),
+                    TimeShiftPeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WorkScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WorkDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TypeEmploymentPlannedName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TypeEmploymentWorkedName = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -279,14 +293,18 @@ namespace web_tabel.Services.Migrations
                         name: "FK_TimeShifts_WorkSchedules_WorkScheduleId",
                         column: x => x.WorkScheduleId,
                         principalTable: "WorkSchedules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_OrganizationId",
                 table: "Departments",
                 column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeCondition_TypeOfWorkingTimeName",
+                table: "EmployeeCondition",
+                column: "TypeOfWorkingTimeName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_DepartmentId",
@@ -367,6 +385,9 @@ namespace web_tabel.Services.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EmployeeCondition");
+
             migrationBuilder.DropTable(
                 name: "EmployeeNames");
 

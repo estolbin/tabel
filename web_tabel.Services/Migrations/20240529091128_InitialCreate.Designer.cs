@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_tabel.Services.TimeShiftContext;
@@ -11,7 +12,7 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    [Migration("20240524082349_InitialCreate")]
+    [Migration("20240529091128_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,20 +23,23 @@ namespace web_tabel.Services.Migrations
                 .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true);
+                .HasAnnotation("Proxies:LazyLoading", true)
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("web_tabel.Domain.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OrganizationId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -48,22 +52,22 @@ namespace web_tabel.Services.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("DepartmentId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("OrganizationId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("StaffScheduleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TypeOfEmploymentName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("WorkScheduleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -80,15 +84,30 @@ namespace web_tabel.Services.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("web_tabel.Domain.EmployeeCondition", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TypeOfWorkingTimeName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Name");
+
+                    b.HasIndex("TypeOfWorkingTimeName");
+
+                    b.ToTable("EmployeeCondition");
+                });
+
             modelBuilder.Entity("web_tabel.Domain.Organization", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -99,26 +118,26 @@ namespace web_tabel.Services.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("DepartmentId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("NumberOfPositions")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.Property<Guid>("OrganizationId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ParentId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("WorkScheduleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -135,31 +154,31 @@ namespace web_tabel.Services.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("EmployeeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("HoursPlanned")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.Property<float>("HoursWorked")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.Property<Guid>("TimeShiftPeriodId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TypeEmploymentPlannedName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TypeEmploymentWorkedName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("WorkDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("WorkScheduleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -180,20 +199,20 @@ namespace web_tabel.Services.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Closed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("End")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Start")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -203,7 +222,7 @@ namespace web_tabel.Services.Migrations
             modelBuilder.Entity("web_tabel.Domain.TypeOfEmployment", b =>
                 {
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Name");
 
@@ -213,15 +232,15 @@ namespace web_tabel.Services.Migrations
             modelBuilder.Entity("web_tabel.Domain.TypeOfWorkingTime", b =>
                 {
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ColorText")
                         .HasMaxLength(7)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(7)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Name");
 
@@ -232,20 +251,20 @@ namespace web_tabel.Services.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("HoursInWeek")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.Property<bool>("IsWeekly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReferenceDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -255,13 +274,13 @@ namespace web_tabel.Services.Migrations
             modelBuilder.Entity("web_tabel.Domain.WorkingCalendar", b =>
                 {
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Date");
 
@@ -292,13 +311,13 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.StaffSchedule", "StaffSchedule")
                         .WithMany()
                         .HasForeignKey("StaffScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.TypeOfEmployment", "TypeOfEmployment")
@@ -314,22 +333,22 @@ namespace web_tabel.Services.Migrations
                     b.OwnsOne("web_tabel.Domain.EmployeeName", "Name", b1 =>
                         {
                             b1.Property<Guid>("EmployeeId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("FirstName")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("LastName")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("MiddleName")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("EmployeeId");
 
@@ -353,6 +372,15 @@ namespace web_tabel.Services.Migrations
                     b.Navigation("WorkSchedule");
                 });
 
+            modelBuilder.Entity("web_tabel.Domain.EmployeeCondition", b =>
+                {
+                    b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "TypeOfWorkingTime")
+                        .WithMany()
+                        .HasForeignKey("TypeOfWorkingTimeName");
+
+                    b.Navigation("TypeOfWorkingTime");
+                });
+
             modelBuilder.Entity("web_tabel.Domain.StaffSchedule", b =>
                 {
                     b.HasOne("web_tabel.Domain.Department", "Department")
@@ -364,7 +392,7 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
@@ -405,7 +433,7 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()
                         .HasForeignKey("WorkScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Employee");
@@ -424,16 +452,16 @@ namespace web_tabel.Services.Migrations
                     b.OwnsMany("web_tabel.Domain.WorkSchedulleHours", "HoursByDayNumbers", b1 =>
                         {
                             b1.Property<Guid>("WorkScheduleId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<int>("DayNumber")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("int");
 
                             b1.Property<string>("TypeOfWorkingTimeName")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("nvarchar(450)");
 
                             b1.Property<float>("Hours")
-                                .HasColumnType("REAL");
+                                .HasColumnType("real");
 
                             b1.HasKey("WorkScheduleId", "DayNumber", "TypeOfWorkingTimeName");
 

@@ -36,7 +36,8 @@ public class TimeShiftDBContext : DbContext
 
         optionsBuilder
             .UseLazyLoadingProxies()
-            .UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            //.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
             //.UseSqlite("Data Source=TimeShift.db");
     }
 
@@ -44,6 +45,16 @@ public class TimeShiftDBContext : DbContext
     {
 
         modelBuilder.Entity<Employee>().OwnsOne(e => e.Name);
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.Organization)
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.StaffSchedule)
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<WorkSchedule>()
             .OwnsMany(w => w.HoursByDayNumbers, h =>
@@ -67,6 +78,16 @@ public class TimeShiftDBContext : DbContext
 
         modelBuilder.Entity<EmployeeCondition>()
             .HasKey(c => new { c.Name });
+
+        modelBuilder.Entity<StaffSchedule>()
+            .HasOne(s => s.Organization)
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<TimeShift>()
+            .HasOne(t => t.WorkSchedule)
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
 
         base.OnModelCreating(modelBuilder);
 

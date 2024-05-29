@@ -6,7 +6,6 @@ D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.GeneratedMSB
 D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.AssemblyInfoInputs.cache
 D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.AssemblyInfo.cs
 D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.csproj.CoreCompileInputs.cache
-D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.sourcelink.json
 D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.dll
 D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\refint\web_tabel.Domain.dll
 D:\code\vm_tabel\web_tabel.Domain\obj\Debug\net8.0\web_tabel.Domain.pdb
