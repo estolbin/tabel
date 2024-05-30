@@ -34,11 +34,18 @@ public class TimeShiftDBContext : DbContext
             .SetBasePath(Directory.GetCurrentDirectory())
             .Build();
 
-        optionsBuilder
-            .UseLazyLoadingProxies()
-            .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            //.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
-            //.UseSqlite("Data Source=TimeShift.db");
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+        {
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlite(configuration.GetConnectionString("DevelopConnection"));
+        }
+        else
+        {
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
