@@ -1,0 +1,28 @@
+version: '3.9'
+
+networks:
+  traefik-public:
+    external: true
+
+services:
+  test-tabel:
+    image: test-tabel
+    ports:
+      - 5000:8080
+    networks:
+      - traefik-public
+  
+    deploy:
+          replicas: 1
+          labels:
+             - "traefik.enable=true"
+             - "traefik.http.routers.test-tabel.rule=Host(`test-tabel.ecobusiness34.ru`)"
+             - "traefik.http.routers.test-tabel.entrypoints=http"
+             - "traefik.http.routers.test-tabel.middlewares=https-redirect"
+             - "traefik.http.routers.test-tabel-https.rule=Host(`test-tabel.ecobusiness34.ru`)"
+             - "traefik.http.routers.test-tabel-https.entrypoints=https"
+             - "traefik.http.routers.test-tabel-https.tls=true"
+             - "traefik.http.routers.test-tabel-https.tls.certresolver=le"
+             - "traefik.docker.network=traefik-public"
+             - "traefik.constraint-label=traefik-public"
+             - "traefik.http.services.test-tabel-https.loadbalancer.server.port=8080"
