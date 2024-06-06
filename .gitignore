@@ -428,3 +428,4 @@ FodyWeavers.xsd
 /.vs/web_tabel.sln/v17/.futdcache.v2
 /web_tabel.Services/obj/Debug/net8.0/web_tabel.Services.AssemblyInfo.cs
 /web_tabel.Services/obj/Debug/net8.0/web_tabel.Services.AssemblyInfoInputs.cache
+/web_tabel.Services/obj/Debug/net8.0/web_tabel.Services.csproj.AssemblyReference.cache
