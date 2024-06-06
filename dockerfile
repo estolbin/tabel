@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY . ./
 
-RUN dotnet restore 
+#RUN dotnet restore 
 RUN dotnet publish web_table.Web/web_table.Web.csproj -c Release -o out
 
 #add command for migrate db
