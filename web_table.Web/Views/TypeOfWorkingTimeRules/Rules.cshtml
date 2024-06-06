@@ -1,0 +1,87 @@
+﻿@using web_tabel.Domain
+@model TypeOfWorkingTime
+@{
+    Layout = "_Layout";
+}
+
+<h1>Правила для "@Model.Description"</h1>
+
+<div>
+    <div id="RulesSet">
+        @if (ViewBag.Selected != null )
+        {
+            foreach (var item in ViewBag.Selected)
+            {
+                <partial name="_RulesSetDiv.cshtml" model="item"/>
+            }
+        }
+        else 
+        {
+            <partial name="_RulesSetDiv.cshtml"/>
+        }
+    </div>
+    <br />
+    <button id="Btn_AddRule" class="btn btn-outline-success">Добавить правило</button>
+</div>
+<button id="Btn_Save" class="btn btn-outline-primary mt-3">Сохранить</button>
+
+<div class="d-none" id="deleted">
+
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        var deletedName = [];
+
+        $(document).on('click', '#Btn_AddRule', function (e) {
+            $.ajax({
+                url: '/TypeOfWorkingTimeRules/DisplayRule',
+                success: function (partialView) {
+                    $("#RulesSet").append(partialView);
+                }
+            });
+        });
+
+        function getSource() {
+            let Name = '@Html.Raw(Model.Name)';
+            return Name;
+        }
+
+        $(document).on('click', '#Btn_Delete', function (e) {
+            let deleted = $(this).parent().find('select').val();
+            deletedName.push(deleted.toString());
+            $(this).parent().remove();
+        });
+
+
+        function getTargets() {
+            targets = [];
+
+            const Tar = document.querySelectorAll('#targetName');
+
+            for (var i = 0; i < Tar.length; i++) {
+                if (Tar[i].value != "") {
+                    targets.push(Tar[i].value);
+                }
+            }
+            return targets;
+        }
+
+        $(document).on('click', '#Btn_Save', function (e) {
+            let source = getSource();
+            let targets = getTargets();
+
+            $.ajax({
+                type: 'POST',
+                data: { source, targets, deletedName },
+                url: '/TypeOfWorkingTimeRules/Save',
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                }
+            });
+        });
+
+    </script>
+}

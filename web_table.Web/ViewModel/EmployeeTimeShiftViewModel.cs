@@ -2,7 +2,7 @@
 
 namespace web_table.Web.ViewModel
 {
-    public class EmployeeTimeShiftDTO
+    public class EmployeeTimeShiftViewModel
     {
         public string EmployeeName { get; set; }
         public Guid EmployeeId { get; set; }
@@ -30,17 +30,17 @@ namespace web_table.Web.ViewModel
 
         public string Period {  get; set; }
 
-        public EmployeeTimeShiftDTO() { }
+        public EmployeeTimeShiftViewModel() { }
 
-        public async static Task<IEnumerable<EmployeeTimeShiftDTO>> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts)
+        public async static Task<IEnumerable<EmployeeTimeShiftViewModel>> ToListFromTimeShift(IEnumerable<TimeShift> timeShifts)
         {
-            var employeeTimeShifts = new List<EmployeeTimeShiftDTO>();
+            var employeeTimeShifts = new List<EmployeeTimeShiftViewModel>();
 
             // TODO: select distinct employees from list
             IEnumerable<Employee> employees = timeShifts.Select(ts => ts.Employee).Distinct();
             foreach (var employee in employees)
             {
-                var employeeTimeShift = new EmployeeTimeShiftDTO
+                var employeeTimeShift = new EmployeeTimeShiftViewModel
                 {
                     EmployeeName = employee.Name.FullName,
                     EmployeeId = employee.Id,

@@ -1,0 +1,25 @@
+﻿@using web_tabel.Domain;
+@model TypeOfWorkingTimeRules;
+@{
+    Layout = "_Layout";
+}
+
+@using(Html.BeginForm("Create", "TypeOfWorkingTimeRules"))
+{
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SourceName)
+                @Html.DropDownListFor(m => m.SourceName, ViewBag.Types as IEnumerable<SelectListItem>,null,new {@class="form-select"})
+            </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+ 
+            <div class="form-group">
+                @Html.LabelFor(model => model.TargetName)
+                @Html.DropDownListFor(m => m.TargetName, ViewBag.Types as IEnumerable<SelectListItem>,null,new {@class="form-select"})
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Сохранить" class="btn btn-primary" />
+}

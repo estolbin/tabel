@@ -16,32 +16,32 @@ namespace web_tabel.API.Controllers
         }
 
         [HttpPost("AddOrganization")]
-        public Task<IActionResult> AddOrganization([FromBody] Organization organization)
+        public async Task<IActionResult> AddOrganization([FromBody] Organization organization)
         {
-            if (_unitOfWork.OrganizationRepository.SingleOrDefault(x => x.Id == organization.Id) != null) { return Task.FromResult<IActionResult>(BadRequest("Organization already exists")); }
-            _unitOfWork.OrganizationRepository.Insert(organization);
-            _unitOfWork.Save();
-            return Task.FromResult<IActionResult>(Ok("Success"));
+            if (await _unitOfWork.OrganizationRepository.SingleOrDefaultAsync(x => x.Id == organization.Id) != null) { return BadRequest("Organization already exists"); }
+            await _unitOfWork.OrganizationRepository.InsertAsync(organization);
+            await _unitOfWork.SaveAsync();
+            return Ok("Success");
         }
 
         [HttpGet("GetAllOrganization")]
-        public Task<IActionResult> GetAllOrganization()
+        public async Task<IActionResult> GetAllOrganization()
         {
-            return Task.FromResult<IActionResult>(Ok(_unitOfWork.OrganizationRepository.GetAll()));
+            return Ok(await _unitOfWork.OrganizationRepository.GetAllAsync());
         }
 
         [HttpGet("GetOrganizationById")]
-        public Task<IActionResult> GetOrganizationById(Guid id)
+        public async Task<IActionResult> GetOrganizationById(Guid id)
         {
-            return Task.FromResult<IActionResult>(Ok(_unitOfWork.OrganizationRepository.SingleOrDefault(x => x.Id == id)));
+            return Ok(await _unitOfWork.OrganizationRepository.SingleOrDefaultAsync(x => x.Id == id));
         }
 
         [HttpPut("UpdateOrganization")]
-        public Task<IActionResult> UpdateOrganization([FromBody] Organization organization)
+        public async Task<IActionResult> UpdateOrganization([FromBody] Organization organization)
         {
-            _unitOfWork.OrganizationRepository.Update(organization);
-            _unitOfWork.Save();
-            return Task.FromResult<IActionResult>(Ok("Success"));
+            await _unitOfWork.OrganizationRepository.UpdateAsync(organization);
+            await _unitOfWork.SaveAsync();
+            return Ok("Success");
         }
     }
 }

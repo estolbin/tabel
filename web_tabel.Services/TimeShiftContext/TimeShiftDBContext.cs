@@ -17,6 +17,10 @@ public class TimeShiftDBContext : DbContext
     public DbSet<StaffSchedule> StaffSchedules { get; set; }
 
     public DbSet<TypeOfEmployment> TypeOfEmployments { get; set; }
+    public DbSet<EmployeeCondition> EmployeeCondition { get; set; }
+    public DbSet<EmployeeState> EmployeeStates { get; set; }
+
+    public DbSet<TypeOfWorkingTimeRules> TypeOfWorkingTimeRules { get; set; }                                      
 
     public TimeShiftDBContext(DbContextOptions<TimeShiftDBContext> options) : base(options)
     {
@@ -84,7 +88,17 @@ public class TimeShiftDBContext : DbContext
 
 
         modelBuilder.Entity<EmployeeCondition>()
-            .HasKey(c => new { c.Name });
+            .HasKey(c => c.Name);
+
+        modelBuilder.Entity<EmployeeState>()
+            .HasOne(s => s.Employee)
+            .WithMany() 
+            .HasForeignKey("EmployeeId");
+
+        modelBuilder.Entity<EmployeeState>()
+            .HasOne(s => s.Condition)
+            .WithMany()
+            .HasForeignKey("ConditionName");
 
         modelBuilder.Entity<StaffSchedule>()
             .HasOne(s => s.Organization)
@@ -96,6 +110,21 @@ public class TimeShiftDBContext : DbContext
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
 
+        modelBuilder.Entity<TypeOfWorkingTimeRules>()
+            .HasKey(t => new { t.SourceName, t.TargetName });
+
+        modelBuilder.Entity<TypeOfWorkingTimeRules>()
+            .HasOne(t => t.Source)
+            .WithMany()
+            .HasForeignKey(t => t.SourceName)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<TypeOfWorkingTimeRules>()
+            .HasOne(t => t.Target)
+            .WithMany()
+            .HasForeignKey(t => t.TargetName)
+            .OnDelete(DeleteBehavior.NoAction);
+ 
         base.OnModelCreating(modelBuilder);
 
     }

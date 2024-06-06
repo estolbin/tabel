@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using web_tabel.Domain;
+using web_tabel.Services;
 using web_table.Web.ViewModel;
 
 namespace web_table.Web.Controllers
@@ -8,12 +9,17 @@ namespace web_table.Web.Controllers
     public class TimeShiftController : Controller
     {
         private readonly ITimeShiftService _service;
+        private readonly UnitOfWork _unitOfWork;
         private IEnumerable<Department> _departments;
         private IEnumerable<Organization> _organizations;
         private IEnumerable<TimeShiftPeriod> _periods;
         private IEnumerable<TypeOfWorkingTime> _typeOfWorkingTimes;
 
-        public TimeShiftController(ITimeShiftService service) => _service = service;
+        public TimeShiftController(ITimeShiftService service)
+        {
+            _service = service;
+            _unitOfWork = new UnitOfWork();
+        }
 
         private async Task<Guid> GetGuidFromSession()
         {
@@ -40,7 +46,7 @@ namespace web_table.Web.Controllers
             var periodId = GetGuidFromSession().Result;
             IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift(periodId);
             if (currentTimeShift == null || !currentTimeShift.Any()) return View("Clean");
-            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(currentTimeShift);
+            var employeeTimeShiftList = await EmployeeTimeShiftViewModel.ToListFromTimeShift(currentTimeShift);
             return View(employeeTimeShiftList); 
         }
 
@@ -98,7 +104,7 @@ namespace web_table.Web.Controllers
             if (!result.Any()) return RedirectToAction("Index");
             else TempData["ErrorMessage"] = "";
 
-            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(result);
+            var employeeTimeShiftList = await EmployeeTimeShiftViewModel.ToListFromTimeShift(result);
             return View("Index", employeeTimeShiftList);
         }
 
@@ -123,7 +129,7 @@ namespace web_table.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            var employeeTimeShiftList = await EmployeeTimeShiftDTO.ToListFromTimeShift(result);
+            var employeeTimeShiftList = await EmployeeTimeShiftViewModel.ToListFromTimeShift(result);
             TempData["SearchString"] = searchText;
             return View("Index", employeeTimeShiftList);
         }
@@ -137,7 +143,21 @@ namespace web_table.Web.Controllers
             var timeShifts = await _service.GetTimeShiftByEmpAndDate(empId, currentDate, periodId);
 
             if (_typeOfWorkingTimes == null) _typeOfWorkingTimes = await _service.GetAllTypeOfWorkingTime();
-            ViewBag.Types = _typeOfWorkingTimes.ToSelectListItem(x => x.Name, x => x.Description, new[] { timeShifts.TypeEmploymentWorked?.Name ?? String.Empty});
+
+            IEnumerable<TypeOfWorkingTime> list = new List<TypeOfWorkingTime>();
+            if (timeShifts.TypeEmploymentPlanned != null)
+            {
+                var listRules = await _unitOfWork.TypeOfWorkingTimeRulesRepository.GetAsync(x => x.Source == timeShifts.TypeEmploymentPlanned);
+                if (listRules.Count() > 0)
+                    list = listRules.Select(x => x.Target);
+                else
+                    list = _typeOfWorkingTimes;
+            }
+            else
+            {
+                list = _typeOfWorkingTimes;
+            }
+            ViewBag.Types = list.ToSelectListItem(x => x.Name, x => x.Description, new[] { timeShifts.TypeEmploymentWorked?.Name ?? String.Empty});
 
             return View(timeShifts);
         }
@@ -160,6 +180,39 @@ namespace web_table.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public async Task<IActionResult> FillInDay(DateTime date)
+        {
+            TempData["DateForFill"] = date;
+            return View(date);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FillInDate()
+        {
+            DateTime fillData = (DateTime)TempData["DateForFill"];
+
+            if (fillData == EmptyDate) return Json(new { redirectToUrl = Url.Action("Index", "TimeShift") });
+
+            var listTimeShift = await _unitOfWork.TimeShiftRepository.GetAsync(x => x.WorkDate == fillData);
+            for (int i = 0; i < listTimeShift.Count(); i++)
+            {
+                var timeShift = listTimeShift.ElementAt(i);
+
+                if (timeShift.HoursWorked == 0 && timeShift.TypeEmploymentWorked == null)
+                {
+                    timeShift.HoursWorked = timeShift.HoursPlanned;
+                    timeShift.TypeEmploymentWorked = timeShift.TypeEmploymentPlanned;
+                }
+                else
+                    continue;
+
+                await _unitOfWork.TimeShiftRepository.UpdateAsync(timeShift);
+                await _unitOfWork.SaveAsync();
+            }
+
+            return Json(new { redirectToUrl = Url.Action("Index", "TimeShift") });
+        }
 
     }
 }
