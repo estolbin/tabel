@@ -14,14 +14,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<TimeShiftDBContext>(options =>
 {
-    if (builder.Environment.IsDevelopment())
-    {
-        options.UseSqlite(builder.Configuration.GetConnectionString("DevelopConnection"));
-    }
-    else
-    {
+    //if (builder.Environment.IsDevelopment())
+    //{
+    //    options.UseSqlite(builder.Configuration.GetConnectionString("DevelopConnection"));
+    //}
+    //else
+    //{
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    }
+    //}
 });
 
 // seed data
