@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using web_tabel.Domain
-@model IEnumerable<web_table.Web.ViewModel.EmployeeTimeShiftDTO>
+@model IEnumerable<web_table.Web.ViewModel.EmployeeTimeShiftViewModel>
 @{
     Layout = "_Layout";
 }
@@ -18,7 +18,7 @@
     <div class="col-md-6">
         <div id="FormDiv">
 
-        @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}, FormMethod.Post, true ,new { @class = "d-flex align-items-center"}))
+        @using (Html.BeginForm("Index","TimeShift",new { isDepartment = true}, FormMethod.Post, false ,new { @class = "d-flex align-items-center"}))
         {
 
             <label for="depList" class="form-label m-2">Подразделения</label>
@@ -37,7 +37,7 @@
     <div class="col-md-6">
         <div>
 
-        @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}, FormMethod.Post, true, new { @class = "d-flex align-items-center"}))
+        @using (Html.BeginForm("Index","TimeShift",new {isOrganization = true}, FormMethod.Post, false, new { @class = "d-flex align-items-center"}))
         {
             <label for="orgList" class="form-label m-2">Организации</label>
             @Html.DropDownList("orgId", new SelectList(ViewBag.Organizations, "Value", "Text"), new { id = "orgList", @class = "form-select", multiple="multiple"})
@@ -59,8 +59,10 @@
             @foreach (var item in dts)
             {
                 <th scope="col">
-                    @item.ToString("dd")<br />
-                    @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek)
+                    <a onclick="showInPopup('@Url.Action("FillInDay","TimeShift", new {date = item},Context.Request.Scheme)','Заполнить по плану')" class="text-decoration-none font-bold">
+                        @item.ToString("dd")<br />
+                        @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek)
+                    </a>
                 </th>
             }
         </tr>
@@ -87,9 +89,9 @@
                     if (empByDep.Count() == 0) continue;
 
 
-                    @foreach (var emp in empByDep)
+                                        @foreach (var emp in empByDep)
                     {
-                       @(await Html.PartialAsync("_EmployeeTimeShift", emp));
+                                           @(await Html.PartialAsync("_EmployeeTimeShift", emp));
                     }
                 }
 
@@ -99,7 +101,6 @@
 
     </tbody>
 </table>
-
 
 @(await Html.PartialAsync("Error"))
 
@@ -122,6 +123,16 @@
             if (msg && msg.length > 0){
                 ShowErrorModal(msg);
             }
+        });
+
+        $(document).on('click', '#btn_FillInDay', function (e) {
+            $.ajax({
+                url: '/TimeShift/FillInDate',
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                }
+            });
         });
 
 

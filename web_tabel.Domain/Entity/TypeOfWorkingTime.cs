@@ -9,6 +9,7 @@ namespace web_tabel.Domain;
 /// </summary>
 public class TypeOfWorkingTime
 {
+    [MaxLength(3)]
     public string Name { get; set; }
 
     public TypeOfWorkingTime(string name)

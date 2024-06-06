@@ -17,29 +17,34 @@ namespace web_tabel.API.Controllers
         }
 
         [HttpGet("GetAllEmployees")]
-        public Task<IActionResult> GetAllEmployees()
+        public async Task<IActionResult> GetAllEmployees()
         {
-            return Task.FromResult<IActionResult>(Ok(_unitOfWork.EmployeeRepository.GetAll()));
+            return Ok(await _unitOfWork.EmployeeRepository.GetAllAsync());
         }
 
         [HttpPost("AddEmployee")]
-        public Task<IActionResult> AddEmployee([FromBody] Employee employee)
+        public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
         {
 
             employee.Name.Id = employee.Id;
-            var existing = _unitOfWork.EmployeeRepository.SingleOrDefault(x => x.Id == employee.Id);
-            if (existing != null) { return Task.FromResult<IActionResult>(BadRequest("Employee already exists")); }
+            var existing = await _unitOfWork.EmployeeRepository.SingleOrDefaultAsync(x => x.Id == employee.Id);
+            if (existing != null) { return BadRequest("Employee already exists"); }
 
-            employee.StaffSchedule = _unitOfWork.StaffScheduleRepository.SingleOrDefault(x => x.Id == employee.StaffSchedule.Id) ?? employee.StaffSchedule;
-            employee.WorkSchedule = _unitOfWork.WorkScheduleRepository.SingleOrDefault(x => x.Id == employee.WorkSchedule.Id) ?? employee.WorkSchedule;
-            employee.Organization = _unitOfWork.OrganizationRepository.SingleOrDefault(x => x.Id == employee.Organization.Id) ?? employee.Organization;
-            employee.Department = _unitOfWork.DepartmentRepository.SingleOrDefault(x => x.Id == employee.Department.Id) ?? employee.Department;
-            employee.TypeOfEmployment   = _unitOfWork.TypeOfEmploymentRepository.SingleOrDefault(x => x.Name == "Основное место работы"); // TODO: поправить получение вида занятости
+            employee.StaffSchedule = await _unitOfWork.StaffScheduleRepository.SingleOrDefaultAsync(x => x.Id == employee.StaffSchedule.Id) ?? employee.StaffSchedule;
+            employee.WorkSchedule = await _unitOfWork.WorkScheduleRepository.SingleOrDefaultAsync(x => x.Id == employee.WorkSchedule.Id) ?? employee.WorkSchedule;
+            employee.Organization = await _unitOfWork.OrganizationRepository.SingleOrDefaultAsync(x => x.Id == employee.Organization.Id) ?? employee.Organization;
+            var department = await _unitOfWork.DepartmentRepository.SingleOrDefaultAsync(x => x.Id == employee.Department.Id);
+            if (department == null) 
+            {
+                await _unitOfWork.DepartmentRepository.InsertAsync(employee.Department);
+            }
+            employee.Department = department ?? employee.Department;
+            employee.TypeOfEmployment   = await _unitOfWork.TypeOfEmploymentRepository.SingleOrDefaultAsync(x => x.Name == "Основное место работы"); // TODO: поправить получение вида занятости
 
-            _unitOfWork.EmployeeRepository.Insert(employee);
-            _unitOfWork.Save();
+            await _unitOfWork.EmployeeRepository.InsertAsync(employee);
+            await _unitOfWork.SaveAsync();
 
-            return Task.FromResult<IActionResult>(Ok(employee.Id));
+            return Ok(employee.Id);
         }
     }
 }

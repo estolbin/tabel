@@ -1,0 +1,30 @@
+﻿@using web_tabel.Domain
+@model IEnumerable<EmployeeState>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Список состояний</h1>
+
+<table class="table table-striped">
+     <thead>
+         <tr>
+             <th>Сотрудник</th>
+             <th>Состояние</th>
+             <th>Дата начала</th>
+             <th>Дата окончания</th>
+         </tr>
+     </thead>
+     <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Employee.Name.FullName</td>
+                <td>@item.ConditionName</td>
+                <td>@item.StartDate.ToString("dd.MM.yyyy")</td>
+                <td>@item.EndDate.ToString("dd.MM.yyyy")</td>
+            </tr>
+    
+        }
+     </tbody>
+</table>

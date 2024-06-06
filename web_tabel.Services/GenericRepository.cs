@@ -106,5 +106,9 @@ namespace web_tabel.Services
             await _dbSet.AddRangeAsync(entities);
         }
 
+        public async Task<object?> SingleOrDefaultAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

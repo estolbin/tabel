@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVDb25kaXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/code/vm_tabel/web_table.Web/Views/EmployeeState/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVTdGF0ZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/code/vm_tabel/web_table.Web/Views/Employee/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XENsZWFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/code/vm_tabel/web_table.Web/Views/TimeShift/FillInDay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XEZpbGxJbkRheS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/code/vm_tabel/web_table.Web/Views/TimeShift/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -92,6 +100,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/code/vm_tabel/web_table.Web/Views/TimeShift/__Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoaWZ0XF9fSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/TypeOfWorkingTimeRules/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mV29ya2luZ1RpbWVSdWxlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/TypeOfWorkingTimeRules/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mV29ya2luZ1RpbWVSdWxlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/TypeOfWorkingTimeRules/Rules.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mV29ya2luZ1RpbWVSdWxlc1xSdWxlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/vm_tabel/web_table.Web/Views/TypeOfWorkingTimeRules/_RulesSetDiv.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mV29ya2luZ1RpbWVSdWxlc1xfUnVsZXNTZXREaXYuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/code/vm_tabel/web_table.Web/Views/TypeOfWorkingTime/Index.cshtml]

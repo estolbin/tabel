@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using web_tabel.Services;
 
 namespace web_tabel.Domain;
@@ -16,61 +17,41 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<IEnumerable<TimeShift>> GetTimeShifts(TimeShiftPeriod period, CancellationToken token = default)
     {
-        //var result = await _repository.GetTimeShiftsByPeriod(period);
-        var result = unitOfWork.TimeShiftRepository.Get(t => t.TimeShiftPeriod == period);
+        var result = await unitOfWork.TimeShiftRepository.GetAsync(t => t.TimeShiftPeriod == period);
         return result;
     }
 
     public async Task<TimeShiftPeriod> GetLastUnclosedPeriod(CancellationToken token = default)
     {
-        //var periods = await _repository.GetAllPeriods();
-        //return periods.LastOrDefault(x => !x.Closed);
-        return unitOfWork.TimeShiftPeriodRepository.Get(x => !x.Closed).LastOrDefault();
+        return await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => !x.Closed);
     }
 
     public async Task<IEnumerable<TimeShiftPeriod>> GetAllPeriods()
     {
-        //return await _repository.GetAllPeriods();
-        return unitOfWork.TimeShiftPeriodRepository.GetAll();
+        return await unitOfWork.TimeShiftPeriodRepository.GetAllAsync();
     }
 
     public async Task<TimeShiftPeriod> GetPeriodByDate(DateTime date, CancellationToken token = default)
     {
-        //return await _repository.GetTimeShiftsPeriodByDate(date);
-        return unitOfWork.TimeShiftPeriodRepository.Get(x => x.Start <= date && x.End >= date).LastOrDefault();
+        return await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Start <= date && x.End >= date);
     }
 
-    public async Task<TimeShiftPeriod> GetLastPeriod(CancellationToken token = default)
+    public static async Task<TimeShiftPeriod> GetLastPeriod(UnitOfWork unitOfWork, CancellationToken token = default)
     {
-        return  unitOfWork.TimeShiftPeriodRepository.Get(x => x.Name != "").LastOrDefault();
-        //var period = await _repository.GetLastPeriod();
-        //if (period.Name.ToString() == "")
-        //{
-        //    _repository.RemoveTimeShiftPeriodByID(period.Id);
-        //    period = new TimeShiftPeriod(name: "Default", start: DateTime.Parse("01.04.2024"), end: DateTime.Parse("14.04.2024"), closed: false);
-        //    _repository.AddPeriod(period);
-        //}
-        //return period;
+        return  await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Name != "");
     }
 
-    public bool RemovePeriodById(Guid Id)
+    public async Task<bool> RemovePeriodById(Guid Id)
     {
-        var period = unitOfWork.TimeShiftPeriodRepository.Get(x => x.Id == Id).FirstOrDefault();
-        unitOfWork.TimeShiftPeriodRepository.Delete(period);
-
+        var period = await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Id == Id);
+        await unitOfWork.TimeShiftPeriodRepository.DeleteAsync(period);
         return true;
-
-        //_repository.RemoveTimeShiftPeriodByID(Id);
-        //return true;
     }
 
-    public void AddPeriod(TimeShiftPeriod period)
+    public async Task AddPeriod(TimeShiftPeriod period)
     {
-        //_repository.AddPeriod(period);
-        unitOfWork.TimeShiftPeriodRepository.Insert(period);
-
+        await unitOfWork.TimeShiftPeriodRepository.InsertAsync(period);
     }
-
 
     // TODO Refactor this method
     public async Task<IEnumerable<TimeShift>> GetCurrentTimeShift(Guid? periodId = null, CancellationToken token = default)
@@ -78,40 +59,37 @@ public class TimeShiftService : ITimeShiftService
         IEnumerable<TimeShiftPeriod> periods = new List<TimeShiftPeriod>();
         if (periodId == null || periodId == Guid.Empty)
         {
-            periods = unitOfWork.TimeShiftPeriodRepository.GetAll();
+            periods = await unitOfWork.TimeShiftPeriodRepository.GetAllAsync();
         } else
         {
-            periods = unitOfWork.TimeShiftPeriodRepository.Get(x => x.Id == periodId);
+            periods = await unitOfWork.TimeShiftPeriodRepository.GetAsync(x => x.Id == periodId);
         }
 
         var period = periods.OrderByDescending(x => x.End).FirstOrDefault();
-        return unitOfWork.TimeShiftRepository.Get(x => x.TimeShiftPeriod == period);
+        return await unitOfWork.TimeShiftRepository.GetAsync(x => x.TimeShiftPeriod == period);
     }
 
     public async Task<Employee> GetEmployeeById(Guid id)
     {
-        //return await _repository.GetEmployeeById(id);
-        return unitOfWork.EmployeeRepository.Get(x => x.Id == id).FirstOrDefault();
+        return await unitOfWork.EmployeeRepository.SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<TimeShift> GetTimeShiftByEmpAndDate(Guid id, DateTime date, Guid? periodId = null,  CancellationToken token = default)
     {
-        //return await _repository.GetTimeShiftByEmpDate(id, date);
-        var employee = unitOfWork.EmployeeRepository.Get(x => x.Id == id).FirstOrDefault();
+        var employee = await unitOfWork.EmployeeRepository.SingleOrDefaultAsync(x => x.Id == id);
         TimeShiftPeriod period;
         if (periodId == null || periodId == Guid.Empty)
         {
-            period = unitOfWork.TimeShiftPeriodRepository.Get(x => x.Start <= date && x.End >= date).LastOrDefault();
+            period = await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Start <= date && x.End >= date);
         } else
         {
-            period = unitOfWork.TimeShiftPeriodRepository.SingleOrDefault(x => x.Id == periodId);
+            period = await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Id == periodId);
         }
-        return unitOfWork.TimeShiftRepository.Get(x => x.Employee == employee && x.TimeShiftPeriod == period && x.WorkDate == date).LastOrDefault();
+        return await unitOfWork.TimeShiftRepository.SingleOrDefaultAsync(x => x.Employee == employee && x.TimeShiftPeriod == period && x.WorkDate == date);
     }
 
     public async Task UpdateTimeShift(TimeShift timeShift)
     {
-        //_repository.UpdateTimeShift(timeShift);
         await unitOfWork.TimeShiftRepository.UpdateAsync(timeShift);
         await unitOfWork.SaveAsync();
     }
@@ -119,34 +97,29 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<TimeShift> GetTimeShiftByID(Guid id)
     {
-        //return await _repository.GetTimeShiftById(id);
-        return unitOfWork.TimeShiftRepository.Get(x => x.Id == id).FirstOrDefault();
+        return await unitOfWork.TimeShiftRepository.SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<Department>> GetAllDepartments()
     {
-     //   return await _repository.GetAllDepartments();
-        return unitOfWork.DepartmentRepository.GetAll();
+        return await unitOfWork.DepartmentRepository.GetAllAsync();
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftsByDepartment(Guid departmentId)
     {
-        //return await _repository.GetTimeShiftByDepartment(departmentId);
-        var department = unitOfWork.DepartmentRepository.Get(x => x.Id == departmentId).FirstOrDefault();
-        return unitOfWork.TimeShiftRepository.Get(x => x.Employee.Department == department);
+        var department =  await unitOfWork.DepartmentRepository.SingleOrDefaultAsync(x => x.Id == departmentId);
+        return await unitOfWork.TimeShiftRepository.GetAsync(x => x.Employee.Department == department);
     }
 
     public async Task<IEnumerable<Organization>> GetAllOrganization()
     {
-        //return await _repository.GetAllOrganizations();
-        return unitOfWork.OrganizationRepository.GetAll();
+        return await unitOfWork.OrganizationRepository.GetAllAsync();
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganization(Guid organizationId)
     {
-        //return await _repository.GetTimeShiftByOrganization(organizationId);
-        var organization = unitOfWork.OrganizationRepository.Get(x => x.Id == organizationId).FirstOrDefault();
-        return unitOfWork.TimeShiftRepository.Get(x => x.Employee.Organization == organization);
+        var organization = await unitOfWork.OrganizationRepository.SingleOrDefaultAsync(x => x.Id == organizationId);
+        return await unitOfWork.TimeShiftRepository.GetAsync(x => x.Employee.Organization == organization);
     }
 
     /// <summary>
@@ -165,8 +138,7 @@ public class TimeShiftService : ITimeShiftService
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByDepartments(List<Guid> depsGuids)
     {
-        //return await _repository.GetTimeShiftByDepartments(depsGuids);
-        return unitOfWork.TimeShiftRepository.Get(x => depsGuids.Contains(x.Employee.Department.Id));
+        return await unitOfWork.TimeShiftRepository.GetAsync(x => depsGuids.Contains(x.Employee.Department.Id));
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftByOrganizations(List<Guid> orgGuids)
@@ -182,6 +154,21 @@ public class TimeShiftService : ITimeShiftService
     public async Task<IEnumerable<TypeOfWorkingTime>> GetAllTypeOfWorkingTime()
     {
         return await unitOfWork.TypeOfWorkingTimeRepository.GetAllAsync();
+    }
+
+
+    // TODO: fix interface
+
+    public Task<TimeShiftPeriod> GetLastPeriod(CancellationToken token = default)
+    {
+        return TimeShiftService.GetLastPeriod(new UnitOfWork());
+    }
+
+    bool ITimeShiftService.RemovePeriodById(Guid id) => true;
+
+    void ITimeShiftService.AddPeriod(TimeShiftPeriod period)
+    {
+        return;
     }
 }
 

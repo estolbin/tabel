@@ -23,31 +23,31 @@ namespace web_tabel.API.Controllers
         }
 
         [HttpPost("AddDepartment")]
-        public Task<IActionResult> AddDepartment([FromBody] Department department)
+        public async Task<IActionResult> AddDepartment([FromBody] Department department)
         {
-            if (_unitOfWork.DepartmentRepository.SingleOrDefault(x => x.Id == department.Id) != null) { return Task.FromResult<IActionResult>(BadRequest("Department already exists")); }
-            var organizaton = _unitOfWork.OrganizationRepository.SingleOrDefault(x => x.Id == department.Organization.Id);
+            if (await _unitOfWork.DepartmentRepository.SingleOrDefaultAsync(x => x.Id == department.Id) != null) { return BadRequest("Department already exists"); }
+            var organizaton = await _unitOfWork.OrganizationRepository.SingleOrDefaultAsync(x => x.Id == department.Organization.Id);
             if (organizaton != null)
             {
                 department.Organization = organizaton;
-                _unitOfWork.DepartmentRepository.Insert(department);
-                _unitOfWork.Save();
+                await _unitOfWork.DepartmentRepository.InsertAsync(department);
+                await _unitOfWork.SaveAsync();
             }
-            return Task.FromResult<IActionResult>(Ok("Success"));
+            return Ok("Success");
         }
 
         [HttpPut("UpdateDepartment")]
-        public Task<IActionResult> UpdateDepartment([FromBody] Department department)
+        public async Task<IActionResult> UpdateDepartment([FromBody] Department department)
         {
-            _unitOfWork.DepartmentRepository.Update(department);
-            _unitOfWork.Save();
-            return Task.FromResult<IActionResult>(Ok("Success"));
+            await _unitOfWork.DepartmentRepository.InsertAsync(department);
+            await _unitOfWork.SaveAsync();
+            return Ok("Success");
         }
 
         [HttpGet("GetDepartmentById")]
-        public Task<IActionResult> GetDepartmentById(Guid id)
+        public async Task<IActionResult> GetDepartmentById(Guid id)
         {
-            return Task.FromResult<IActionResult>(Ok(_unitOfWork.DepartmentRepository.SingleOrDefault(x => x.Id == id)));
+            return Ok(await _unitOfWork.DepartmentRepository.SingleOrDefaultAsync(x => x.Id == id));
         }
     }
 }

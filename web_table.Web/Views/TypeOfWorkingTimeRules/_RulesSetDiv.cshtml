@@ -1,0 +1,17 @@
+﻿@model String 
+@{
+}
+
+<div class="d-flex align-items-center mb-3">
+    <label for="targetName" class="form-label d-inline col-sm-3">Возможное значение</label>
+    <select id="targetName" class="form-select dinline-block">@*asp-items="ViewBag.Targets" class="form-select d-inline-block" >*@
+        @if (ViewBag.Targets != null)
+        {
+            foreach (var item in ViewBag.Targets)
+            {
+                <option value="@item.Value" selected="@(Model == null ? false : Model == item.Value)">@item.Text</option>
+            }
+        }
+    </select>
+    <button id="Btn_Delete" type="submit" class="btn btn-outline-danger d-inline-block ms-3">&times;</button>
+</div>

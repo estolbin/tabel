@@ -26,7 +26,7 @@
         <select id="typesList" class="form-select" name="typeWTName">
             @foreach (var item in ViewBag.Types)
             {
-                <option selected="@item.Selected" value="@item.Value">@item.Text</option>
+                <option selected="@item.Selected" value="@item.Value">@string.Format("{0} ({1})", item.Value, item.Text)</option>
             }
         </select>
     </div>
