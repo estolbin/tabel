@@ -38,18 +38,18 @@ public class TimeShiftDBContext : DbContext
             .SetBasePath(Directory.GetCurrentDirectory())
             .Build();
 
-        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-        {
-            optionsBuilder
-                .UseLazyLoadingProxies()
-                .UseSqlite(configuration.GetConnectionString("DevelopConnection"));
-        }
-        else
-        {
+        //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+        //{
+        //    optionsBuilder
+        //        .UseLazyLoadingProxies()
+        //        .UseSqlite(configuration.GetConnectionString("DevelopConnection"));
+        //}
+        //else
+        //{
             optionsBuilder
                 .UseLazyLoadingProxies()
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-        }
+        //}
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
