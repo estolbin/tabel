@@ -26,7 +26,7 @@ namespace web_tabel.Domain
 
         [ForeignKey("ConditionName")]
         public string ConditionName { get; set; }
-        public virtual EmployeeCondition Condition { get; set; }
+        public virtual EmployeeCondition EmployeeCondition { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

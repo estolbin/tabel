@@ -96,9 +96,10 @@ public class TimeShiftDBContext : DbContext
             .HasForeignKey("EmployeeId");
 
         modelBuilder.Entity<EmployeeState>()
-            .HasOne(s => s.Condition)
+            .HasOne(s => s.EmployeeCondition)
             .WithMany()
-            .HasForeignKey("ConditionName");
+            .HasForeignKey("ConditionName")
+            .HasPrincipalKey(e => e.Name);
 
         modelBuilder.Entity<StaffSchedule>()
             .HasOne(s => s.Organization)

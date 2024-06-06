@@ -36,7 +36,7 @@ namespace web_tabel.API.Controllers
             if (existState == null) return BadRequest("EmployeeCondition not found");
 
             var check = await _unitOfWork.EmployeeStateRepository.GetAsync(x => x.Employee == exist &&
-                    x.Condition == existState &&
+                    x.EmployeeCondition == existState &&
                     x.StartDate.Day == employeeState.StartDate.Day &&
                     x.EndDate.Day == employeeState.EndDate.Day);
 
