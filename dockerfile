@@ -4,6 +4,12 @@ WORKDIR /app
 COPY . ./
 RUN dotnet restore 
 RUN dotnet publish web_table.Web/web_table.Web.csproj -c Release -o out
+
+#add command for migrate db
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+RuN dotnet ef database update
+
 #RUN dotnet publish web_tabel.API/web_tabel.API.csproj -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
