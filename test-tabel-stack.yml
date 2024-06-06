@@ -6,6 +6,9 @@ networks:
 
 services:
   test-tabel:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Data Source=cs-sql2;Initial Catalog=timeshifts;User ID=tabel;Password=ePeSlfY5hJGX;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False; Multiple Active Result Sets=true;
     image: test-tabel
     ports:
       - 5000:8080
