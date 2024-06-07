@@ -60,7 +60,7 @@ namespace web_table.Web.ViewModel
                 employeeTimeShift.Dates.AddRange(employeeTimeShiftsList.Select(ts => ts.WorkDate));
                 employeeTimeShift.TypesPlanned.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentPlanned));
                 employeeTimeShift.TypesWorked.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentWorked));
-                employeeTimeShift.ColorTypes.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentPlanned.ColorText));
+                employeeTimeShift.ColorTypes.AddRange(employeeTimeShiftsList.Select(ts => ts.TypeEmploymentPlanned?.ColorText));
 
                 employeeTimeShifts.Add(employeeTimeShift);
             };

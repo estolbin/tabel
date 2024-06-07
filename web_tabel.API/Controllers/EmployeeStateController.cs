@@ -54,8 +54,8 @@ namespace web_tabel.API.Controllers
                 EndDate = employeeState.EndDate,
             };
             
-            var list = await _unitOfWork.EmployeeStateRepository.GetAllAsync();
-            empState.Id = list.ToList().Count > 0 ? list.ToList().Max(x => x.Id) + 1 : 1;
+            //var list = await _unitOfWork.EmployeeStateRepository.GetAllAsync();
+            //empState.Id = list.ToList().Count > 0 ? list.ToList().Max(x => x.Id) + 1 : 1;
 
             await _unitOfWork.EmployeeStateRepository.InsertAsync(empState);
             await _unitOfWork.SaveAsync();

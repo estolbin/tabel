@@ -35,7 +35,7 @@ namespace web_table.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            SetViewBagForSelect();
+            await SetViewBagForSelect();
 
             var periods = await _service.GetAllPeriods();
             string periodsJson = JsonConvert.SerializeObject(periods);
@@ -43,14 +43,14 @@ namespace web_table.Web.Controllers
 
             _typeOfWorkingTimes = await _service.GetAllTypeOfWorkingTime();
 
-            var periodId = GetGuidFromSession().Result;
+            var periodId = await GetGuidFromSession();
             IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift(periodId);
             if (currentTimeShift == null || !currentTimeShift.Any()) return View("Clean");
             var employeeTimeShiftList = await EmployeeTimeShiftViewModel.ToListFromTimeShift(currentTimeShift);
             return View(employeeTimeShiftList); 
         }
 
-        private async void SetViewBagForSelect()
+        private async Task SetViewBagForSelect()
         {
 
             if (_departments == null)
@@ -84,7 +84,7 @@ namespace web_table.Web.Controllers
                     ids.Add(new Guid(item));
                 }
                 result = await _service.GetTimeShiftByDepartments(ids);
-                SetTempData("depId", depId);
+                await SetTempData("depId", depId);
             }
             else if (isOrganization)
             {
@@ -96,9 +96,9 @@ namespace web_table.Web.Controllers
                     ids.Add(new Guid(item));
                 }
                 result = await _service.GetTimeShiftByOrganizations(ids);
-                SetTempData("orgId", orgId);
+                await SetTempData("orgId", orgId);
             }
-            SetViewBagForSelect();
+            await SetViewBagForSelect();
 
             TempData["ErrorMessage"] = "По вашему запросу ничего не найдено";
             if (!result.Any()) return RedirectToAction("Index");
@@ -108,7 +108,7 @@ namespace web_table.Web.Controllers
             return View("Index", employeeTimeShiftList);
         }
 
-        private void SetTempData(string keyName, string[] value) => TempData[keyName] = value;
+        private async Task SetTempData(string keyName, string[] value) => TempData[keyName] = value;
 
         [HttpPost]
         public async Task<IActionResult> Search(string searchText)

@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
 COPY . ./
+COPY ./web_table.Web/appsettings.Development.json ./web_table.Web/appsettings.json
 
 #RUN dotnet restore 
 RUN dotnet publish web_table.Web/web_table.Web.csproj -c Release -o out

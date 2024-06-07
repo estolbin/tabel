@@ -21,6 +21,8 @@ builder.Services.AddDbContext<TimeShiftDBContext>(options =>
     //else
     //{
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        
+    //}
     //}
 });
 
