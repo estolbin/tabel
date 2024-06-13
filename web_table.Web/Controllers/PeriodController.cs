@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using web_tabel.Domain;
 using web_tabel.Services;
 
 namespace web_table.Web.Controllers
 {
+    [Authorize(Policy="AdminOnly")]
     [Controller]
     public class PeriodController : Controller
     {

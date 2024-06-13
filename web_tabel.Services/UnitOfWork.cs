@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using web_tabel.Domain;
+using web_tabel.Domain.UserFilters;
 using web_tabel.Services.TimeShiftContext;
 
 namespace web_tabel.Services
@@ -26,6 +27,9 @@ namespace web_tabel.Services
         private GenericRepository<EmployeeCondition> _employeeConditionRepository;
         private GenericRepository<EmployeeState> _employeeStateRepository;
         private GenericRepository<TypeOfWorkingTimeRules> _typeOfWorkingTimeRulesRepository;
+        private GenericRepository<AppUser> _userRepository;
+        private GenericRepository<Role> _roleRepository;
+        private GenericRepository<Filter> _filterRepository;
 
         public GenericRepository<Department> DepartmentRepository => _departmentRepository ??= new(_context);
         public GenericRepository<Employee> EmployeeRepository => _employeeRepository ??= new(_context);
@@ -42,7 +46,9 @@ namespace web_tabel.Services
         public GenericRepository<EmployeeCondition> EmployeeConditionRepository => _employeeConditionRepository ??= new(_context);
         public GenericRepository<EmployeeState> EmployeeStateRepository => _employeeStateRepository ??= new(_context);
         public GenericRepository<TypeOfWorkingTimeRules> TypeOfWorkingTimeRulesRepository => _typeOfWorkingTimeRulesRepository ??= new(_context);
-
+        public GenericRepository<AppUser> UserRepository => _userRepository ??= new(_context);
+        public GenericRepository<Role> RoleRepository => _roleRepository ??= new(_context);
+        public GenericRepository<Filter> FilterRepository => _filterRepository ??= new(_context);
 
         public void Save()
         {

@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using web_tabel.Domain;
 using web_tabel.Services;
 using web_tabel.Services.TimeShiftContext;
 using web_table.Web;
+using web_table.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,17 +15,32 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<TimeShiftDBContext>(options =>
 {
-    //if (builder.Environment.IsDevelopment())
-    //{
-    //    options.UseSqlite(builder.Configuration.GetConnectionString("DevelopConnection"));
-    //}
-    //else
-    //{
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         
-    //}
-    //}
 });
+
+// authorization
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = Constants.AUTH_COOKIE_NAME;
+        options.LoginPath = new PathString("/Account/Login");
+        options.AccessDeniedPath = new PathString("/Error/AccessDenied");
+
+    });
+
+// policy for admin
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.Requirements.Add(new RoleRequirement(Constants.ADMNIM_ROLE)));
+});
+
+builder.Services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
+
+builder.Services.AddScoped<CurrentUserProvider>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddHttpContextAccessor();
+
 
 // seed data
 builder.Services.AddScoped<DbInitializer>();
@@ -57,15 +73,24 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseSession();
 
-app.UseRouting();
+app.UseMiddleware<AuthenticationMiddleware>();
+app.UseMiddleware<AuthorizationErrorMiddleware>();
 
+
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=TimeShift}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 app.Run();

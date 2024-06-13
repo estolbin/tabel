@@ -1,11 +1,14 @@
 ﻿@using Newtonsoft.Json
 @using web_tabel.Domain
+@using web_tabel.Services
 @{
     var selectedPeriodString = Context.Session.GetString("SessionPeriodId");
     Guid selectedPeriod = selectedPeriodString == null ? Guid.Empty : new Guid(selectedPeriodString);
     string periodsJson = Context.Session.GetString("SessionPeriods");
     List<TimeShiftPeriod> periods = string.IsNullOrEmpty(periodsJson) ? new List<TimeShiftPeriod>() : JsonConvert.DeserializeObject<List<TimeShiftPeriod>>(periodsJson); 
 }
+
+@inject web_table.Web.Services.CurrentUserProvider CurrentUserProvider
 
 
 <!DOCTYPE html>
@@ -35,38 +38,54 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Справочники (из 1С)</a>
+                        <div class="btn-group">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Справочники (из 1С)</a>
 
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                <li class="dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeState" asp-action="Index">Данные состояний сотрудников</a>
-                                </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeState" asp-action="Index">Данные состояний сотрудников</a>
+                                    </li>
 
-                                <li class="dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeCondition" asp-action="Index">Состояния сотрудников</a>
-                                </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeCondition" asp-action="Index">Состояния сотрудников</a>
+                                    </li>
 
 
-                                <li class="dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="TypeOfWorkingTime" asp-action="Index">Виды рабочего времени</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="StaffSchedule" asp-action="Index">Штатное расписание</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="WorkSchedule" asp-action="Index">Графики</a>
-                                </li>
-                            </ul>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="TypeOfWorkingTime" asp-action="Index">Виды рабочего времени</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="StaffSchedule" asp-action="Index">Штатное расписание</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="WorkSchedule" asp-action="Index">Графики</a>
+                                    </li>
+                                </ul>
 
-                        </li>
+                            </li>
+                        </div>
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Period" asp-action="Index">Периоды</a>
                         </li>
+                        @if (await CurrentUserProvider.UserInRole(Constants.ADMNIM_ROLE))
+                        {
+                            <div class="btn-group">
+                                <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Администрирование
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Пользователи</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Роли</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Filters" asp-action="Index">Фильтры</a>
+                                </div>
+                            </div>
+                        }
                     </ul>
                 </div>
                 <div class="d-flex align-items-center flex-nowrap me-3">
@@ -80,6 +99,26 @@
                         <button class="btn btn-outline-success my-2 my-sm-0 d-inline-block" type="submit">Поиск</button>
                     </div>
                 </form>
+
+                <ul class="nav navbar-nav justify-content-end">
+                    @if(!string.IsNullOrEmpty(await CurrentUserProvider.GetCurrentUser()))
+                    {
+                        <div class="btn-group">
+                            <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                @await CurrentUserProvider.GetCurrentUser()
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-action="Login" asp-controller="Account">Вход</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </nav>
     </header>

@@ -1,0 +1,37 @@
+﻿@model web_tabel.Domain.Role
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>Редактирование роли</h1>
+
+<form asp-action="Edit">
+    <input asp-for="Name" type="hidden" />
+    <div class="form-group">
+        <label asp-for="Name" class="form-label">Название роли</label>
+        <input asp-for="Name" class="form-control" disabled/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="form-label">Описание</label>
+        <input asp-for="Description" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsApproving" class="form-check-label">Согласующий</label>
+        <input asp-for="IsApproving" class="form-check-input" />
+    </div>
+    <div class="form-group">
+        <label asp-for="HasRestriction" class="form-check-label">Ограничения на редактирование (дни)</label>
+        <input asp-for="HasRestriction" class="form-check-input" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DaysCount" class="form-label">Интервал дней</label>
+        <input asp-for="DaysCount" class="form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+    </div>
+</form>
+
+<a href="@Url.Action("Index", "Role")" class="mt-3">К списку ролей</a>
+

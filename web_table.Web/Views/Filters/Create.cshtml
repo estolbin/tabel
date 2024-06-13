@@ -1,0 +1,77 @@
+﻿@model web_table.Web.ViewModel.CreateFilterViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout";
+}
+
+<h1>Добавление</h1>
+
+<h4>Фильтр</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FilterType" class="control-label"></label>
+                <select asp-for="FilterType" class="form-control">
+                    <option value="Organization">Организация</option>
+                    <option value="Department">Подразделение</option>
+                    <option value="Composite">Составной</option>
+                </select>
+                <span asp-validation-for="FilterType" class="text-danger"></span>
+            </div>
+
+            <div id="organization-ids" class="form-group" style="display:none;">
+                <label for="OrganizationIds" class="control-label">Organization IDs</label>
+                <input type="text" asp-for="OrganizationIds" class="form-control" />
+            </div>
+
+            <div id="department-ids" class="form-group" style="display:none;">
+                <label for="DepartmentIds" class="control-label">Department IDs</label>
+                <input type="text" asp-for="DepartmentIds" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Записать" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("select[name='FilterType']").change(function () {
+                var selectedFilterType = $(this).val();
+                if (selectedFilterType === "Organization") {
+                    $("#organization-ids").show();
+                    $("#department-ids").hide();
+                } else if (selectedFilterType === "Department") {
+                    $("#organization-ids").hide();
+                    $("#department-ids").show();
+                } else if (selectedFilterType === "Composite") {
+                    $("#organization-ids").show();
+                    $("#department-ids").show();
+                } else {
+                    $("#organization-ids").hide();
+                    $("#department-ids").hide();
+                }
+            });
+            $("select[name='FilterType']").trigger('change');
+        });
+    </script>
+}

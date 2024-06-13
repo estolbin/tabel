@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using web_tabel.Domain;
 using web_tabel.Services;
@@ -6,6 +7,7 @@ using web_table.Web.ViewModel;
 
 namespace web_table.Web.Controllers
 {
+    [Authorize]
     public class TimeShiftController : Controller
     {
         private readonly ITimeShiftService _service;
