@@ -26,12 +26,16 @@ namespace web_table.Web.Services
 
         public static async Task Initialize(IServiceProvider serviceProvider)
         {
-            using(var context = new TimeShiftDBContext(
-                serviceProvider.GetRequiredService<DbContextOptions<TimeShiftDBContext>>(),
-                serviceProvider.GetRequiredService<IHttpContextAccessor>()))
+            //using(var context = new TimeShiftDBContext(
+            //    serviceProvider.GetRequiredService<DbContextOptions<TimeShiftDBContext>>(),
+            //    serviceProvider.GetRequiredService<IHttpContextAccessor>()))
+            using (var scope = serviceProvider.CreateScope())
             {
+                var context = scope.ServiceProvider.GetRequiredService<TimeShiftDBContext>();
+                var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
+
                 Role role = await CheckCreateRole(context, Constants.ADMNIM_ROLE, "Администратор");
-                
+
                 if (!context.Users.Any(u => u.Role == role))
                 {
                     var admin = new AppUser
@@ -45,10 +49,10 @@ namespace web_table.Web.Services
                     try
                     {
 
-                    await context.Users.AddAsync(admin);
-                    await context.SaveChangesAsync();
+                        await context.Users.AddAsync(admin);
+                        await context.SaveChangesAsync();
                     }
-                    catch (Exception ex) 
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }

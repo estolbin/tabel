@@ -12,8 +12,8 @@ namespace web_table.Web
             var services = scope.ServiceProvider;
             try
             {
-                var context = services.GetRequiredService<TimeShiftDBContext>();
-                DbInitializer.Initialize(context);
+                //var context = services.GetRequiredService<TimeShiftDBContext>();
+                //DbInitializer.Initialize(context);
             }
             catch (Exception ex) { }
 

@@ -6,12 +6,14 @@ using web_tabel.Services;
 using web_tabel.Services.TimeShiftContext;
 using web_table.Web;
 using web_table.Web.Services;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
+//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddDbContext<TimeShiftDBContext>(options =>
 {
@@ -39,7 +41,6 @@ builder.Services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
 
 builder.Services.AddScoped<CurrentUserProvider>();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddHttpContextAccessor();
 
 
 // seed data
@@ -90,7 +91,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    SeedData.Initialize(services);
+    await SeedData.Initialize(services);
 }
 
 app.Run();

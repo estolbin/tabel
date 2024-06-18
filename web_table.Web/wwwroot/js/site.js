@@ -43,10 +43,24 @@ $('#select_period').change(function () {
 
 $(document).ready(function () {
     var groupColumn = 0;
-    let table  = $('#timeShiftTable').DataTable
+    var collapsedGroup = {};
+    let table = $('#timeShiftTable').DataTable
         ({
+            responsive: true,
             rowGroup: {
-                dataSrc: [2, 3]
+                dataSrc: [2, 3],
+                //startRender: function (rows, group) {
+                //    var collapsed = !!collapsedGroup[group];
+
+                //    rows.nodes().each(function (r) {
+                //        r.style.display = collapsed ? 'none' : '';
+                //    });
+
+                //    return $('<tr/>')
+                //        .append('<td colspan="33">' + group + '</td>')
+                //        .attr('data-name', group)
+                //        .toggleClass('collapsed', collapsed);
+                //}
             },
             columnDefs: [
                 {
@@ -56,13 +70,14 @@ $(document).ready(function () {
             ],
             ordering: false,
             searching: false,
-            paging: true,
+            paging: true, //false to collapse
             info: false,
-            autoWidth: true,
             scrollX: true,
+            //scrollY: '550px',
+            stateSave: true,
             scrollCollapse: true,
             fixedColumns: {
-                start: 2,
+                start: 3,
             },
             fixedHeader: {
                 header: true
@@ -72,6 +87,13 @@ $(document).ready(function () {
             },
             initComplete: () => { table.columns.adjust().draw(); }
         });
+
+    //$('#timeShiftTable tbody').on('click', 'tr.dtrg-start', function () {
+    //    var name = $(this).data('name');
+    //    collapsedGroup[name] = !collapsedGroup[name];
+    //    table.draw(false);
+    //    table.columns.addjust().draw();
+    //});
 
 })
 

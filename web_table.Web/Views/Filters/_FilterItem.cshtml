@@ -1,0 +1,35 @@
+﻿@model web_table.Web.ViewModel.FilterItemEditViewModel;
+<div class="d-flex mt-3">
+    @{
+        string idSelect = "";
+        string deleteIdButton = "";
+        
+        if(Model.FilterType == "Department")
+        {
+            idSelect = "dep";
+            deleteIdButton = "delete-department";
+        }
+        else
+        {
+            idSelect = "org";
+            deleteIdButton = "delete-organization";
+        }
+    }
+    <select id="@idSelect" class="form-select">
+        @if(Model.FilterType == "Department")
+        {
+            @foreach(var item in Model.Departments)
+            {
+                <option value="@item.Id" selected="@(item.Id == Model.SelectedDepartment)">@item.Name</option>
+            }
+        }
+        else
+        {
+            @foreach(var item in Model.Organizations)
+            {
+                <option value="@item.Id" selected="@(item.Id == Model.SelectedOrganization)">@item.Name</option>
+            }
+        }
+    </select>
+    <button class="btn btn-sm btn-outline-danger ms-auto" id="@deleteIdButton">X</button>
+</div>

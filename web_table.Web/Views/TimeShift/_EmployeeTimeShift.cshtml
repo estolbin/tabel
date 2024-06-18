@@ -21,6 +21,7 @@
     </td>
     <td>@Model.OrganizationName</td>
     <td>@Model.DepartmentName</td>
+    <td>@Model.HoursPlannedSum</td>
     
     @foreach(var item in Model.TypesPlanned)
     {
@@ -50,6 +51,7 @@
     </td>
     <td>@Model.OrganizationName</td>
     <td>@Model.DepartmentName</td>
+    <td>@Model.HoursWorkedSum</td>
     @foreach (var item in Model.Dates)
     {
         bool disable = (item.DayOfWeek == DayOfWeek.Saturday || item.DayOfWeek == DayOfWeek.Sunday);

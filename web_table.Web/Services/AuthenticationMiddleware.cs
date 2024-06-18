@@ -34,7 +34,8 @@ namespace web_table.Web.Services
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim(ClaimTypes.NameIdentifier, userId.ToString())
                 };
 
                 var identity = new ClaimsIdentity(claims, "Cookies");

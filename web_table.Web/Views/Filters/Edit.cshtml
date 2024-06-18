@@ -1,17 +1,18 @@
-﻿@model web_tabel.Domain.UserFilters.Filter
+﻿@using web_table.Web.ViewModel
+@model web_table.Web.ViewModel.EditFilterViewModel
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
 }
 
-<h1>Edit</h1>
+<h1>Редактирование</h1>
 
-<h4>Filter</h4>
+<h4>Фильтр</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        @*<form asp-action="Edit">*@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -21,13 +22,56 @@
             </div>
             <div class="form-group">
                 <label asp-for="FilterType" class="control-label"></label>
-                <input asp-for="FilterType" class="form-control" />
+                <select asp-for="FilterType" class="form-select" disabled>
+                    <option value="Organization" selected="@(Model.FilterType == "Organization")">Организация</option>
+                    <option value="Department" selected="@(Model.FilterType == "Department")">Подразделение</option>
+                    <option value="Composite" selected="@(Model.FilterType == "Composite")">Составной</option>
+                </select>
                 <span asp-validation-for="FilterType" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+        <div id="organizations" style="display: none;">
+            <div class="d-flex">
+                <h5>Организации</h5>
+                <button class="btn btn-outline-primary ms-auto" type="button" id="add-organization">+</button>
             </div>
-        </form>
+            <div id="organization-ids" class="form-group">
+
+                @foreach (var organization in Model.OrganizationIds)
+                {
+                    @await Html.PartialAsync("_FilterItem", new FilterItemEditViewModel
+           {
+               Organizations = ViewBag.Organizations,
+               FilterType = "Organization",
+               SelectedOrganization = organization
+           })
+                    ;
+                }
+            </div>
+        </div>
+        <hr />
+        <div id="departments" style="display: none;">
+            <div class="d-flex">
+                <h5>Подразделения</h5>
+                <button class="btn btn-outline-primary ms-auto" type="button" id="add-department">+</button>
+            </div>
+            <div id="departments-ids" class="form-group">
+                @foreach (var department in Model.DepartmentIds)
+                {
+                    @await Html.PartialAsync("_FilterItem", new FilterItemEditViewModel
+           {
+               Departments = ViewBag.Departments,
+               FilterType = "Department",
+               SelectedDepartment = department
+           })
+                    ;
+                }
+            </div>
+        </div>
+
+            <div class="form-group mt-3">
+                <button class="btn btn-primary" id="Btn_Save">Сохранить</button>
+            </div>
+        @*</form>*@
     </div>
 </div>
 
@@ -35,6 +79,105 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+
+        var filterType = "";
+        var id = @Html.Raw(Model.Id);
+
+        $("#add-department").click(function () {
+            $.ajax({
+                url: '/Filters/DisplayItem',
+                data: { filterType: "Department" },
+                success: function (partialView) {
+                    $("#departments-ids").append(partialView);
+                }
+            }) 
+        });
+
+        $("#add-organization").click(function () {
+            $.ajax({
+                url: '/Filters/DisplayItem',
+                data: { filterType: "Organization" },
+                success: function (partialView) {
+                    $("#organization-ids").append(partialView);
+                }
+            })
+        });
+
+        function getDepartments() {
+            departments = [];
+            const Dep = document.querySelectorAll('#dep');
+
+            for (var i = 0; i < Dep.length; i++) {
+                if (Dep[i].value != "") {
+                    departments.push(Dep[i].value);
+                }
+            }
+
+            return departments;
+        }
+
+        function getOrganizations() {
+            const organizations = [];
+            const Org = document.querySelectorAll('#org');
+
+            for (var i = 0; i < Org.length; i++) {
+                if (Org[i].value !== "") {
+                    organizations.push(Org[i].value);
+                }
+            }
+
+            return organizations;
+        }
+
+        $(document).on('click', '#delete-department', function (e) {
+            let deleted = $(this).parent().find('select').val();
+            $(this).parent().remove();
+        });
+
+        $(document).on('click', '#delete-organization', function (e) {
+            let deleted = $(this).parent().find('select').val();
+            $(this).parent().remove();
+        });
+
+
+        $(document).on('click', '#Btn_Save', function (e) {
+            let departments = getDepartments();
+            let organizations = getOrganizations();
+
+            $.ajax({
+                type: 'POST',
+                data: { filterId:id, filterType, departments, organizations },
+                url: '/Filters/Save',
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("select[name='FilterType']").change(function () {
+                var selectedFilterType = $(this).val();
+                filterType = selectedFilterType;
+                if (selectedFilterType === "Organization") {
+                    $("#organizations").show();
+                    $("#departments").hide();
+                } else if (selectedFilterType === "Department") {
+                    $("#organizations").hide();
+                    $("#departments").show();
+                } else if (selectedFilterType === "Composite") {
+                    $("#organizations").show();
+                    $("#departments").show();
+                } else {
+                    $("#organizations").hide();
+                    $("#departments").hide();
+                }
+            });
+            $("select[name='FilterType']").trigger('change');
+        });
+    </script>
 }

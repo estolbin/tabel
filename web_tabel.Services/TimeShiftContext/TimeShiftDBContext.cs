@@ -9,7 +9,8 @@ namespace web_tabel.Services.TimeShiftContext;
 
 public class TimeShiftDBContext : DbContext
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private int? _currentUserId = null;
+    private Filter? _currentFilter = null;
 
     public DbSet<TimeShiftPeriod> TimeShiftPeriods { get; set; }
     public DbSet<TimeShift> TimeShifts { get; set; }
@@ -37,7 +38,9 @@ public class TimeShiftDBContext : DbContext
         IHttpContextAccessor httpContextAccessor) : base(options)
     {
         this.ChangeTracker.LazyLoadingEnabled = true;
-        _httpContextAccessor = httpContextAccessor;
+
+
+        _currentUserId = GetUserIdFromContext(httpContextAccessor);
     }
 
     public TimeShiftDBContext()
@@ -170,39 +173,32 @@ public class TimeShiftDBContext : DbContext
 
 
         // filters
-        //modelBuilder.Entity<Department>()
-        //    .HasQueryFilter(d =>
-        //        EF.Property<Guid>(d, "Id") == GetUserDepsId() || IsUserAdmin());
-
+        //Filter? userFilter = GetUserFilter();
+        //modelBuilder.Entity<Department>().HasQueryFilter(d =>
+        //    (_currentUserId == null) ||
+        //    (userFilter == null) ||
+        //    !(userFilter as DepartmentFilter).DepartmentIds.Contains(d.Id) == true);
 
         base.OnModelCreating(modelBuilder);
 
     }
 
-    //private Guid GetUserDepsId()
-    //{
-    //    var userInClaim = _httpContextAccessor.HttpContext.User.Claims
-    //        .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-    //    if(int.TryParse(userInClaim.Value, out int userId))
-    //    {
-    //        var user = Users.FirstOrDefault(u => u.Id == userId);
-    //        if (user.Filter != null)
-    //        {
-    //            if(user.Filter.FilterType == "Department")
-    //            {
-    //                var filterDep = user.Filter as DepartmentFilter;
-    //                if(filterDep != null)
-    //                {
-    //                    return filterDep.DepartmentIds.FirstOrDefault();
-    //                }
-    //            }
-    //        }
-    //    }
-    //    return Guid.Empty;
-    //}
+    private Filter? GetUserFilter()
+    {
+        if (_currentUserId == null) return null;
 
-    //private bool IsUserAdmin()
-    //{
-    //    return _httpContextAccessor.HttpContext.User.IsInRole(Constants.ADMNIM_ROLE);
-    //}
+        return Users.Include(u => u.Filter).FirstOrDefault(u => u.Id == _currentUserId)?.Filter;
+    }
+
+    private int? GetUserIdFromContext(IHttpContextAccessor httpContextAccessor)
+    {
+        var userInClaim = httpContextAccessor.HttpContext?.User.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+        if(int.TryParse(userInClaim?.Value, out int userId))
+        {
+            return userId;
+        }
+        return null;
+    }
+
 }

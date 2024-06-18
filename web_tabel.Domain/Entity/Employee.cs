@@ -13,6 +13,7 @@ public class Employee : Entity
     public virtual Organization Organization { get; set; }
 
     public virtual Department Department { get; set; }
+    public Guid DepartmentId { get; set; } // for filter
 
 
     /// <summary>

@@ -9,6 +9,7 @@ public class StaffSchedule : Entity
     public virtual Organization Organization { get; set; }
 
     public virtual Department Department { get; set; }
+    public Guid DepartmentId { get; set; } // for filter
 
     public Guid? ParentId { get; set; }
 

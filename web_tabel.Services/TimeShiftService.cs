@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using web_tabel.Domain.UserFilters;
 using web_tabel.Services;
 
 namespace web_tabel.Domain;
@@ -8,6 +11,12 @@ public class TimeShiftService : ITimeShiftService
     // TODO: refactor for use generic repository
     //private readonly ITimeShiftRepository _repository;
     private readonly UnitOfWork unitOfWork = new();
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public TimeShiftService(IHttpContextAccessor httpContextAccessor)
+    {
+        _httpContextAccessor = httpContextAccessor;
+    }
 
     //public TimeShiftService(ITimeShiftRepository repository)
     //{
@@ -100,9 +109,36 @@ public class TimeShiftService : ITimeShiftService
         return await unitOfWork.TimeShiftRepository.SingleOrDefaultAsync(x => x.Id == id);
     }
 
+
+    private async Task<AppUser> GetCurrentUser()
+    {
+        var userInClaims = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+        if(int.TryParse(userInClaims.Value, out int userId))
+        {
+            return await unitOfWork.UserRepository.SingleOrDefaultAsync(x => x.Id == userId);
+        }
+        return null;
+    }
+
     public async Task<IEnumerable<Department>> GetAllDepartments()
     {
-        return await unitOfWork.DepartmentRepository.GetAllAsync();
+        var currentUser = await GetCurrentUser();
+        var curFilter = currentUser.Filter;
+
+        if (curFilter == null) return await unitOfWork.DepartmentRepository.GetAllAsync();
+
+        List<Guid> deps = null;
+
+        if (curFilter.FilterType == "Department" || curFilter.FilterType == "Composite")
+        {
+            deps = (curFilter as DepartmentFilter).DepartmentIds;
+            return await unitOfWork.DepartmentRepository.GetAsync(x => deps.Contains(x.Id));
+        }
+        if (deps == null) return await unitOfWork.DepartmentRepository.GetAllAsync();
+        else
+        {
+            return await unitOfWork.DepartmentRepository.GetAsync(x => deps.Contains(x.Id));
+        }
     }
 
     public async Task<IEnumerable<TimeShift>> GetTimeShiftsByDepartment(Guid departmentId)

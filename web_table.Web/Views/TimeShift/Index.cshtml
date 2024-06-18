@@ -49,13 +49,14 @@
     </div>
 </div>
 
-<table id="timeShiftTable" class="table nowrap" cellspacing="0" width="100%">
+<table id="timeShiftTable" class="display" style="width: 100%">
     <thead class="thead-dark">
         <tr>
             <th scope="col" class="text-center">Сотрудник</th>
             <th scope="col" class="text-center"><small>Должность<div class="border-top my-1"></div>График</small></th>
             <th scope="col">Организация</th>
             <th scope="col">Подразделение</th>
+            <th scope="col">План<div class="border-top my-1"></div>Факт</th>
             @foreach (var item in dts)
             {
                 <th scope="col">

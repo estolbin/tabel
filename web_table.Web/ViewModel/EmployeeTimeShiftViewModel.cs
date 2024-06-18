@@ -10,6 +10,21 @@ namespace web_table.Web.ViewModel
         public List<float> HoursWorked { get; set; } = new List<float>();
         public List<DateTime> Dates { get; set; } = new List<DateTime>();
 
+        public float HoursPlannedSum
+        {
+            get
+            {
+                return HoursPlanned.Sum();
+            }
+        }
+        public float HoursWorkedSum
+        {
+            get
+            {
+                return HoursWorked.Sum();
+            }
+        }
+
         public string OrganizationId { get; set; }
         public string DepartmentId { get; set; }
 
