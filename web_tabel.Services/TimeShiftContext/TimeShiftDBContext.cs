@@ -32,6 +32,10 @@ public class TimeShiftDBContext : DbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<Filter> Filters { get; set; }
 
+    public DbSet<Constant> Constants { get; set; }
+
+
+    public DbSet<ConfirmedPeriod> ConfirmedPeriods { get; set; }
 
     public TimeShiftDBContext(
         DbContextOptions<TimeShiftDBContext> options, 
@@ -67,12 +71,12 @@ public class TimeShiftDBContext : DbContext
         modelBuilder.Entity<Employee>()
             .HasOne(e => e.Organization)
             .WithMany()
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Employee>()
             .HasOne(e => e.StaffSchedule)
             .WithMany()
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<WorkSchedule>()
             .OwnsMany(w => w.HoursByDayNumbers, h =>
@@ -111,12 +115,12 @@ public class TimeShiftDBContext : DbContext
         modelBuilder.Entity<StaffSchedule>()
             .HasOne(s => s.Organization)
             .WithMany()
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TimeShift>()
             .HasOne(t => t.WorkSchedule)
             .WithMany()
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TypeOfWorkingTimeRules>()
             .HasKey(t => new { t.SourceName, t.TargetName });
@@ -125,14 +129,28 @@ public class TimeShiftDBContext : DbContext
             .HasOne(t => t.Source)
             .WithMany()
             .HasForeignKey(t => t.SourceName)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TypeOfWorkingTimeRules>()
             .HasOne(t => t.Target)
             .WithMany()
             .HasForeignKey(t => t.TargetName)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<ConfirmedPeriod>()
+            .HasKey(x => new { x.PeriodId, x.DepartmentId });
+
+        modelBuilder.Entity<ConfirmedPeriod>()
+            .HasOne(c => c.Period)
+            .WithMany()
+            .HasForeignKey(c => c.PeriodId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ConfirmedPeriod>()
+            .HasOne(c => c.Department)
+            .WithMany()
+            .HasForeignKey(c => c.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // users and filters
         modelBuilder.Entity<AppUser>()

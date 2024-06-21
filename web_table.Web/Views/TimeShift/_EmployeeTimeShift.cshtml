@@ -21,7 +21,7 @@
     </td>
     <td>@Model.OrganizationName</td>
     <td>@Model.DepartmentName</td>
-    <td>@Model.HoursPlannedSum</td>
+    <td>@Model.HoursPlannedSum (ч.)</td>
     
     @foreach(var item in Model.TypesPlanned)
     {
@@ -51,10 +51,13 @@
     </td>
     <td>@Model.OrganizationName</td>
     <td>@Model.DepartmentName</td>
-    <td>@Model.HoursWorkedSum</td>
+    <td>@Model.HoursWorkedSum (ч.)</td>
     @foreach (var item in Model.Dates)
     {
-        bool disable = (item.DayOfWeek == DayOfWeek.Saturday || item.DayOfWeek == DayOfWeek.Sunday);
+        //bool disable = (item.DayOfWeek == DayOfWeek.Saturday || item.DayOfWeek == DayOfWeek.Sunday);
+        bool disable = false;
+        if (item <= (ViewData["lockDate"] as DateTime?) && ViewData["lockDate"] != null) { disable = true; }
+
         string color = Model.ColorTypes.ElementAt(Model.Dates.IndexOf(item));
         <td class="text-center @(disable ? "bg-light" : "table-active")" style="color: @color">
             <a onclick="showInPopup('@Url.Action("SetNewHours","TimeShift", new {empid = Model.EmployeeId, currentDate = item.ToString("yyyy-MM-dd")},Context.Request.Scheme)','Новые часы')" class="btn @(disable ? "disabled" : "")" >

@@ -34,7 +34,7 @@ namespace web_table.Web.Services
                 var context = scope.ServiceProvider.GetRequiredService<TimeShiftDBContext>();
                 var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
 
-                Role role = await CheckCreateRole(context, Constants.ADMNIM_ROLE, "Администратор");
+                Role role = await CheckCreateRole(context, Constants.ADMIN_ROLE, "Администратор");
 
                 if (!context.Users.Any(u => u.Role == role))
                 {
@@ -44,7 +44,7 @@ namespace web_table.Web.Services
                         Password = "admin",
                         Email = "admin@admin",
                         Role = role,
-                        RoleName = Constants.ADMNIM_ROLE
+                        RoleName = Constants.ADMIN_ROLE
                     };
                     try
                     {

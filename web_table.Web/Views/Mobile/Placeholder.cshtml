@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Мобильная страница";
+}
+<div class="container">
+    <div class="row justify-content-center align-self-center">
+        <h1 class="text-center">Это мобильная версия сайта</h1>
+        <p class="text-center text-danger">Наш сайт пока недоступен на мобильных устройствах. Пожалуйста, используйте настольную версию.</p>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(() => {
+            $('.navbar').hide()
+            $('.footer').hide()
+        });
+    </script>
+}

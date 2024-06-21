@@ -15,7 +15,7 @@ namespace web_tabel.Domain
         [MaxLength(100)]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [MaxLength(100)]
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]

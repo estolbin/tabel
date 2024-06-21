@@ -41,6 +41,7 @@ $('#select_period').change(function () {
 
 
 
+
 $(document).ready(function () {
     var groupColumn = 0;
     var collapsedGroup = {};
@@ -71,9 +72,10 @@ $(document).ready(function () {
             ordering: false,
             searching: false,
             paging: true, //false to collapse
+            //paging: false,
             info: false,
             scrollX: true,
-            //scrollY: '550px',
+            //scrollY: '550px', // comment if not collapsing
             stateSave: true,
             scrollCollapse: true,
             fixedColumns: {
@@ -92,7 +94,7 @@ $(document).ready(function () {
     //    var name = $(this).data('name');
     //    collapsedGroup[name] = !collapsedGroup[name];
     //    table.draw(false);
-    //    table.columns.addjust().draw();
+    //   // table.columns.addjust().draw();
     //});
 
 })

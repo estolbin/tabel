@@ -5,7 +5,8 @@
     Layout = "_Layout";
 }
 
-<h1>Текущий табель</h1>
+<h1><b>Tабель за @ViewBag.PeriodName</b></h1>
+
 
 @{
     var dts = Model.ElementAt(0).Dates;
@@ -49,7 +50,7 @@
     </div>
 </div>
 
-<table id="timeShiftTable" class="display" style="width: 100%">
+<table id="timeShiftTable" class="display" style="width:100%">
     <thead class="thead-dark">
         <tr>
             <th scope="col" class="text-center">Сотрудник</th>
@@ -60,10 +61,21 @@
             @foreach (var item in dts)
             {
                 <th scope="col">
-                    <a onclick="showInPopup('@Url.Action("FillInDay","TimeShift", new {date = item},Context.Request.Scheme)','Заполнить по плану')" class="text-decoration-none font-bold">
-                        @item.ToString("dd")<br />
-                        @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek)
-                    </a>
+                    @if (item <= (ViewData["lockDate"] as DateTime?) && ViewData["lockDate"] != null)
+                    {
+                        <div class="text-decoration-none font-bold">
+                            @item.ToString("dd")<br />
+                            @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek)
+
+                        </div>                         
+                    }
+                    else
+                    {
+                        <a onclick="showInPopup('@Url.Action("FillInDay","TimeShift", new {date = item},Context.Request.Scheme)','Заполнить по плану')" class="text-decoration-none font-bold">
+                            @item.ToString("dd")<br />
+                            @russian.DateTimeFormat.GetAbbreviatedDayName(item.DayOfWeek)
+                        </a>
+                    }
                 </th>
             }
         </tr>
@@ -90,9 +102,9 @@
                     if (empByDep.Count() == 0) continue;
 
 
-                                        @foreach (var emp in empByDep)
+                    @foreach (var emp in empByDep)
                     {
-                                           @(await Html.PartialAsync("_EmployeeTimeShift", emp));
+                        @(await Html.PartialAsync("_EmployeeTimeShift", emp))@*, new ViewDataDictionary(ViewData) { { "lockDate", ViewBag.LockDate} }));*@
                     }
                 }
 
@@ -110,6 +122,8 @@
 
     <script type="text/javascript">
 
+        var errorTimer = null;
+
         function ShowErrorModal(errorMessage) {
             let MessageBody = document.getElementById('ErrorModalBody');
             MessageBody.innerHTML = errorMessage;
@@ -124,6 +138,8 @@
             if (msg && msg.length > 0){
                 ShowErrorModal(msg);
             }
+            let errorElement = document.getElementById("error");
+            errorElement.style.display = "none";
         });
 
         $(document).on('click', '#btn_FillInDay', function (e) {
@@ -136,6 +152,32 @@
             });
         });
 
+        $(document).on('change','#typesList', function () {
+            let v = $(this).val();
+            let plan = $('#plannedHoursType').find('#disabledInput').text()
+            if (v == plan) {
+                let newVal = $('#plannedHours').find('#disabledInput').text();
+                $('#HoursWorked').val(newVal);
+            }
+        });
+
+        $(document).on('change keydown paste input', '#HoursWorked', function () {
+            let fact = parseFloat(($(this).val()).replace(',','.'));
+            let plan = parseFloat($('#plannedHours').find('#disabledInput').text());
+            if (fact > plan) {
+                if (errorTimer != null) {
+                    clearTimeout(errorTimer);
+                    errorTimer = null;
+                }
+                
+                let errorElement = document.getElementById("error");
+                errorElement.innerHTML = "Не может быть больше плана!";
+                errorElement.style.display = 'block';
+
+                $(this).val(0);
+                errorTimer = setTimeout(function () { errorElement.style.display = 'none'; }, 2000)
+            }
+        });
 
     </script>
 }

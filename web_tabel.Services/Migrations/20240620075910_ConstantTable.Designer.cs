@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_tabel.Services.TimeShiftContext;
 
@@ -11,9 +12,11 @@ using web_tabel.Services.TimeShiftContext;
 namespace web_tabel.Services.Migrations
 {
     [DbContext(typeof(TimeShiftDBContext))]
-    partial class TimeShiftDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240620075910_ConstantTable")]
+    partial class ConstantTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +37,7 @@ namespace web_tabel.Services.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -61,27 +65,6 @@ namespace web_tabel.Services.Migrations
                     b.HasIndex("RoleName");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("web_tabel.Domain.ConfirmedPeriod", b =>
-                {
-                    b.Property<Guid>("PeriodId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("FirstHalfIsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("SecondHalfIsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.HasKey("PeriodId", "DepartmentId");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("ConfirmedPeriods");
                 });
 
             modelBuilder.Entity("web_tabel.Domain.Constant", b =>
@@ -556,25 +539,6 @@ namespace web_tabel.Services.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("web_tabel.Domain.ConfirmedPeriod", b =>
-                {
-                    b.HasOne("web_tabel.Domain.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("web_tabel.Domain.TimeShiftPeriod", "Period")
-                        .WithMany()
-                        .HasForeignKey("PeriodId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Period");
-                });
-
             modelBuilder.Entity("web_tabel.Domain.Department", b =>
                 {
                     b.HasOne("web_tabel.Domain.UserFilters.CompositeFilter", null)
@@ -607,13 +571,13 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.StaffSchedule", "StaffSchedule")
                         .WithMany()
                         .HasForeignKey("StaffScheduleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.TypeOfEmployment", "TypeOfEmployment")
@@ -720,7 +684,7 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
@@ -761,7 +725,7 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.WorkSchedule", "WorkSchedule")
                         .WithMany()
                         .HasForeignKey("WorkScheduleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Employee");
@@ -780,13 +744,13 @@ namespace web_tabel.Services.Migrations
                     b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "Source")
                         .WithMany()
                         .HasForeignKey("SourceName")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("web_tabel.Domain.TypeOfWorkingTime", "Target")
                         .WithMany()
                         .HasForeignKey("TargetName")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Source");

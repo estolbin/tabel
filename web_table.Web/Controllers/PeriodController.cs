@@ -124,8 +124,8 @@ namespace web_table.Web.Controllers
                 var daysInCycleList = workSheet.HoursByDayNumbers.ToList();
                 var numDaysInCycle = daysInCycleList.Count();
 
-                var refDate = workSheet.ReferenceDate ?? new DateTime(period.Start.Year, 1, 1);
-                int numberDayOfCycle = GetNumberDayOfCycle(period, workSheet, numDaysInCycle, refDate);
+                var refDate = !(workSheet.ReferenceDate == DateTime.MinValue) ? workSheet.ReferenceDate.Value : new DateTime(period.Start.Year, 1, 1);
+                int numberDayOfCycle = await Task.Run(() => GetNumberDayOfCycle(period, workSheet, numDaysInCycle, refDate));
 
                 var curDate = period.Start;
                 while (curDate <= period.End)
@@ -134,13 +134,27 @@ namespace web_table.Web.Controllers
                     // день по производственному календарю
                     var calendarDay = workCalendar.FirstOrDefault(x => x.Date == curDate);
 
-                    var existed = await _unitOfWork.TimeShiftRepository.GetAsync(x => x.Employee.Id == employee.Id && x.WorkDate == curDate);
+                    var existed = await _unitOfWork.TimeShiftRepository.SingleOrDefaultAsync(
+                        x => x.Employee.Id == employee.Id && 
+                        x.WorkDate == curDate);
+
                     // TODO: уточнить, что делаем если перезаполняют табель
-                    if (existed.Any())
+                    if (existed != null)
+                    {
+                        if (existed.TimeShiftPeriod != period)
+                        {
+                            // заменяем период
+                            existed.TimeShiftPeriod = period;
+                            _unitOfWork.TimeShiftRepository.Update(existed);
+                            _unitOfWork.Save();
+                        }
+
+                        curDate = curDate.AddDays(1);
                         continue;
+                    }
 
                     var ts = new TimeShift(period, employee, curDate);
-                    ts.HoursPlanned = GetHoursPlanned(daysInCycleList, numberDayOfCycle);
+                    ts.HoursPlanned = await Task.Run(() => GetHoursPlanned(daysInCycleList, numberDayOfCycle));
                     ts.TypeEmploymentPlanned = daysInCycleList.FirstOrDefault(x => x.DayNumber == numberDayOfCycle).TypeOfWorkingTime;
                     if (ts.HoursPlanned == 0 && ts.TypeEmploymentPlanned.Name == "Я")
                     {
@@ -162,12 +176,34 @@ namespace web_table.Web.Controllers
                     numberDayOfCycle = GetNextDayInCycle(numDaysInCycle, numberDayOfCycle);
                 }
 
-                _unitOfWork.TimeShiftRepository.AddRange(listTimeShift);
+                await _unitOfWork.TimeShiftRepository.AddRangeAsync(listTimeShift);
             }
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
+
+
+            await FillPeridForConfirm(period);
 
             return RedirectToAction(nameof(Index));
         }
+
+        private async Task FillPeridForConfirm(TimeShiftPeriod period)
+        {
+            var deps = await _unitOfWork.DepartmentRepository.GetAllAsync();
+
+            foreach (var dep in deps)
+            {
+                var periodForConfirm = new ConfirmedPeriod
+                {
+                    Department = dep,
+                    Period = period,
+                    FirstHalfIsConfirmed = false,
+                    SecondHalfIsConfirmed = false
+                };
+                await _unitOfWork.ConfirmedPeriodRepository.InsertAsync(periodForConfirm);
+                await _unitOfWork.SaveAsync();
+            }
+        }
+
 
         private static int GetNextDayInCycle(int numDaysInCycle, int numberDayOfCycle)
         {

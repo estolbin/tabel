@@ -1,0 +1,21 @@
+﻿@model DateTime
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Дата запрета редактирования";
+}
+
+<h3>Дата запрета редактирования</h3>
+
+<div class="col-md-6">
+    @using(Html.BeginForm())
+    {
+        
+    <dl class="row">
+        <dt class="form-label col-sm-3">Дата</dt>
+        <dd class="col-sm-9">
+            <input type="date" id="lockDate" name="lockDate" value="@Model.ToString("yyyy-MM-dd")" class="form-control"/>
+         </dd>
+    </dl>
+    <input type="submit" value="Сохранить" class="btn btn-primary"/>
+    }
+</div>

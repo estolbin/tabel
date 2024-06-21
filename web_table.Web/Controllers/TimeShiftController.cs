@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using web_tabel.Domain;
 using web_tabel.Services;
+using web_table.Web.Services;
 using web_table.Web.ViewModel;
 
 namespace web_table.Web.Controllers
@@ -16,6 +18,7 @@ namespace web_table.Web.Controllers
         private IEnumerable<Organization> _organizations;
         private IEnumerable<TimeShiftPeriod> _periods;
         private IEnumerable<TypeOfWorkingTime> _typeOfWorkingTimes;
+        private DateTime _lockDate;
 
         public TimeShiftController(ITimeShiftService service)
         {
@@ -25,7 +28,8 @@ namespace web_table.Web.Controllers
 
         private async Task<Guid> GetGuidFromSession()
         {
-            var periodId = HttpContext.Session.GetString("SessionPeriodId");
+            //var periodId = HttpContext.Session.GetString("SessionPeriodId");
+            var periodId = HttpContext.Request.Cookies["SessionPeriodId"];
             // if periodId == null, we must take last period
             var dbPeriod = await _service.GetLastPeriod();
             if (periodId == null)
@@ -41,7 +45,8 @@ namespace web_table.Web.Controllers
 
             var periods = await _service.GetAllPeriods();
             string periodsJson = JsonConvert.SerializeObject(periods);
-            HttpContext.Session.SetString("SessionPeriods", periodsJson);
+            //HttpContext.Session.SetString("SessionPeriods", periodsJson);
+            HttpContext.Response.Cookies.Append("SessionPeriods", periodsJson);
 
             _typeOfWorkingTimes = await _service.GetAllTypeOfWorkingTime();
 
@@ -49,6 +54,9 @@ namespace web_table.Web.Controllers
             IEnumerable<TimeShift> currentTimeShift = await _service.GetCurrentTimeShift(periodId);
             if (currentTimeShift == null || !currentTimeShift.Any()) return View("Clean");
             var employeeTimeShiftList = await EmployeeTimeShiftViewModel.ToListFromTimeShift(currentTimeShift);
+
+            ViewBag.PeriodName = _service.GetAllPeriods().Result.Single(x => x.Id == periodId).Name;
+
             return View(employeeTimeShiftList); 
         }
 
@@ -68,6 +76,9 @@ namespace web_table.Web.Controllers
             ViewBag.OrganizationsRaw = _organizations;
             ViewBag.Organizations = _organizations.ToSelectListItem(x => x.Id, x => x.Name, TempData["orgId"] as string[]);
 
+            if (_lockDate.IsEmpty())
+                _lockDate = await Constants.GetConstantValue<DateTime>("LockDate");
+            ViewBag.LockDate = _lockDate;
         }
 
         [HttpPost]
@@ -178,7 +189,8 @@ namespace web_table.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SavePeriodId(String  periodId)
         {
-            HttpContext.Session.SetString("SessionPeriodId", periodId);
+            //HttpContext.Session.SetString("SessionPeriodId", periodId);
+            HttpContext.Response.Cookies.Append("SessionPeriodId", periodId);
             return RedirectToAction(nameof(Index));
         }
 

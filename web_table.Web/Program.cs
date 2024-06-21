@@ -34,7 +34,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // policy for admin
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.Requirements.Add(new RoleRequirement(Constants.ADMNIM_ROLE)));
+    options.AddPolicy("AdminOnly", policy => policy.Requirements.Add(new RoleRequirement(Constants.ADMIN_ROLE)));
 });
 
 builder.Services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
@@ -62,6 +62,10 @@ builder.Services.AddApplicationInsightsTelemetry();
 
 
 var app = builder.Build();
+
+// middleware for mobile
+app.UseMiddleware<MobileRedirectMiddleware>("/Mobile/Placeholder");
+
 
 app.UseItToSeedSqliteServer();
 // Configure the HTTP request pipeline.

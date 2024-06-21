@@ -45,9 +45,23 @@ public class TimeShiftService : ITimeShiftService
         return await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Start <= date && x.End >= date);
     }
 
+    /// <summary>
+    ///  Возвращает текущий период, равный текущему месяцу. Если его нет (не создался), берется период с максимальной датой
+    /// </summary>
+    /// <param name="unitOfWork"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public static async Task<TimeShiftPeriod> GetLastPeriod(UnitOfWork unitOfWork, CancellationToken token = default)
     {
-        return  await unitOfWork.TimeShiftPeriodRepository.SingleOrDefaultAsync(x => x.Name != "");
+        var periods = await unitOfWork.TimeShiftPeriodRepository.GetAllAsync();
+        var maxPeriod = periods.Where(x => x.End < DateTime.Now).MaxBy(x => x.End); // максимальный до текущей даты
+        var curDatePeriod = periods.FirstOrDefault(x => x.Start <= DateTime.Now && x.End >= DateTime.Now);
+        if(curDatePeriod == null)
+        {
+            return maxPeriod;
+        }
+
+        return  curDatePeriod;
     }
 
     public async Task<bool> RemovePeriodById(Guid Id)

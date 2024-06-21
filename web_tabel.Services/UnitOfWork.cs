@@ -30,6 +30,8 @@ namespace web_tabel.Services
         private GenericRepository<AppUser> _userRepository;
         private GenericRepository<Role> _roleRepository;
         private GenericRepository<Filter> _filterRepository;
+        private GenericRepository<Constant> _constantRepository;
+        private GenericRepository<ConfirmedPeriod> _confirmedPeriodRepository;
 
         public GenericRepository<Department> DepartmentRepository => _departmentRepository ??= new(_context);
         public GenericRepository<Employee> EmployeeRepository => _employeeRepository ??= new(_context);
@@ -49,6 +51,8 @@ namespace web_tabel.Services
         public GenericRepository<AppUser> UserRepository => _userRepository ??= new(_context);
         public GenericRepository<Role> RoleRepository => _roleRepository ??= new(_context);
         public GenericRepository<Filter> FilterRepository => _filterRepository ??= new(_context);
+        public GenericRepository<Constant> ConstantRepository => _constantRepository ??= new(_context);
+        public GenericRepository<ConfirmedPeriod> ConfirmedPeriodRepository => _confirmedPeriodRepository ??= new(_context);
 
         public void Save()
         {

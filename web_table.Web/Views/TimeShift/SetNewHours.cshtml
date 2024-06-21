@@ -7,13 +7,17 @@
 <h5 class="col-12 text-center">@Model.WorkDate.ToString("M")</h5>
 <hr />
 
+<div class="col-12 text-center text-danger" id="errordiv">
+    <span id="error" style="display: none">text</span>
+</div>
+
 <form asp-action="UpdateNewHours"> 
     <input type="hidden" asp-for="Id" />
-    <div class="input-group mb-3">
+    <div class="input-group mb-3" id="plannedHours">
         <span class="input-group-text col-6 text-muted">Запланировано часов</span>
         <span class="form-control text-muted" id="disabledInput">@Model.HoursPlanned</span>
     </div>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3" id="plannedHoursType">
         <span class="input-group-text col-6 text-muted">Плановое значение времени</span>
         <span class="form-control text-muted" id="disabledInput">@Model.TypeEmploymentPlanned</span>
     </div>

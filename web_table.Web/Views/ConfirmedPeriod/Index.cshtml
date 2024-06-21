@@ -1,0 +1,61 @@
+﻿@model IEnumerable<web_tabel.Domain.ConfirmedPeriod>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Период</th>
+        <th>Организация</th>
+        <th>Подразделение</th>
+        <th>Подтверждена первая половина</th>
+        <th>Подтверждена вторая половина</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Period.Name</td>
+                <td>@item.Department.Organization.Name</td>
+                <td>@item.Department.Name</td>
+                <td><input type="checkbox" onclick="FirtHalf('@item.Period.Id','@item.Department.Id','@item.FirstHalfIsConfirmed')" @(item.FirstHalfIsConfirmed ? "checked" : "") /></td>
+                <td><input type="checkbox" onclick="SecondHalf('@item.Period.Id','@item.Department.Id','@item.SecondHalfIsConfirmed')" @(item.SecondHalfIsConfirmed ? "checked" : "") /></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function FirtHalf(periodId, departmentId, HalfValue) {
+            $.ajax({
+                type: 'POST',
+                data: { periodId, departmentId, HalfValue, WhichHalf:"First" },
+                url: '/ConfirmedPeriod/SaveConfirm',
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                }
+            })
+        }
+
+        function SecondHalf(periodId, departmentId, HalfValue) {
+            $.ajax({
+                type: 'POST',
+                data: { periodId, departmentId, HalfValue, WhichHalf: "Second" },
+                url: '/ConfirmedPeriod/SaveConfirm',
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                }
+            })
+        }
+
+
+    </script>
+}

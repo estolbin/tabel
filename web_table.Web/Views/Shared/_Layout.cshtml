@@ -2,9 +2,11 @@
 @using web_tabel.Domain
 @using web_tabel.Services
 @{
-    var selectedPeriodString = Context.Session.GetString("SessionPeriodId");
+    //var selectedPeriodString = Context.Session.GetString("SessionPeriodId");
+    var selectedPeriodString = Context.Request.Cookies["SessionPeriodId"];
     Guid selectedPeriod = selectedPeriodString == null ? Guid.Empty : new Guid(selectedPeriodString);
-    string periodsJson = Context.Session.GetString("SessionPeriods");
+    //string periodsJson = Context.Session.GetString("SessionPeriods");
+    string periodsJson = Context.Request.Cookies["SessionPeriods"];
     List<TimeShiftPeriod> periods = string.IsNullOrEmpty(periodsJson) ? new List<TimeShiftPeriod>() : JsonConvert.DeserializeObject<List<TimeShiftPeriod>>(periodsJson); 
 }
 
@@ -41,48 +43,69 @@
 
                     <ul class="navbar-nav flex-grow-1">
 
-                        <div class="btn-group">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Справочники (из 1С)</a>
+                        @if (await CurrentUserProvider.UserInRole(Constants.ADMIN_ROLE))
+                        {
 
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="btn-group">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Справочники (из 1С)</a>
 
-                                    <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeState" asp-action="Index">Данные состояний сотрудников</a>
-                                    </li>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                    <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeCondition" asp-action="Index">Состояния сотрудников</a>
-                                    </li>
+                                        <li class="dropdown-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeState" asp-action="Index">Данные состояний сотрудников</a>
+                                        </li>
+
+                                        <li class="dropdown-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="EmployeeCondition" asp-action="Index">Состояния сотрудников</a>
+                                        </li>
 
 
-                                    <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="TypeOfWorkingTime" asp-action="Index">Виды рабочего времени</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="StaffSchedule" asp-action="Index">Штатное расписание</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="WorkSchedule" asp-action="Index">Графики</a>
-                                    </li>
-                                </ul>
+                                        <li class="dropdown-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="TypeOfWorkingTime" asp-action="Index">Виды рабочего времени</a>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="StaffSchedule" asp-action="Index">Штатное расписание</a>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkSchedule" asp-action="Index">Графики</a>
+                                        </li>
+                                    </ul>
 
+                                </li>
+                            </div>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Period" asp-action="Index">Периоды</a>
                             </li>
-                        </div>
+                        }
+                        @if(!await CurrentUserProvider.UserInRole(Constants.USER_ROLE))
+                        {
+                            <div class="btn-group">
+                                <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Согласование периода
+                                </a> 
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="ConfirmedPeriod" asp-action="Index">Список согласований</a>
+                                </div>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Period" asp-action="Index">Периоды</a>
-                        </li>
-                        @if (await CurrentUserProvider.UserInRole(Constants.ADMNIM_ROLE))
+                            </div>
+                        }
+                        @if (await CurrentUserProvider.UserInRole(Constants.ADMIN_ROLE) || await CurrentUserProvider.UserInRole(Constants.PAYROLL_ROLE))
                         {
                             <div class="btn-group">
                                 <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Администрирование
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Пользователи</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Роли</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Filters" asp-action="Index">Фильтры</a>
+                                    @{
+                                        if(await CurrentUserProvider.UserInRole(Constants.ADMIN_ROLE))
+                                        {
+                                            <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Пользователи</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Роли</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Filters" asp-action="Index">Фильтры</a>
+                                        }
+                                    }
+                                    <a class="dropdown-item" asp-area="" asp-controller="Constant" asp-action="LockDate">Дата запрета</a>
                                 </div>
                             </div>
                         }
