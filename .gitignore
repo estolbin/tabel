@@ -429,3 +429,4 @@ FodyWeavers.xsd
 /web_tabel.Services/obj/Debug/net8.0/web_tabel.Services.AssemblyInfo.cs
 /web_tabel.Services/obj/Debug/net8.0/web_tabel.Services.AssemblyInfoInputs.cache
 /web_tabel.Services/obj/Debug/net8.0/web_tabel.Services.csproj.AssemblyReference.cache
+/web_table.Web/appsettings.json
