@@ -55,6 +55,7 @@ namespace web_table.Web.Services
         {
             return path == "/account/login" ||
                    path == "/account/register" ||
+                   path == "/Mobile/Placeholder" ||
                    //path == "/" ||
                    path.StartsWith("/error/");
         }
